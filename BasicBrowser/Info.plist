@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>WebBLE</string>
+	<string>Moodi</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -36,7 +36,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>WebBLE implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
+	<string>Moodi implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth peripheral access is required to allow webpages to use the Web Bluetooth APIs</string>
 	<key>NSCameraUsageDescription</key>

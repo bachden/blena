@@ -19,7 +19,6 @@ import WebKit
 class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate, ConsoleToggler {
 
     enum prefKeys: String {
-        case bookmarks
         case consoleOpen
         case version
     }
@@ -39,9 +38,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
     var initialURL: URL?
     var lastRefresh: Date?
-
-    var bookmarksManager = BookmarksManager(
-        userDefaults: UserDefaults.standard, key: prefKeys.bookmarks.rawValue)
 
     var consoleViewBottomConstraint: NSLayoutConstraint? = nil
     var shouldShowBars = true {
@@ -78,24 +74,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
     }
 
-    // MARK: - API
-    // MARK: IBActions
-    @IBAction func addBookmark() {
-        guard
-            let title = self.webView.title,
-            let url = self.webView.url,
-            url.absoluteString != "about:blank"
-        else {
-            NSLog("Cannot bookmark \(self.webView.title ?? "<no title>") \(self.webView.url?.absoluteString ?? "<no url>")")
-            let uac = UIAlertController(title: "Unable to bookmark", message: "This page cannot be bookmarked as it has an invalid title or URL, or was a failed navigation", preferredStyle: .alert)
-            uac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(uac, animated: true, completion: nil)
-            return
-        }
-
-        self.bookmarksManager.addBookmarks([WBBookmark(title: title, url: url)])
-        FlashAnimation(withView: self.tick).go()
-    }
     @IBAction func goForward() {
         NSLog("Go forward")
         self.webView.goForward()
@@ -146,30 +124,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         return !self.shouldShowBars
     }
 
-    // MARK: - Segue handling
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let bvc = segue.destination as? BookmarksViewController {
-            bvc.bookmarksManager = self.bookmarksManager
-        }
-    }
-    
-    @IBAction func goToHome() {
-        self.webView.load(URLRequest(url: URL(string: "https://progressier.com/pwa-capabilities/bluetooth")!))
-    }
-    
-    @IBAction func unwindToWBController(sender: UIStoryboardSegue) {
-        if let bvc = sender.source as? BookmarksViewController,
-            let tv = bvc.view as? UITableView,
-            let ip = tv.indexPathForSelectedRow {
-            if ip.item >= self.bookmarksManager.bookmarks.count {
-                NSLog("Selected bookmark is out of range")
-            }
-            else {
-                self.webView.load(URLRequest(url: self.bookmarksManager.bookmarks[ip.item].url))
-            }
-        }
-    }
-
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -193,8 +147,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             self.webView.addObserver(self, forKeyPath: path, options: .new, context: nil)
         }
 
-        self.loadPreferences()
-
         // Load last location
         if let url = initialURL {
             loadURL(url)
@@ -204,7 +156,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
             lastLocation = prefLoc
             } else {
-                let svers = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
                 lastLocation = "https://progressier.com/pwa-capabilities/bluetooth"
             }
             self.loadLocation(lastLocation)
@@ -327,59 +278,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
     }
 
-    // MARK: - Private
-    private func loadPreferences() {
-
-        // Sort out the preferences we have.
-        let ud = UserDefaults.standard
-
-        let prefsVersion = ud.integer(forKey: ViewController.prefKeys.version.rawValue)
-
-        var hadPrefs = false
-        if let bma = ud.array(forKey: ViewController.prefKeys.bookmarks.rawValue) as? [[String: String]] {
-            self.bookmarksManager.mergeInBookmarkDicts(bookmarkDicts: bma)
-            hadPrefs = true
-        }
-
-        // Merge in any defaults.
-        let mb = Bundle.main
-        guard let defPlistURL = mb.url(forResource: "Defaults", withExtension: "plist"),
-            let defDict = NSDictionary(contentsOf: defPlistURL) else {
-                assert(false, "Unexpectedly couldn't find defaults")
-                return
-        }
-
-        let range = (!hadPrefs ? 0 : prefsVersion + 1) ..< self.currentPrefVersion + 1
-
-        for pref in range {
-            guard let vDict = defDict.value(forKey: "\(pref)") as? [String: Any] else {
-                continue
-            }
-            vDict.forEach({
-                key, object in
-                guard let pKey = ViewController.prefKeys(rawValue: key)
-                    else {
-                        return
-                }
-
-                switch pKey {
-                case .bookmarks:
-                    guard
-                        let bdicts = object as? [[String: String]]
-                        else {
-                            assert(false, "Unexpectedly couldn't find bookmarks in defaults")
-                            return
-                    }
-                    self.bookmarksManager.mergeInBookmarkDicts(bookmarkDicts: bdicts)
-                default:
-                    return
-                }
-            })
-        }
-
-        // Set the preferences version to be up to date.
-        ud.set(self.currentPrefVersion, forKey: ViewController.prefKeys.version.rawValue)
-    }
     func setHidesOnSwipesFromScrollView(_ scrollView: UIScrollView) {
         // Due to an apparent bug this should not be called when the toolbar / navbar are animating up or down as far as possible as that seems to cause a crash
         let yOffset = scrollView.contentOffset.y

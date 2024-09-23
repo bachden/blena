@@ -1,6 +1,6 @@
 //
 //  WBWebViewController.swift
-//  WebBLE
+//  Moodi
 //
 //  Created by David Park on 07/09/2019.
 //

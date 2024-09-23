@@ -11,7 +11,6 @@
 		5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */; };
 		5A1A8E1628009CD200271575 /* URLTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A8E1528009C3200271575 /* URLTextField.swift */; };
 		5A1D3256216FC96500F3391C /* WBLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D3255216FC96500F3391C /* WBLogManager.swift */; };
-		5A2BAC2A1E44C70C00ED9FA8 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BAC291E44C70C00ED9FA8 /* BookmarksManager.swift */; };
 		5A31618721CC55ED00C4446B /* Copy@480.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A31618621CC55ED00C4446B /* Copy@480.png */; };
 		5A4B8E1B2157A34800C7C858 /* ConsoleLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B8E1A2157A34800C7C858 /* ConsoleLogView.swift */; };
 		5A4B8E1D2157A66C00C7C858 /* ConsoleLogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4B8E1C2157A66C00C7C858 /* ConsoleLogView.xib */; };
@@ -24,9 +23,6 @@
 		5A7579EA2151588B003F0CEA /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7579E92151588B003F0CEA /* ConsoleViewController.swift */; };
 		5A7579ED2157907D003F0CEA /* ConsoleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7579EC2157907D003F0CEA /* ConsoleScrollView.swift */; };
 		5A7579EF21579E0E003F0CEA /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7579EE21579E0E003F0CEA /* ConsoleView.swift */; };
-		5A85B9F51E2946DE00E0B718 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A85B9F41E2946DE00E0B718 /* BookmarksViewController.swift */; };
-		5A85B9F71E294B2900E0B718 /* WBBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A85B9F61E294B2900E0B718 /* WBBookmark.swift */; };
-		5A85B9F91E29582400E0B718 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A85B9F81E29582400E0B718 /* Defaults.plist */; };
 		5A8FD3FC233966050032DCE7 /* Console.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FD3FB233966050032DCE7 /* Console.storyboard */; };
 		5A8FD3FE233973710032DCE7 /* WBCore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FD3FD233973710032DCE7 /* WBCore.storyboard */; };
 		5A8FD40023397ED80032DCE7 /* WBWebViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FD3FF23397ED80032DCE7 /* WBWebViewContainerController.swift */; };
@@ -62,7 +58,7 @@
 			containerPortal = E44C184E1A36203E00734F8B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E44C18551A36203E00734F8B;
-			remoteInfo = WebBLE;
+			remoteInfo = Moodi;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -71,7 +67,6 @@
 		5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewContainerController.swift; sourceTree = "<group>"; };
 		5A1A8E1528009C3200271575 /* URLTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTextField.swift; sourceTree = "<group>"; };
 		5A1D3255216FC96500F3391C /* WBLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBLogManager.swift; sourceTree = "<group>"; };
-		5A2BAC291E44C70C00ED9FA8 /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
 		5A31618621CC55ED00C4446B /* Copy@480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Copy@480.png"; sourceTree = "<group>"; };
 		5A4B8E1A2157A34800C7C858 /* ConsoleLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogView.swift; sourceTree = "<group>"; };
 		5A4B8E1C2157A66C00C7C858 /* ConsoleLogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConsoleLogView.xib; sourceTree = "<group>"; };
@@ -84,9 +79,6 @@
 		5A7579E92151588B003F0CEA /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
 		5A7579EC2157907D003F0CEA /* ConsoleScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleScrollView.swift; sourceTree = "<group>"; };
 		5A7579EE21579E0E003F0CEA /* ConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleView.swift; sourceTree = "<group>"; };
-		5A85B9F41E2946DE00E0B718 /* BookmarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
-		5A85B9F61E294B2900E0B718 /* WBBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBBookmark.swift; sourceTree = "<group>"; };
-		5A85B9F81E29582400E0B718 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = BasicBrowser/Defaults.plist; sourceTree = "<group>"; };
 		5A8FD3FB233966050032DCE7 /* Console.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Console.storyboard; sourceTree = "<group>"; };
 		5A8FD3FD233973710032DCE7 /* WBCore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WBCore.storyboard; sourceTree = "<group>"; };
 		5A8FD3FF23397ED80032DCE7 /* WBWebViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBWebViewContainerController.swift; sourceTree = "<group>"; };
@@ -110,14 +102,14 @@
 		BB303DF21C42070C00FCAF24 /* WBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBManager.swift; sourceTree = "<group>"; };
 		BB4DBE641C97F577000D2C35 /* WBTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBTransaction.swift; sourceTree = "<group>"; };
 		BB4DE1F31C8D0A44003151BF /* WBDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBDevice.swift; sourceTree = "<group>"; };
-		E44C18561A36203E00734F8B /* WebBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44C18561A36203E00734F8B /* Moodi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moodi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44C185A1A36203E00734F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E44C185B1A36203E00734F8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44C185D1A36203E00734F8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E44C18601A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E44C18621A36203E00734F8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E44C18651A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E44C186B1A36203E00734F8B /* WebBLETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebBLETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44C186B1A36203E00734F8B /* MoodiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,16 +144,6 @@
 				5A8FD3FB233966050032DCE7 /* Console.storyboard */,
 			);
 			path = Console;
-			sourceTree = "<group>";
-		};
-		5A10929D2168D5F4002CC973 /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-				5A85B9F61E294B2900E0B718 /* WBBookmark.swift */,
-				5A2BAC291E44C70C00ED9FA8 /* BookmarksManager.swift */,
-				5A85B9F41E2946DE00E0B718 /* BookmarksViewController.swift */,
-			);
-			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 		5A233341230353E1008D9F03 /* WBCore */ = {
@@ -208,9 +190,8 @@
 		E44C184D1A36203E00734F8B = {
 			isa = PBXGroup;
 			children = (
-				5A85B9F81E29582400E0B718 /* Defaults.plist */,
 				5A233341230353E1008D9F03 /* WBCore */,
-				E44C18581A36203E00734F8B /* WebBLE */,
+				E44C18581A36203E00734F8B /* Moodi */,
 				E44C18571A36203E00734F8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -218,16 +199,15 @@
 		E44C18571A36203E00734F8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E44C18561A36203E00734F8B /* WebBLE.app */,
-				E44C186B1A36203E00734F8B /* WebBLETests.xctest */,
+				E44C18561A36203E00734F8B /* Moodi.app */,
+				E44C186B1A36203E00734F8B /* MoodiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E44C18581A36203E00734F8B /* WebBLE */ = {
+		E44C18581A36203E00734F8B /* Moodi */ = {
 			isa = PBXGroup;
 			children = (
-				5A10929D2168D5F4002CC973 /* Bookmarks */,
 				5A5D621521EBA83D00E417DC /* NavigationViewController.swift */,
 				E44C185B1A36203E00734F8B /* AppDelegate.swift */,
 				E44C185D1A36203E00734F8B /* ViewController.swift */,
@@ -240,16 +220,16 @@
 				5AFACFEE1F03FB0B00A310D1 /* Info-allowing-http.plist */,
 				E44C18621A36203E00734F8B /* Images.xcassets */,
 			);
-			name = WebBLE;
+			name = Moodi;
 			path = BasicBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E44C18551A36203E00734F8B /* WebBLE */ = {
+		E44C18551A36203E00734F8B /* Moodi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "WebBLE" */;
+			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Moodi" */;
 			buildPhases = (
 				E44C18521A36203E00734F8B /* Sources */,
 				E44C18531A36203E00734F8B /* Frameworks */,
@@ -259,14 +239,14 @@
 			);
 			dependencies = (
 			);
-			name = WebBLE;
+			name = Moodi;
 			productName = BasicBrowser;
-			productReference = E44C18561A36203E00734F8B /* WebBLE.app */;
+			productReference = E44C18561A36203E00734F8B /* Moodi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E44C186A1A36203E00734F8B /* WebBLETests */ = {
+		E44C186A1A36203E00734F8B /* MoodiTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "WebBLETests" */;
+			buildConfigurationList = E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "MoodiTests" */;
 			buildPhases = (
 				E44C18671A36203E00734F8B /* Sources */,
 				E44C18681A36203E00734F8B /* Frameworks */,
@@ -277,9 +257,9 @@
 			dependencies = (
 				5A495414233D37C1007CA132 /* PBXTargetDependency */,
 			);
-			name = WebBLETests;
+			name = MoodiTests;
 			productName = BasicBrowserTests;
-			productReference = E44C186B1A36203E00734F8B /* WebBLETests.xctest */;
+			productReference = E44C186B1A36203E00734F8B /* MoodiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -291,7 +271,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					E44C18551A36203E00734F8B = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -305,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E44C18511A36203E00734F8B /* Build configuration list for PBXProject "WebBLE" */;
+			buildConfigurationList = E44C18511A36203E00734F8B /* Build configuration list for PBXProject "Moodi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -318,8 +298,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E44C18551A36203E00734F8B /* WebBLE */,
-				E44C186A1A36203E00734F8B /* WebBLETests */,
+				E44C18551A36203E00734F8B /* Moodi */,
+				E44C186A1A36203E00734F8B /* MoodiTests */,
 			);
 		};
 /* End PBXProject section */
@@ -342,7 +322,6 @@
 				5A7579E6214F7965003F0CEA /* stringview.js in Resources */,
 				5A8FD3FE233973710032DCE7 /* WBCore.storyboard in Resources */,
 				5ADE336E23663353007E6AD7 /* Images.xcassets in Resources */,
-				5A85B9F91E29582400E0B718 /* Defaults.plist in Resources */,
 				5A8FD3FC233966050032DCE7 /* Console.storyboard in Resources */,
 				5AFC77FE22ECD09E0071E792 /* WBEventTarget.js in Resources */,
 				E44C18661A36203E00734F8B /* LaunchScreen.xib in Resources */,
@@ -365,7 +344,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A85B9F51E2946DE00E0B718 /* BookmarksViewController.swift in Sources */,
 				5A4B8E1F2157ABC500C7C858 /* ConsoleLogViewController.swift in Sources */,
 				BB4DBE651C97F577000D2C35 /* WBTransaction.swift in Sources */,
 				5AC7ECAB233D0F9700CE7A2A /* Segues.swift in Sources */,
@@ -374,7 +352,6 @@
 				5AC8067D21655B5E00AA5176 /* DividerView.swift in Sources */,
 				5A7579EA2151588B003F0CEA /* ConsoleViewController.swift in Sources */,
 				5A5D6404216C9F9300BCD722 /* WBLog.swift in Sources */,
-				5A85B9F71E294B2900E0B718 /* WBBookmark.swift in Sources */,
 				5A4B8E1B2157A34800C7C858 /* ConsoleLogView.swift in Sources */,
 				5AD6DACB2323EBFE0005F733 /* WBWebViewController.swift in Sources */,
 				E44C185C1A36203E00734F8B /* AppDelegate.swift in Sources */,
@@ -389,7 +366,6 @@
 				5A6BF67A21F503DF0051EC98 /* WBPopUpPickerController.swift in Sources */,
 				5A1D3256216FC96500F3391C /* WBLogManager.swift in Sources */,
 				5A0F91CC1E01546200CB2C64 /* Jsonifiable.swift in Sources */,
-				5A2BAC2A1E44C70C00ED9FA8 /* BookmarksManager.swift in Sources */,
 				BB4DE1F41C8D0A44003151BF /* WBDevice.swift in Sources */,
 				5A8FD40023397ED80032DCE7 /* WBWebViewContainerController.swift in Sources */,
 				E44C185E1A36203E00734F8B /* ViewController.swift in Sources */,
@@ -408,7 +384,7 @@
 /* Begin PBXTargetDependency section */
 		5A495414233D37C1007CA132 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E44C18551A36203E00734F8B /* WebBLE */;
+			target = E44C18551A36203E00734F8B /* Moodi */;
 			targetProxy = 5A495413233D37C1007CA132 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -466,6 +442,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -522,6 +499,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -546,7 +524,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
+				DEVELOPMENT_TEAM = MG39K6Y476;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = BasicBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -555,7 +533,7 @@
 				);
 				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ble.browser;
-				PRODUCT_NAME = WebBLE;
+				PRODUCT_NAME = Moodi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -567,7 +545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
+				DEVELOPMENT_TEAM = MG39K6Y476;
 				INFOPLIST_FILE = BasicBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -575,7 +553,7 @@
 				);
 				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ble.browser;
-				PRODUCT_NAME = WebBLE;
+				PRODUCT_NAME = Moodi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -591,9 +569,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = WebBLETests;
+				PRODUCT_NAME = MoodiTests;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WebBLE.app/WebBLE";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moodi.app/Moodi";
 			};
 			name = Debug;
 		};
@@ -607,16 +585,16 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = WebBLETests;
+				PRODUCT_NAME = MoodiTests;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WebBLE.app/WebBLE";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moodi.app/Moodi";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E44C18511A36203E00734F8B /* Build configuration list for PBXProject "WebBLE" */ = {
+		E44C18511A36203E00734F8B /* Build configuration list for PBXProject "Moodi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18731A36203E00734F8B /* Debug */,
@@ -625,7 +603,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "WebBLE" */ = {
+		E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Moodi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18761A36203E00734F8B /* Debug */,
@@ -634,7 +612,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "WebBLETests" */ = {
+		E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "MoodiTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18791A36203E00734F8B /* Debug */,
