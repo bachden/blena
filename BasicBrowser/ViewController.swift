@@ -190,7 +190,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     func loadLocation(_ location: String) {
         var location = location
         if !location.hasPrefix("http://") && !location.hasPrefix("https://") {
-            location = "https://\(location)"
+            location = "https://www.google.com/search?q=\(location)"
         }
         guard let url = URL(string: location) else {
             NSLog("Failed to convert location \(location) into a URL")
