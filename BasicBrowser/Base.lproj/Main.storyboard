@@ -116,12 +116,23 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="5bm-lP-CUV">
                         <nil key="title"/>
+                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="O1l-7F-uXL" customClass="URLTextField" customModule="WebBLE" customModuleProvider="target">
+                            <rect key="frame" x="8" y="5" width="359" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go" enablesReturnKeyAutomatically="YES" textContentType="url"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="extraShowBarsView" destination="NgV-mf-Lto" id="bDg-v6-M0u"/>
                         <outlet property="goBackButton" destination="NaX-Y9-Gfj" id="0Xc-k5-kMK"/>
                         <outlet property="goForwardButton" destination="qhG-nx-nEQ" id="1GO-aY-9L7"/>
+                        <outlet property="locationTextField" destination="O1l-7F-uXL" id="i8M-pT-n46"/>
                         <outlet property="refreshButton" destination="LXB-CH-4RT" id="350-AZ-rBZ"/>
                         <outlet property="tick" destination="6wE-az-iDp" id="aNh-gM-jXz"/>
                         <segue destination="key-17-bOS" kind="custom" identifier="ShowConsoleSegueID" customClass="ShowConsoleSegue" customModule="Moodi" customModuleProvider="target" id="Cnc-k6-Alb"/>

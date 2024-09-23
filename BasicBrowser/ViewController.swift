@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     let bottomMarginNotToHideBarsIn: CGFloat = 100.0
 
     // MARK: IBOutlets
+    @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet var tick: UIImageView!
     @IBOutlet var goBackButton: UIBarButtonItem!
     @IBOutlet var goForwardButton: UIBarButtonItem!
@@ -96,6 +97,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 NSLog("Reload")
                 self.webView.reload()
             }
+        } else if let textLocation = self.locationTextField?.text {
+            NSLog("Reload from location")
+            self.loadLocation(textLocation)
         }
         self.lastRefresh = Date()
     }
@@ -138,6 +142,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         let ud = UserDefaults.standard
 
         // connect view to other objects
+        self.locationTextField.delegate = self
         self.webView.addNavigationDelegate(self)
         self.webView.scrollView.delegate = self
         self.webView.scrollView.clipsToBounds = false
@@ -199,12 +204,19 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             self.initialURL = url
             return
         }
+        self.setLocationText(url.absoluteString)
         self.webView.load(URLRequest(url: url))
+    }
+    func setLocationText(_ text: String) {
+        self.locationTextField.text = text
+        self.locationTextField.sizeToFit()
     }
 
     // MARK: - WKNavigationDelegate
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-
+        if let urlString = webView.url?.absoluteString {
+            self.setLocationText(urlString)
+        }
     }
 
     // MARK: - UIScrollViewDelegate
