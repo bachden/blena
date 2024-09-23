@@ -285,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E44C18511A36203E00734F8B /* Build configuration list for PBXProject "Moodi" */;
+			buildConfigurationList = E44C18511A36203E00734F8B /* Build configuration list for PBXProject "WebBLE" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -524,7 +524,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MG39K6Y476;
+				DEVELOPMENT_TEAM = YMNF5MXCL7;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = BasicBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -545,7 +545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MG39K6Y476;
+				DEVELOPMENT_TEAM = YMNF5MXCL7;
 				INFOPLIST_FILE = BasicBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -594,7 +594,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E44C18511A36203E00734F8B /* Build configuration list for PBXProject "Moodi" */ = {
+		E44C18511A36203E00734F8B /* Build configuration list for PBXProject "WebBLE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18731A36203E00734F8B /* Debug */,

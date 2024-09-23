@@ -44,10 +44,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     var shouldShowBars = true {
         didSet {
             let nc = self.navigationController!
-            nc.setToolbarHidden(!self.shouldShowBars, animated: true)
+            nc.setToolbarHidden(true, animated: true)
             nc.setNavigationBarHidden(!self.shouldShowBars, animated: true)
             self.setNeedsUpdateOfHomeIndicatorAutoHidden()
-            self._setExtraBarHiddenState()
             self.setHidesOnSwipesFromScrollView(
                 self.webView.scrollView
             )
@@ -209,7 +208,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
     func setLocationText(_ text: String) {
         self.locationTextField.text = text
-        self.locationTextField.sizeToFit()
     }
 
     // MARK: - WKNavigationDelegate
@@ -284,7 +282,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             let navBarIsHidden = defChange[NSKeyValueChangeKey.newKey] as! Bool
             self.shouldShowBars = !navBarIsHidden
         case "pickerIsShowing":
-            self._setExtraBarHiddenState()
+            return;
         default:
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }
@@ -307,13 +305,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             }
         } else {
             if !nc.hidesBarsOnSwipe {
-                nc.hidesBarsOnSwipe = true
+                nc.hidesBarsOnSwipe = false
             }
         }
-    }
-    private func _setExtraBarHiddenState() {
-        let pickerIsShowing = self.webViewContainerController.pickerIsShowing
-        let toolBarIsShowing = !self.navigationController!.isToolbarHidden
-        self.extraShowBarsView.isHidden = pickerIsShowing || toolBarIsShowing
     }
 }
