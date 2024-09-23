@@ -161,7 +161,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
             lastLocation = prefLoc
             } else {
-                lastLocation = "https://progressier.com/pwa-capabilities/bluetooth"
+                lastLocation = "https://www.google.com/"
             }
             self.loadLocation(lastLocation)
         }
