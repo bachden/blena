@@ -91,12 +91,11 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O1l-7F-uXL" customClass="URLTextField" customModule="Moodi" customModuleProvider="target">
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O1l-7F-uXL" customClass="URLTextField" customModule="Moodi" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="224" height="34"/>
                             <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="224" id="bJ3-ba-DIh"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="224" id="iFW-d7-SW0"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="224" id="Jwh-2L-VGP"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go" enablesReturnKeyAutomatically="YES" textContentType="url"/>
