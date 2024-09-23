@@ -29,13 +29,13 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     let bottomMarginNotToHideBarsIn: CGFloat = 100.0
 
     // MARK: IBOutlets
-    @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet var tick: UIImageView!
     @IBOutlet var goBackButton: UIBarButtonItem!
     @IBOutlet var goForwardButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIBarButtonItem!
     @IBOutlet var showConsoleButton: UIBarButtonItem!
     @IBOutlet var extraShowBarsView: UIView!
+    @IBOutlet var goHomeButton : UIBarButtonItem!
 
     var initialURL: URL?
     var lastRefresh: Date?
@@ -118,9 +118,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 NSLog("Reload")
                 self.webView.reload()
             }
-        } else if let textLocation = self.locationTextField?.text {
-            NSLog("Reload from location")
-            self.loadLocation(textLocation)
         }
         self.lastRefresh = Date()
     }
@@ -155,6 +152,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             bvc.bookmarksManager = self.bookmarksManager
         }
     }
+    
+    @IBAction func goToHome() {
+        self.webView.load(URLRequest(url: URL(string: "https://progressier.com/pwa-capabilities/bluetooth")!))
+    }
+    
     @IBAction func unwindToWBController(sender: UIStoryboardSegue) {
         if let bvc = sender.source as? BookmarksViewController,
             let tv = bvc.view as? UITableView,
@@ -182,7 +184,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         let ud = UserDefaults.standard
 
         // connect view to other objects
-        self.locationTextField.delegate = self
         self.webView.addNavigationDelegate(self)
         self.webView.scrollView.delegate = self
         self.webView.scrollView.clipsToBounds = false
@@ -204,7 +205,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             lastLocation = prefLoc
             } else {
                 let svers = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-                lastLocation = "https://www.greenparksoftware.co.uk/projects/webble/\(svers)"
+                lastLocation = "https://progressier.com/pwa-capabilities/bluetooth"
             }
             self.loadLocation(lastLocation)
         }
@@ -247,20 +248,12 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             self.initialURL = url
             return
         }
-        self.setLocationText(url.absoluteString)
         self.webView.load(URLRequest(url: url))
-    }
-    func setLocationText(_ text: String) {
-        self.locationTextField.text = text
-        self.locationTextField.sizeToFit()
     }
 
     // MARK: - WKNavigationDelegate
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
 
-        if let urlString = webView.url?.absoluteString {
-            self.setLocationText(urlString)
-        }
     }
 
     // MARK: - UIScrollViewDelegate
