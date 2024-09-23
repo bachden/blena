@@ -28,17 +28,20 @@ class URLTextField: UITextField {
     override func didMoveToSuperview() {
         if self.superViewConstraints.count > 0 {
             NSLayoutConstraint.deactivate(self.superViewConstraints)
+            // don't necessarily delete them:
+            // we may be able to reuse them
         }
 
         if let sv = self.superview {
-            // Remove any pre-existing constraints on the URLTextField to prevent conflicts
-            self.removeConstraints(self.constraints.filter { $0.firstAttribute == .leading || $0.firstAttribute == .trailing })
+            if self.superViewConstraints.count == 0
+                || self.superViewConstraints[0].secondItem as? UIView != sv {
+                // need new constraints
+                self.superViewConstraints = [
+                    self.leadingAnchor.constraint(equalTo: sv.leadingAnchor, constant: 8),
 
-            // Add new constraints as needed
-            self.superViewConstraints = [
-                self.leadingAnchor.constraint(equalTo: sv.leadingAnchor, constant: 0),
-                self.trailingAnchor.constraint(lessThanOrEqualTo: sv.trailingAnchor, constant: 0)
-            ]
+                    self.trailingAnchor.constraint(equalTo: sv.trailingAnchor, constant: -8),
+                ]
+            }
             NSLayoutConstraint.activate(self.superViewConstraints)
         }
     }
