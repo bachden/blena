@@ -56,7 +56,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
 
         // Set up the user agent name to include an app specific append rather
         // than just the default WKWebView build number
-        // This declares us as Moodi but also includes the system
+        // This declares us as Blena but also includes the system
         // version so that
         // https://bowser-js.github.io/bowser-online/
         // will think we're Safari

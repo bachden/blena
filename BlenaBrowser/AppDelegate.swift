@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  BasicBrowser
+//  BlenaBrowser
 //
 //  Created by David Park on 13/01/2017.
 //  Copyright © 2017 David Park. All rights reserved.

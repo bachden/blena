@@ -1,6 +1,6 @@
 //
 //  WebBluetooth.swift
-//  BasicBrowser
+//  BlenaBrowser
 //
 //  Copyright 2016-2017 Paul Theriault and David Park. All rights reserved.
 //

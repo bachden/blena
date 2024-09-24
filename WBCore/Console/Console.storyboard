@@ -12,12 +12,12 @@
         <!--Console View Controller-->
         <scene sceneID="S1F-zD-DvF">
             <objects>
-                <viewController id="YCd-xn-2IL" customClass="ConsoleViewController" customModule="Moodi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YCd-xn-2IL" customClass="ConsoleViewController" customModule="Blena" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wN2-tf-SQg"/>
                         <viewControllerLayoutGuide type="bottom" id="Tyh-wb-er1"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tKx-oA-BIE" customClass="ConsoleView" customModule="Moodi" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="tKx-oA-BIE" customClass="ConsoleView" customModule="Blena" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="800"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <viewLayoutGuide key="safeArea" id="mRf-MW-WWW"/>
@@ -39,7 +39,7 @@
         <!--Console View Container Controller-->
         <scene sceneID="jjL-Tk-tTc">
             <objects>
-                <viewController storyboardIdentifier="ConsoleViewContainer" id="gfn-yI-dsN" customClass="ConsoleViewContainerController" customModule="Moodi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConsoleViewContainer" id="gfn-yI-dsN" customClass="ConsoleViewContainerController" customModule="Blena" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yIi-7U-JZx"/>
                         <viewControllerLayoutGuide type="bottom" id="ehj-ex-qU1"/>
@@ -48,7 +48,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnO-dD-ogt" customClass="ConsoleScrollView" customModule="Moodi" customModuleProvider="target">
+                            <scrollView verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnO-dD-ogt" customClass="ConsoleScrollView" customModule="Blena" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="8" width="375" height="120"/>
                                 <subviews>
                                     <containerView autoresizesSubviews="NO" verifyAmbiguity="ignoreSizes" opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OQr-CY-eZU">
@@ -69,7 +69,7 @@
                                     <constraint firstItem="OQr-CY-eZU" firstAttribute="top" secondItem="rnO-dD-ogt" secondAttribute="top" id="veR-BR-lKr"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-QH-Q4o" customClass="DividerView" customModule="Moodi" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-QH-Q4o" customClass="DividerView" customModule="Blena" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="8"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5q-9o-Nj5">
@@ -266,7 +266,7 @@
                         <outlet property="consoleScrollViewHeightConstraint" destination="Or9-LE-zQX" id="AwS-4K-sGp"/>
                         <outlet property="copySuccessIndication" destination="DSl-4f-yGT" id="NAk-vM-s5x"/>
                         <outlet property="scrollView" destination="rnO-dD-ogt" id="dzY-PN-p0U"/>
-                        <segue destination="LJz-yU-32Y" kind="unwind" identifier="HideConsoleSegueID" customClass="HideConsoleSegue" customModule="Moodi" customModuleProvider="target" unwindAction="unwindToWBControllerWithSender:" id="dXz-eK-6b7"/>
+                        <segue destination="LJz-yU-32Y" kind="unwind" identifier="HideConsoleSegueID" customClass="HideConsoleSegue" customModule="Blena" customModuleProvider="target" unwindAction="unwindToWBControllerWithSender:" id="dXz-eK-6b7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Fn-69-caL" userLabel="First Responder" sceneMemberID="firstResponder"/>

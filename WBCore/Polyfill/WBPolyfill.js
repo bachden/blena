@@ -106,7 +106,7 @@
   bluetooth.getAvailability = async function () {
     // Referring to the steps in https://webbluetoothcg.github.io/web-bluetooth/#availability
     // 1. document.featurePolicy not implemented in WebKit as of September 2023, so skip
-    // 2. "If the user has configured the UA to return a particular answer" – Moodi can't be
+    // 2. "If the user has configured the UA to return a particular answer" – Blena can't be
     // configured itself to disallow bluetooth, but it can be disabled in Settings on iOS, so we
     // need to ask native for that information.
     // 3. Is return "true" if we have a radio: we always have a bluetooth radio on iOS so skip.

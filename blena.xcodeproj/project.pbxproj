@@ -58,12 +58,12 @@
 			containerPortal = E44C184E1A36203E00734F8B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E44C18551A36203E00734F8B;
-			remoteInfo = Moodi;
+			remoteInfo = Blena;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		114B78BD2CA2713B00D42932 /* Moodi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Moodi.entitlements; sourceTree = SOURCE_ROOT; };
+		114B78BD2CA2713B00D42932 /* Blena.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blena.entitlements; sourceTree = SOURCE_ROOT; };
 		5A0F91CB1E01546200CB2C64 /* Jsonifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jsonifiable.swift; sourceTree = "<group>"; };
 		5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewContainerController.swift; sourceTree = "<group>"; };
 		5A1A8E1528009C3200271575 /* URLTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTextField.swift; sourceTree = "<group>"; };
@@ -103,14 +103,14 @@
 		BB303DF21C42070C00FCAF24 /* WBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBManager.swift; sourceTree = "<group>"; };
 		BB4DBE641C97F577000D2C35 /* WBTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBTransaction.swift; sourceTree = "<group>"; };
 		BB4DE1F31C8D0A44003151BF /* WBDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBDevice.swift; sourceTree = "<group>"; };
-		E44C18561A36203E00734F8B /* Moodi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moodi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44C18561A36203E00734F8B /* Blena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44C185A1A36203E00734F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E44C185B1A36203E00734F8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44C185D1A36203E00734F8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E44C18601A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E44C18621A36203E00734F8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E44C18651A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E44C186B1A36203E00734F8B /* MoodiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44C186B1A36203E00734F8B /* BlenaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				5A233341230353E1008D9F03 /* WBCore */,
-				E44C18581A36203E00734F8B /* Moodi */,
+				E44C18581A36203E00734F8B /* Blena */,
 				E44C18571A36203E00734F8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -200,16 +200,16 @@
 		E44C18571A36203E00734F8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E44C18561A36203E00734F8B /* Moodi.app */,
-				E44C186B1A36203E00734F8B /* MoodiTests.xctest */,
+				E44C18561A36203E00734F8B /* Blena.app */,
+				E44C186B1A36203E00734F8B /* BlenaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E44C18581A36203E00734F8B /* Moodi */ = {
+		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
-				114B78BD2CA2713B00D42932 /* Moodi.entitlements */,
+				114B78BD2CA2713B00D42932 /* Blena.entitlements */,
 				5A5D621521EBA83D00E417DC /* NavigationViewController.swift */,
 				E44C185B1A36203E00734F8B /* AppDelegate.swift */,
 				E44C185D1A36203E00734F8B /* ViewController.swift */,
@@ -222,16 +222,16 @@
 				5AFACFEE1F03FB0B00A310D1 /* Info-allowing-http.plist */,
 				E44C18621A36203E00734F8B /* Images.xcassets */,
 			);
-			name = Moodi;
-			path = BasicBrowser;
+			name = Blena;
+			path = BlenaBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E44C18551A36203E00734F8B /* Moodi */ = {
+		E44C18551A36203E00734F8B /* Blena */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Moodi" */;
+			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Blena" */;
 			buildPhases = (
 				E44C18521A36203E00734F8B /* Sources */,
 				E44C18531A36203E00734F8B /* Frameworks */,
@@ -241,14 +241,14 @@
 			);
 			dependencies = (
 			);
-			name = Moodi;
-			productName = BasicBrowser;
-			productReference = E44C18561A36203E00734F8B /* Moodi.app */;
+			name = Blena;
+			productName = BlenaBrowser;
+			productReference = E44C18561A36203E00734F8B /* Blena.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E44C186A1A36203E00734F8B /* MoodiTests */ = {
+		E44C186A1A36203E00734F8B /* BlenaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "MoodiTests" */;
+			buildConfigurationList = E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "BlenaTests" */;
 			buildPhases = (
 				E44C18671A36203E00734F8B /* Sources */,
 				E44C18681A36203E00734F8B /* Frameworks */,
@@ -259,9 +259,9 @@
 			dependencies = (
 				5A495414233D37C1007CA132 /* PBXTargetDependency */,
 			);
-			name = MoodiTests;
-			productName = BasicBrowserTests;
-			productReference = E44C186B1A36203E00734F8B /* MoodiTests.xctest */;
+			name = BlenaTests;
+			productName = BlenaBrowserTests;
+			productReference = E44C186B1A36203E00734F8B /* BlenaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -300,8 +300,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E44C18551A36203E00734F8B /* Moodi */,
-				E44C186A1A36203E00734F8B /* MoodiTests */,
+				E44C18551A36203E00734F8B /* Blena */,
+				E44C186A1A36203E00734F8B /* BlenaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -386,7 +386,7 @@
 /* Begin PBXTargetDependency section */
 		5A495414233D37C1007CA132 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E44C18551A36203E00734F8B /* Moodi */;
+			target = E44C18551A36203E00734F8B /* Blena */;
 			targetProxy = 5A495413233D37C1007CA132 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -524,20 +524,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Moodi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Blena.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
+				DEVELOPMENT_TEAM = MG39K6Y476;
 				ENABLE_TESTABILITY = YES;
-				INFOPLIST_FILE = BasicBrowser/Info.plist;
+				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twa.blena;
-				PRODUCT_NAME = Moodi;
+				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -548,19 +548,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Moodi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Blena.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
-				INFOPLIST_FILE = BasicBrowser/Info.plist;
+				DEVELOPMENT_TEAM = MG39K6Y476;
+				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twa.blena;
-				PRODUCT_NAME = Moodi;
+				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -571,15 +571,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7RKU9LK986;
-				INFOPLIST_FILE = BasicBrowserTests/Info.plist;
+				INFOPLIST_FILE = BlenaBrowserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = MoodiTests;
+				PRODUCT_NAME = BlenaTests;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moodi.app/Moodi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blena.app/Blena";
 			};
 			name = Debug;
 		};
@@ -587,15 +587,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7RKU9LK986;
-				INFOPLIST_FILE = BasicBrowserTests/Info.plist;
+				INFOPLIST_FILE = BlenaBrowserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = MoodiTests;
+				PRODUCT_NAME = BlenaTests;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moodi.app/Moodi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blena.app/Blena";
 			};
 			name = Release;
 		};
@@ -611,7 +611,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Moodi" */ = {
+		E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Blena" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18761A36203E00734F8B /* Debug */,
@@ -620,7 +620,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "MoodiTests" */ = {
+		E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "BlenaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E44C18791A36203E00734F8B /* Debug */,

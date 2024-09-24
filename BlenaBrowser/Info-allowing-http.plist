@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Moodi</string>
+	<string>Blena</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,13 +23,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.twa.blena</string>
+			<string>com.greenparksoftware.webble</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>blena</string>
+				<string>webble</string>
 			</array>
 		</dict>
 	</array>
@@ -37,16 +35,19 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Moodi implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
+	<string>Blena implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth peripheral access is required to allow webpages to use the Web Bluetooth APIs</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow webpages to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow webpages to use your location. You will be prompted for each page that asks for it.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow webpages to use your microphone</string>
+	<string>Allow webpages to use your location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

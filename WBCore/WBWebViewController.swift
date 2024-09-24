@@ -1,6 +1,6 @@
 //
 //  WBWebViewController.swift
-//  Moodi
+//  Blena
 //
 //  Created by David Park on 07/09/2019.
 //
