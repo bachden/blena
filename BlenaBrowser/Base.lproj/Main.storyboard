@@ -76,7 +76,7 @@
                             <rect key="frame" x="0.0" y="5" width="440" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="URL" textContentType="url"/>
+                            <textInputTraits key="textInputTraits" keyboardType="default" textContentType="none"/>
                         </textField>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="LXB-CH-4RT">
                             <connections>
