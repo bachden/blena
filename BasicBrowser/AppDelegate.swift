@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         return true
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -63,23 +64,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        
         // Called from external link with scheme webble
         guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                 NSLog("System not able to open url \(url) (may be able to try again)")
                 return false
         }
-
-        urlComponents.scheme = "https"
-        guard let httpsURL = urlComponents.url else {
-            NSLog("URL \(url) not convertible into https url")
+        
+        guard let param = urlComponents.queryItems!.first(where: { $0.name == "url" })?.value else {
             return false
         }
+        NSLog(param)
 
         guard let vc = viewController else {
             NSLog("Error opening URL \(url): viewController not instantiated")
             return false
         }
-        vc.loadURL(httpsURL)
+        vc.loadURL(URL(string: param)!)
         return true
     }
 }

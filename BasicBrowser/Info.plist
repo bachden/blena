@@ -23,11 +23,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.greenparksoftware.webble</string>
+			<string>com.twa.blena</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>webble</string>
+				<string>blena</string>
 			</array>
 		</dict>
 	</array>
