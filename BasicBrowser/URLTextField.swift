@@ -45,4 +45,12 @@ class URLTextField: UITextField {
             NSLayoutConstraint.activate(self.superViewConstraints)
         }
     }
+    
+    override var intrinsicContentSize: CGSize {
+        if let superview = self.superview {
+            return CGSize(width: superview.bounds.width, height: super.bounds.height)
+        }
+        return super.intrinsicContentSize
+    }
+
 }

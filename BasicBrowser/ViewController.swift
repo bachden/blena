@@ -29,12 +29,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
     // MARK: IBOutlets
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet var tick: UIImageView!
     @IBOutlet var goBackButton: UIBarButtonItem!
     @IBOutlet var goForwardButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIBarButtonItem!
     @IBOutlet var showConsoleButton: UIBarButtonItem!
-    @IBOutlet var extraShowBarsView: UIView!
     @IBOutlet var goHomeButton : UIBarButtonItem!
 
     var initialURL: URL?
