@@ -207,17 +207,41 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
     func loadURL(_ url: URL) {
+        var maskURL = ""
         guard self.isViewLoaded else {
-            self.initialURL = url
+            do{
+                let regex = try NSRegularExpression(pattern: pattern)
+                let range = NSRange(url.absoluteString.startIndex..<url.absoluteString.endIndex, in: url.absoluteString)
+                if(regex.firstMatch(in: url.absoluteString, range: range) != nil) {
+                    NSLog("match")
+                    maskURL = ""
+                } else {
+                    NSLog("not match")
+                    maskURL = url.absoluteString
+                }
+            } catch{}
+            self.initialURL = URL(string: maskURL)
             return
         }
         
         
-        self.setLocationText(url.absoluteString)
+        self.setLocationText(maskURL)
         self.webView.load(URLRequest(url: url))
     }
     func setLocationText(_ text: String) {
+        do{
+            let regex = try NSRegularExpression(pattern: pattern)
+            let range = NSRange(text.startIndex..<text.endIndex, in: text)
+            if(regex.firstMatch(in: text, range: range) != nil) {
+                NSLog("match")
+                self.shouldShowBars = false
+            } else {
+                NSLog("not match")
+                self.shouldShowBars = true
+            }
+        } catch{}
         self.locationTextField.text = text
+        
     }
 
     // MARK: - WKNavigationDelegate
