@@ -40,7 +40,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
     var consoleViewBottomConstraint: NSLayoutConstraint? = nil
     
-    let pattern = #"https://www\.microsoft\.com/.*"#
+    let pattern = #"https://pmf\.mjbuilder\.dev/.*"#
     
     var shouldShowBars = false {
         didSet {
