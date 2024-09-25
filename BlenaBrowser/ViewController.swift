@@ -39,10 +39,20 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     var lastRefresh: Date?
 
     var consoleViewBottomConstraint: NSLayoutConstraint? = nil
-    var shouldShowBars = true {
+    
+    let pattern = #"https://www\.microsoft\.com/.*"#
+    
+    var shouldShowBars = false {
         didSet {
             let nc = self.navigationController!
             nc.setToolbarHidden(true, animated: true)
+            if let navigationBar = navigationController?.navigationBar {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor(_colorLiteralRed: 240, green: 240, blue: 240, alpha: 1)
+                navigationBar.standardAppearance = appearance
+                navigationBar.scrollEdgeAppearance = appearance
+            }
             nc.setNavigationBarHidden(!self.shouldShowBars, animated: true)
             self.setNeedsUpdateOfHomeIndicatorAutoHidden()
             self.setHidesOnSwipesFromScrollView(
@@ -201,6 +211,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             self.initialURL = url
             return
         }
+        
+        
         self.setLocationText(url.absoluteString)
         self.webView.load(URLRequest(url: url))
     }
@@ -212,6 +224,17 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         if let urlString = webView.url?.absoluteString {
             self.setLocationText(urlString)
+            do{
+                let regex = try NSRegularExpression(pattern: pattern)
+                let range = NSRange(urlString.startIndex..<urlString.endIndex, in: urlString)
+                if(regex.firstMatch(in: urlString, range: range) != nil) {
+                    NSLog("match")
+                    self.shouldShowBars = false
+                } else {
+                    NSLog("not match")
+                    self.shouldShowBars = true
+                }
+            } catch{}
         }
     }
 

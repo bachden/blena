@@ -51,6 +51,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="I1P-4j-XZZ" firstAttribute="top" secondItem="fUp-cf-yrq" secondAttribute="top" id="Jx7-hU-5dW"/>
                             <constraint firstItem="fUp-cf-yrq" firstAttribute="bottom" secondItem="I1P-4j-XZZ" secondAttribute="bottom" priority="990" id="N1N-kn-YIh"/>
                             <constraint firstItem="I1P-4j-XZZ" firstAttribute="leading" secondItem="fUp-cf-yrq" secondAttribute="leading" id="Tmc-iu-YcI"/>
                             <constraint firstItem="fUp-cf-yrq" firstAttribute="trailing" secondItem="I1P-4j-XZZ" secondAttribute="trailing" id="fWT-8M-CoL"/>
@@ -73,7 +74,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <textField key="titleView" autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4lM-e7-eXY">
-                            <rect key="frame" x="0.0" y="5" width="10000" height="34"/>
+                            <rect key="frame" x="0.0" y="5" width="3000" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" textContentType="none"/>
