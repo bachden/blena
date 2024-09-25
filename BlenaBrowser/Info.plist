@@ -26,7 +26,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.twa.blena</string>
+			<string>com.nhb.blena</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>blena</string>
