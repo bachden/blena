@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Called from external link with scheme webble
-        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                 NSLog("System not able to open url \(url) (may be able to try again)")
                 return false
         }

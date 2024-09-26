@@ -16,51 +16,40 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate, ConsoleToggler {
-
+class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate {
+    
     enum prefKeys: String {
         case consoleOpen
         case version
     }
-
+    
     // MARK: - Properties
     let currentPrefVersion = 1
     let bottomMarginNotToHideBarsIn: CGFloat = 100.0
-
+    
     // MARK: IBOutlets
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet var goBackButton: UIBarButtonItem!
-    @IBOutlet var goForwardButton: UIBarButtonItem!
-    @IBOutlet var refreshButton: UIBarButtonItem!
-    @IBOutlet var showConsoleButton: UIBarButtonItem!
-    @IBOutlet var goHomeButton : UIBarButtonItem!
-
+    @IBOutlet var goBackButton: UIButton!
+    @IBOutlet var goForwardButton: UIButton!
+    @IBOutlet var refreshButton: UIButton!
+    @IBOutlet var fullScreenButton: UIButton!
+    @IBOutlet var urlStackView : UIStackView!
+    @IBOutlet var showFullScreenButton : UIButton!
+    @IBOutlet var showURLBarButton : UIButton!
+    
+    // MARK: layout IBoutlet
+    @IBOutlet weak var containerViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var urlStackViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var urlStackViewConstrantLeading: NSLayoutConstraint!
+    @IBOutlet weak var urlStackViewConstraintHeight: NSLayoutConstraint!
+    
     var initialURL: URL?
     var lastRefresh: Date?
-
+    
     var consoleViewBottomConstraint: NSLayoutConstraint? = nil
     
     let pattern = #"https://pmf\.mjbuilder\.dev/.*"#
     
-    var shouldShowBars = false {
-        didSet {
-            let nc = self.navigationController!
-            nc.setToolbarHidden(true, animated: true)
-            if let navigationBar = navigationController?.navigationBar {
-                let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = UIColor(_colorLiteralRed: 240, green: 240, blue: 240, alpha: 1)
-                navigationBar.standardAppearance = appearance
-                navigationBar.scrollEdgeAppearance = appearance
-            }
-            nc.setNavigationBarHidden(!self.shouldShowBars, animated: true)
-            self.setNeedsUpdateOfHomeIndicatorAutoHidden()
-            self.setHidesOnSwipesFromScrollView(
-                self.webView.scrollView
-            )
-        }
-    }
-
     var webViewContainerController: WBWebViewContainerController {
         get {
             return self.children.first(where: {$0 as? WBWebViewContainerController != nil}) as! WBWebViewContainerController
@@ -81,7 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             return self.children.first(where: {$0 as? ConsoleViewContainerController != nil}) as? ConsoleViewContainerController
         }
     }
-
+    
     @IBAction func goForward() {
         NSLog("Go forward")
         self.webView.goForward()
@@ -93,7 +82,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     @IBAction func reload() {
         if self.webView.url != nil {
             if let lastRefresh = self.lastRefresh,
-                Date() < lastRefresh + 1 {
+               Date() < lastRefresh + 1 {
                 NSLog("Hard reload")
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 if self.webView.isLoading {
@@ -110,55 +99,50 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         self.lastRefresh = Date()
     }
-    @IBAction func showBars() {
-        NSLog("Show bars")
-        self.shouldShowBars = true
-    }
-    @IBAction func toggleConsole() {
-        if let cvc = self.consoleContainerController {
-            NSLog("Hiding console")
-            cvc.performSegue(
-                withIdentifier: "HideConsoleSegueID",
-                sender: self
-            )
-        } else {
-            NSLog("Showing console")
-            self.performSegue(
-                withIdentifier: "ShowConsoleSegueID",
-                sender: self
-            )
-        }
-    }
-
+    
     // MARK: - Home bar indicator control
     override var prefersHomeIndicatorAutoHidden: Bool {
-        return !self.shouldShowBars
+        return false
     }
-
+    
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         self.loadLocation(textField.text!)
         return true
     }
-
+    
     // MARK: - Event handling
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
+        self.showURLBarButton.isHidden = true
+        self.additionalSafeAreaInsets.top = 0
+        
+        let nc = self.navigationController!
+        nc.setNavigationBarHidden(true, animated: false)
+        nc.setToolbarHidden(true, animated: false)
+        self.goBackButton.isEnabled = false
+        self.goForwardButton.isEnabled = false
         let ud = UserDefaults.standard
-
+        
         // connect view to other objects
         self.locationTextField.delegate = self
         self.webView.addNavigationDelegate(self)
         self.webView.scrollView.delegate = self
-        self.webView.scrollView.clipsToBounds = false
+        self.webView.scrollView.clipsToBounds = true
         self.webViewContainerController.addObserver(self, forKeyPath: "pickerIsShowing", options: [], context: nil)
-
+        
+        if #available(iOS 11.0, *){
+            self.webView.scrollView.contentInsetAdjustmentBehavior = .automatic
+        } else{
+            automaticallyAdjustsScrollViewInsets = true
+        }
+        
         for path in ["canGoBack", "canGoForward"] {
             self.webView.addObserver(self, forKeyPath: path, options: .new, context: nil)
         }
-
+        
         // Load last location
         if let url = initialURL {
             loadURL(url)
@@ -166,27 +150,19 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         else {
             var lastLocation: String
             if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
-            lastLocation = prefLoc
+                lastLocation = prefLoc
             } else {
                 lastLocation = "https://www.google.com/"
             }
             self.loadLocation(lastLocation)
         }
-
-        // Maybe re-open console
-        if ud.bool(forKey: prefKeys.consoleOpen.rawValue) {
-            self.toggleConsole()
-        }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         let nc = self.navigationController as! NavigationViewController
         nc.addObserver(self, forKeyPath: "navBarIsHidden", options: [.initial, .new], context: nil)
-        if self.shouldShowBars {
-            self.showBars()
-        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         let nc = self.navigationController as! NavigationViewController
@@ -205,7 +181,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         loadURL(url)
     }
-
+    
     func loadURL(_ url: URL) {
         var maskURL = ""
         guard self.isViewLoaded else {
@@ -233,17 +209,13 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             let regex = try NSRegularExpression(pattern: pattern)
             let range = NSRange(text.startIndex..<text.endIndex, in: text)
             if(regex.firstMatch(in: text, range: range) != nil) {
-                NSLog("match")
-                self.shouldShowBars = false
             } else {
-                NSLog("not match")
-                self.shouldShowBars = true
             }
         } catch{}
         self.locationTextField.text = text
         
     }
-
+    
     // MARK: - WKNavigationDelegate
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         if let urlString = webView.url?.absoluteString {
@@ -252,16 +224,14 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 let regex = try NSRegularExpression(pattern: pattern)
                 let range = NSRange(urlString.startIndex..<urlString.endIndex, in: urlString)
                 if(regex.firstMatch(in: urlString, range: range) != nil) {
-                    NSLog("match")
-                    self.shouldShowBars = false
+                    
                 } else {
-                    NSLog("not match")
-                    self.shouldShowBars = true
+                    
                 }
             } catch{}
         }
     }
-
+    
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
@@ -270,7 +240,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.setHidesOnSwipesFromScrollView(scrollView)
-        if !self.shouldShowBars && scrollView.contentOffset.y == 0.0 {
+        if scrollView.contentOffset.y == 0.0 {
             // Hack... this *probably* means we've been scrolled to the top using
             // a swipe. This on its own shouldn't show the bars, but at this point
             // it's natural for the user to hit the menu bar to see the menu, but
@@ -291,10 +261,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
     }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        if self.shouldShowBars {
-            // already showing bars, scroll to top
-            return true
-        }
         if scrollView.contentOffset.y > 1.0 {
             // big scroll, don't scroll quite to top so that we can detect being
             // told to again and show the status bar
@@ -303,11 +269,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             )
             return false
         }
-        // We basically already are at the top, so this tap means show the bars
-        self.shouldShowBars = true
         return true
     }
-
+    
     // MARK: - Observe protocol
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard
@@ -317,33 +281,33 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog("Unexpected change with either no keyPath or no change dictionary!")
             return
         }
-
+        
         switch defKeyPath {
         case "canGoBack":
+            NSLog(defChange[NSKeyValueChangeKey.newKey] as! Bool == true ? "true" : "false")
             self.goBackButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "canGoForward":
             self.goForwardButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "navBarIsHidden":
-            let navBarIsHidden = defChange[NSKeyValueChangeKey.newKey] as! Bool
-            self.shouldShowBars = !navBarIsHidden
+            return ;
         case "pickerIsShowing":
             return;
         default:
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }
     }
-
+    
     func setHidesOnSwipesFromScrollView(_ scrollView: UIScrollView) {
         // Due to an apparent bug this should not be called when the toolbar / navbar are animating up or down as far as possible as that seems to cause a crash
         let yOffset = scrollView.contentOffset.y
         let frameHeight = scrollView.frame.size.height
         let contentHeight = scrollView.contentSize.height
         let nc = self.navigationController!
-
+        
         if yOffset + frameHeight > (
             contentHeight > self.bottomMarginNotToHideBarsIn
-                ? contentHeight - self.bottomMarginNotToHideBarsIn
-                : 0
+            ? contentHeight - self.bottomMarginNotToHideBarsIn
+            : 0
         ) {
             if nc.hidesBarsOnSwipe {
                 nc.hidesBarsOnSwipe = false
@@ -354,4 +318,57 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             }
         }
     }
+    
+    @IBAction func hideUrlStackView() {
+        self.containerViewConstraint.constant = 0
+        self.locationTextField.alpha = 0
+        self.locationTextField.isHidden = true
+        self.goBackButton.alpha = 0
+        self.goBackButton.isHidden = true
+        self.goForwardButton.alpha = 0
+        self.goForwardButton.isHidden = true
+        self.refreshButton.alpha = 0
+        self.refreshButton.isHidden = true
+        self.showFullScreenButton.alpha = 0
+        self.showFullScreenButton.isHidden = true
+        self.urlStackView.backgroundColor = .clear
+        self.urlStackViewConstrantLeading.constant = UIScreen.main.bounds.width - 25
+        self.urlStackViewConstraintHeight.constant = 100
+        self.showURLBarButton.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func showUrlStackView() {
+        self.urlStackViewConstrantLeading.constant = 0
+        self.urlStackView.isHidden = false
+        self.urlStackView.alpha = 1
+        self.containerViewConstraint.constant = 40
+        self.locationTextField.alpha = 1
+        self.urlStackView.backgroundColor = .systemGray5
+        self.locationTextField.isHidden = false
+        self.goBackButton.alpha = 1
+        self.goBackButton.isHidden = false
+        self.goForwardButton.alpha = 1
+        self.goForwardButton.isHidden = false
+        self.refreshButton.alpha = 1
+        self.refreshButton.isHidden = false
+        self.showFullScreenButton.alpha = 1
+        self.showFullScreenButton.isHidden = false
+        self.showURLBarButton.isHidden = true
+        self.urlStackViewConstraintHeight.constant = 40
+        // Show the stack view with animation
+        UIView.animate(withDuration: 0.3) {
+            // Hide floating button
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func loadInitialURL() {
+        let defaultURL = URL(string: "https://www.google.com/")!
+        let request = URLRequest(url: defaultURL)
+        webView.load(request)
+    }
+    
 }

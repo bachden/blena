@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
 protocol ConsoleToggler {
     func toggleConsole()
