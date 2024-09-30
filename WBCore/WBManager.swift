@@ -70,7 +70,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         super.init()
         self.centralManager.delegate = self
     }
-    
+
     // MARK: - Public API
     public func selectDeviceAt(_ index: Int) {
         let device = self.pickerDevices[index]
@@ -101,7 +101,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         NSLog("Bluetooth is \(central.state == CBManagerState.poweredOn ? "ON" : "OFF")")
     }
-    
+
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
 
         if let filters = self.filters,
@@ -122,7 +122,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             self.updatePickerData()
         }
     }
-    
+
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         guard
             let device = self.devicesByInternalUUID[peripheral.identifier]
@@ -144,7 +144,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         self.devicesByInternalUUID[peripheral.identifier] = nil
         self.devicesByExternalUUID[device.deviceId] = nil
     }
-    
+
     public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         NSLog("FAILED TO CONNECT PERIPHERAL UNHANDLED \(error?.localizedDescription ?? "<no error>")")
     }
@@ -164,7 +164,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         // return 2
         return self.pickerDevices.count
     }
-    
+
     // MARK: - Private
     private func triage(transaction: WBTransaction){
 
@@ -281,7 +281,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         if (self.debug) {
             NSLog("Scanning for peripherals... (services: \(servicesCBUUID))")
         }
-        
+
         self._clearPickerView();
         self.filters = filters
         centralManager.scanForPeripherals(withServices: servicesCBUUID, options: nil)
@@ -293,7 +293,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         self._clearPickerView()
 
     }
-    
+
     func updatePickerData(){
         self.pickerDevices.sort(by: {
             if $0.name != nil && $1.name == nil {

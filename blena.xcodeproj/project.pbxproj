@@ -3,11 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11CC4A002CA3FED100017927 /* 167.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CC49FF2CA3FED100017927 /* 167.png */; };
+		111ABF672CA705720010F952 /* BLENA.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ABF662CA705720010F952 /* BLENA.png */; };
+		112011012CA66A78005D598B /* google-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011002CA66A78005D598B /* google-icon.png */; };
+		112011032CA66ACD005D598B /* youtube-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011022CA66ACD005D598B /* youtube-icon.png */; };
+		112011052CA66B05005D598B /* wikipedia-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011042CA66B05005D598B /* wikipedia-icon.png */; };
+		112011072CA66B31005D598B /* apple-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011062CA66B31005D598B /* apple-icon.png */; };
+		11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */; };
+		11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8401B2CA5656A00CC5235 /* HomeViewController.swift */; };
 		5A0F91CC1E01546200CB2C64 /* Jsonifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F91CB1E01546200CB2C64 /* Jsonifiable.swift */; };
 		5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */; };
 		5A1A8E1628009CD200271575 /* URLTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A8E1528009C3200271575 /* URLTextField.swift */; };
@@ -16,7 +22,6 @@
 		5A4B8E1B2157A34800C7C858 /* ConsoleLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B8E1A2157A34800C7C858 /* ConsoleLogView.swift */; };
 		5A4B8E1D2157A66C00C7C858 /* ConsoleLogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4B8E1C2157A66C00C7C858 /* ConsoleLogView.xib */; };
 		5A4B8E1F2157ABC500C7C858 /* ConsoleLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B8E1E2157ABC500C7C858 /* ConsoleLogViewController.swift */; };
-		5A5D621621EBA83D00E417DC /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D621521EBA83D00E417DC /* NavigationViewController.swift */; };
 		5A5D6404216C9F9300BCD722 /* WBLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D6403216C9F9300BCD722 /* WBLog.swift */; };
 		5A660B001F0FB174004EC11D /* WBUtils.js in Resources */ = {isa = PBXBuildFile; fileRef = 5A660AFF1F0FB174004EC11D /* WBUtils.js */; };
 		5A6BF67A21F503DF0051EC98 /* WBPopUpPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6BF67921F503DF0051EC98 /* WBPopUpPickerController.swift */; };
@@ -64,8 +69,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		111ABF662CA705720010F952 /* BLENA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLENA.png; sourceTree = "<group>"; };
+		112011002CA66A78005D598B /* google-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-icon.png"; sourceTree = "<group>"; };
+		112011022CA66ACD005D598B /* youtube-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube-icon.png"; sourceTree = "<group>"; };
+		112011042CA66B05005D598B /* wikipedia-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wikipedia-icon.png"; sourceTree = "<group>"; };
+		112011062CA66B31005D598B /* apple-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-icon.png"; sourceTree = "<group>"; };
 		114B78BD2CA2713B00D42932 /* Blena.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blena.entitlements; sourceTree = SOURCE_ROOT; };
-		11CC49FF2CA3FED100017927 /* 167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 167.png; sourceTree = "<group>"; };
+		11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTabViewController.swift; sourceTree = "<group>"; };
+		11D8401B2CA5656A00CC5235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5A0F91CB1E01546200CB2C64 /* Jsonifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jsonifiable.swift; sourceTree = "<group>"; };
 		5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewContainerController.swift; sourceTree = "<group>"; };
 		5A1A8E1528009C3200271575 /* URLTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTextField.swift; sourceTree = "<group>"; };
@@ -74,7 +85,6 @@
 		5A4B8E1A2157A34800C7C858 /* ConsoleLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogView.swift; sourceTree = "<group>"; };
 		5A4B8E1C2157A66C00C7C858 /* ConsoleLogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConsoleLogView.xib; sourceTree = "<group>"; };
 		5A4B8E1E2157ABC500C7C858 /* ConsoleLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogViewController.swift; sourceTree = "<group>"; };
-		5A5D621521EBA83D00E417DC /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		5A5D6403216C9F9300BCD722 /* WBLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBLog.swift; sourceTree = "<group>"; };
 		5A660AFF1F0FB174004EC11D /* WBUtils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WBUtils.js; sourceTree = "<group>"; };
 		5A6BF67921F503DF0051EC98 /* WBPopUpPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBPopUpPickerController.swift; sourceTree = "<group>"; };
@@ -114,6 +124,14 @@
 		E44C18651A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E44C186B1A36203E00734F8B /* BlenaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		112010F62CA65CD3005D598B /* Constraint */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Constraint; sourceTree = "<group>"; };
+		112010F92CA667F4005D598B /* CustomImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomImageView; sourceTree = "<group>"; };
+		112011082CA66C8F005D598B /* HomeView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HomeView; sourceTree = "<group>"; };
+		112011162CA6ABC5005D598B /* SharedFunction */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedFunction; sourceTree = "<group>"; };
+		11357B7F2CA84B290009FB1E /* Tab */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tab; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E44C18531A36203E00734F8B /* Frameworks */ = {
@@ -211,19 +229,29 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				11357B7F2CA84B290009FB1E /* Tab */,
+				111ABF662CA705720010F952 /* BLENA.png */,
+				112011162CA6ABC5005D598B /* SharedFunction */,
+				112011082CA66C8F005D598B /* HomeView */,
+				112010F92CA667F4005D598B /* CustomImageView */,
+				112010F62CA65CD3005D598B /* Constraint */,
 				114B78BD2CA2713B00D42932 /* Blena.entitlements */,
-				5A5D621521EBA83D00E417DC /* NavigationViewController.swift */,
 				E44C185B1A36203E00734F8B /* AppDelegate.swift */,
 				E44C185D1A36203E00734F8B /* ViewController.swift */,
 				5A1A8E1528009C3200271575 /* URLTextField.swift */,
+				11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */,
+				11D8401B2CA5656A00CC5235 /* HomeViewController.swift */,
 				E44C18641A36203E00734F8B /* LaunchScreen.xib */,
+				112011022CA66ACD005D598B /* youtube-icon.png */,
+				112011042CA66B05005D598B /* wikipedia-icon.png */,
+				112011062CA66B31005D598B /* apple-icon.png */,
 				E44C185F1A36203E00734F8B /* Main.storyboard */,
+				112011002CA66A78005D598B /* google-icon.png */,
 				5AC47CA51E2BE57000BCAE82 /* Tick@480.png */,
 				5A31618621CC55ED00C4446B /* Copy@480.png */,
 				E44C185A1A36203E00734F8B /* Info.plist */,
 				5AFACFEE1F03FB0B00A310D1 /* Info-allowing-http.plist */,
 				E44C18621A36203E00734F8B /* Images.xcassets */,
-				11CC49FF2CA3FED100017927 /* 167.png */,
 			);
 			name = Blena;
 			path = BlenaBrowser;
@@ -243,6 +271,13 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				112010F62CA65CD3005D598B /* Constraint */,
+				112010F92CA667F4005D598B /* CustomImageView */,
+				112011082CA66C8F005D598B /* HomeView */,
+				112011162CA6ABC5005D598B /* SharedFunction */,
+				11357B7F2CA84B290009FB1E /* Tab */,
 			);
 			name = Blena;
 			productName = BlenaBrowser;
@@ -316,22 +351,26 @@
 			files = (
 				5AFC780222ECDCC50071E792 /* WBBluetoothRemoteGATTServer.js in Resources */,
 				5A31618721CC55ED00C4446B /* Copy@480.png in Resources */,
+				112011032CA66ACD005D598B /* youtube-icon.png in Resources */,
 				5AC47CA61E2BE57000BCAE82 /* Tick@480.png in Resources */,
 				E44C18611A36203E00734F8B /* Main.storyboard in Resources */,
 				5AE293EF23F9AAE8006CD0BC /* WBBluetoothRemoteGATTService.js in Resources */,
 				5AFC780022ECD99B0071E792 /* WBDevice.js in Resources */,
+				112011072CA66B31005D598B /* apple-icon.png in Resources */,
 				5A660B001F0FB174004EC11D /* WBUtils.js in Resources */,
 				5A4B8E1D2157A66C00C7C858 /* ConsoleLogView.xib in Resources */,
 				5AA79DDD1FB3AA0C00A4FCB4 /* WBBluetoothUUID.js in Resources */,
 				BB303DF11C41EF2F00FCAF24 /* WBPolyfill.js in Resources */,
 				5A7579E6214F7965003F0CEA /* stringview.js in Resources */,
-				11CC4A002CA3FED100017927 /* 167.png in Resources */,
 				5A8FD3FE233973710032DCE7 /* WBCore.storyboard in Resources */,
+				112011052CA66B05005D598B /* wikipedia-icon.png in Resources */,
+				112011012CA66A78005D598B /* google-icon.png in Resources */,
 				5ADE336E23663353007E6AD7 /* Images.xcassets in Resources */,
 				5A8FD3FC233966050032DCE7 /* Console.storyboard in Resources */,
 				5AFC77FE22ECD09E0071E792 /* WBEventTarget.js in Resources */,
 				E44C18661A36203E00734F8B /* LaunchScreen.xib in Resources */,
 				E44C18631A36203E00734F8B /* Images.xcassets in Resources */,
+				111ABF672CA705720010F952 /* BLENA.png in Resources */,
 				5AE293EE23F9AAE8006CD0BC /* WBBluetoothRemoteGATTCharacteristic.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A4B8E1F2157ABC500C7C858 /* ConsoleLogViewController.swift in Sources */,
+				11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */,
 				BB4DBE651C97F577000D2C35 /* WBTransaction.swift in Sources */,
 				5AC7ECAB233D0F9700CE7A2A /* Segues.swift in Sources */,
 				5AC7ECAD233D177700CE7A2A /* WBPopUpPickerView.swift in Sources */,
@@ -361,7 +401,7 @@
 				5A4B8E1B2157A34800C7C858 /* ConsoleLogView.swift in Sources */,
 				5AD6DACB2323EBFE0005F733 /* WBWebViewController.swift in Sources */,
 				E44C185C1A36203E00734F8B /* AppDelegate.swift in Sources */,
-				5A5D621621EBA83D00E417DC /* NavigationViewController.swift in Sources */,
+				11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */,
 				5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */,
 				5A95DDF81E0C080C00DFE26B /* WBWebView.swift in Sources */,
 				5A7579EF21579E0E003F0CEA /* ConsoleView.swift in Sources */,

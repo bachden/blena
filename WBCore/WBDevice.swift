@@ -46,10 +46,10 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             super.init(transaction: transaction)
         }
     }
-    
+
     class ServicesTransactionView: DeviceTransactionView {
         let serviceUUID: CBUUID?
-        
+
         override init?(transaction: WBTransaction) {
             if let pservStr = transaction.messageData["serviceUUID"] as? String {
                 guard let pservUUID = UUID(uuidString: pservStr) else {
@@ -72,7 +72,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             }
         }
     }
-    
+
     class ServiceTransactionView: DeviceTransactionView {
         let serviceUUID: CBUUID
 
@@ -91,7 +91,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             self.transaction.resolveAsFailure(withMessage: "Service \(self.serviceUUID.uuidString) not known on device")
         }
     }
-    
+
     class CharacteristicView: ServiceTransactionView {
         let characteristicUUID: CBUUID
 
@@ -119,13 +119,13 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             self.transaction.resolveAsFailure(withMessage: "Characteristic \(self.characteristicUUID.uuidString) not known for service \(self.serviceUUID.uuidString) on device")
         }
     }
-    
+
     class CharacteristicsView: ServiceTransactionView {
         override init?(transaction: WBTransaction) {
             super.init(transaction: transaction)
         }
     }
-    
+
     class WriteCharacteristicView: CharacteristicView {
         enum ResponseMode: String {
             case optional, required, never
@@ -149,9 +149,9 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             super.init(transaction: transaction)
         }
     }
-    
+
     struct ServicesTransactionKey: Hashable {
-        
+
     }
 
     struct CharacteristicTransactionKey: Hashable {
@@ -166,7 +166,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             return left.serviceUUID == right.serviceUUID && left.characteristicUUID == right.characteristicUUID
         }
     }
-    
+
     struct CharacteristicsTransactionKey: Hashable {
         let serviceUUID: CBUUID
 
@@ -358,7 +358,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
                     })
                     $0.resolveAsSuccess(withObject: characteristicUUIDs)
                 })
-                
+
                 break
             }
 
@@ -437,7 +437,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             transaction.resolveAsSuccess()
         }
     }
-    
+
     func jsonify() -> String {
         let props: [String: Any] = [
             "id": self.deviceId.uuidString,
@@ -450,7 +450,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             "productVersion": 0,
             "uuids": [] as [String],
         ]
-        
+
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: props)
             return String(data: jsonData, encoding: String.Encoding.utf8)!
@@ -472,7 +472,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
                 ServicesTransactionView(transaction: $0)!.resolveFromServices(self.peripheral.services!)
             }
         }
-        
+
         /* All outstanding requests for a primary service can be resolved. */
         if (self.getPrimaryServicesTM.transactions.count > 0) {
             self.getPrimaryServicesTM.apply(resolve)
@@ -487,7 +487,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             NSLog("Error discovering characteristics: \(error_)")
             return
         }
-        
+
         // Handle multiple characteristics
         if (self.getCharacteristicsTM.transactions.count > 0) {
             self.getCharacteristicsTM.apply({
@@ -499,7 +499,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
             },
             iff: { CharacteristicsView(transaction: $0)?.serviceUUID == service.uuid })
         }
-        
+
         // Handle single characteristic
         if (self.getCharacteristicTM.transactions.count > 0) {
             self.getCharacteristicTM.apply({
@@ -593,7 +593,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
     private func hasService(withUUID uuid: CBUUID) -> Bool {
         return self.getService(withUUID: uuid) != nil
     }
-    
+
     private func getCharacteristic(_ serviceUUID:CBUUID, uuid:CBUUID) -> CBCharacteristic? {
         if(self.peripheral.services == nil){
             return nil
@@ -605,11 +605,11 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
                 break
             }
         }
-        
+
         guard let chars = service?.characteristics else {
             return nil
         }
-        
+
         for char in chars{
             if(char.uuid == uuid){
                 return char
@@ -620,7 +620,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
 
     private func handleGetPrimaryServices(_ tview: ServicesTransactionView) {
         let transaction = tview.transaction
-        
+
         // check peripherals.services first to see if we already discovered services
         guard let services = self.peripheral.services else {
             self.getPrimaryServicesTM.addTransaction(transaction, atPath: tview.serviceUUID)
@@ -713,7 +713,7 @@ class BluetoothAdvertisingData{
     var rssi: String
     var manufacturerData:String
     var serviceData:[String]
-    
+
     init(advertisementData: [String: Any], RSSI: NSNumber){
         self.appearance = "fakeappearance"
         self.txPower = (advertisementData[CBAdvertisementDataTxPowerLevelKey] as? NSNumber ?? 0)
@@ -727,14 +727,14 @@ class BluetoothAdvertisingData{
                 NSLog("Error parsing advertisement data: not a valid UTF-8 sequence, was \(data as! Data)")
             }
         }
-        
+
         var uuids = [String]()
         if advertisementData["kCBAdvDataServiceUUIDs"] != nil {
             uuids = (advertisementData["kCBAdvDataServiceUUIDs"] as! [CBUUID]).map{$0.uuidString.lowercased()}
         }
         self.serviceData = uuids
     }
-    
+
     func toDict()->[String:AnyObject]{
         let dict:[String:AnyObject] = [
             "appearance": self.appearance as AnyObject,

@@ -37,9 +37,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Create a new window for the window property
+        window = UIWindow(frame: UIScreen.main.bounds)
+        // Load the storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let ud = UserDefaults.standard
+        if ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) is String {
+            // Instantiate the view controller with the correct identifier
+            if let homeVC = storyboard.instantiateViewController(withIdentifier: "URLViewController") as? ViewController {
+                // Wrap the HomeViewController in a UINavigationController
+                let navigationController = UINavigationController(rootViewController: homeVC)
+
+                // Set the rootViewController of the window to the UINavigationController
+                window?.rootViewController = navigationController
+            } else {
+                // Handle the error gracefully if the view controller could not be instantiated
+                print("Error: URLViewController could not be instantiated from storyboard")
+            }
+        } else {
+            // Instantiate the view controller with the correct identifier
+            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                // Wrap the HomeViewController in a UINavigationController
+                let navigationController = UINavigationController(rootViewController: homeVC)
+
+                // Set the rootViewController of the window to the UINavigationController
+                window?.rootViewController = navigationController
+            } else {
+                // Handle the error gracefully if the view controller could not be instantiated
+                print("Error: HomeViewController could not be instantiated from storyboard")
+            }
+        }
+
+
+
+
+        // Make the window visible
+        window?.makeKeyAndVisible()
+
         return true
     }
-    
+
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -62,16 +101,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        
-        
+
+
         // Called from external link with scheme webble
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-                NSLog("System not able to open url \(url) (may be able to try again)")
-                return false
+            NSLog("System not able to open url \(url) (may be able to try again)")
+            return false
         }
-        
+
         guard let param = urlComponents.queryItems!.first(where: { $0.name == "url" })?.value else {
             return false
         }

@@ -130,7 +130,7 @@ class WBTransaction: Equatable, CustomStringConvertible {
     var sourceURL: URL? {
         return self.webView?.url
     }
-    
+
     /*
      * ========== Initializers ==========
      */
