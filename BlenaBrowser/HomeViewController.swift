@@ -16,8 +16,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var textFieldSearch: UITextField!
     @IBOutlet weak var StackViewCenterYConstant: NSLayoutConstraint!
     
+    // Function to dismiss the keyboard
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+
 
         imageViewApple.layer.cornerRadius = 16
         imageViewGoogle.layer.cornerRadius = 16
@@ -102,6 +111,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.StackViewCenterYConstant.constant = -100
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        self.StackViewCenterYConstant.constant = 0
         return true
     }
     
