@@ -54,6 +54,10 @@
   nslog('Create bluetooth');
   let bluetooth = {};
 
+  let vibrate = async function (time) {
+    vibrate = native.sendMessage('vibrate', {data : {time: time}})
+  }
+
   // MARK: - Global bluetooth functions
   bluetooth.requestDevice = async function (requestDeviceOptions) {
     if (!requestDeviceOptions) {
@@ -268,6 +272,9 @@
       // weirdly this can get overwritten, so add a way to enable it.
       navigator.bluetooth = bluetooth;
     },
+    enableVibrate: function (){
+      navigator.vibrate = vibrate;
+    },
     // defeat the linter's "out of scope" warnings for not yet defined functions
     BluetoothRemoteGATTCharacteristic: wb.BluetoothRemoteGATTCharacteristic,
     BluetoothRemoteGATTServer: wb.BluetoothRemoteGATTServer,
@@ -288,6 +295,7 @@
 
   nslog('call enableBluetooth!');
   native.enableBluetooth();
+  native.enableVibrate();
 
   // MARK: - Patches
   // Patch window.open so it doesn't attempt to open in a separate window or tab ever.

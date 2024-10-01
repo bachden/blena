@@ -161,6 +161,19 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             }
         )
     }
+    
+    open func _enableVibratorAPI() {
+        self.evaluateJavaScript(
+            "window.iOSNativeAPI.enableVibrate()",
+            completionHandler: { _, error in
+                if let error_ = error {
+                    NSLog("Error enabling vibrator in view: \(error_)")
+                }
+            }
+        )
+    }
+    
+
 }
 
 class SpecialTapRecognizer: UITapGestureRecognizer {

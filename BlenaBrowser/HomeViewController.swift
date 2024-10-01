@@ -78,9 +78,16 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
 
             var location = url.absoluteString
             if !location.hasPrefix("http://") && !location.hasPrefix("https://") {
-                location = "https://www.google.com/search?q=\(location)"
+                if(location.contains(".")){
+                    location = "https://\(location)"
+                } else {
+                    location = "https://www.google.com/search?q=\(location)"
+                }
             }
 
+            
+            let ud = UserDefaults.standard
+            ud.set(location, forKey: "LastDirectLocation")
             // Create a transition animation
             let transition = CATransition()
             transition.duration = 0.3

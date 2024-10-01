@@ -188,7 +188,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1611" y="1051"/>
+            <point key="canvasLocation" x="-1611.5942028985507" y="1050.3348214285713"/>
         </scene>
         <!--Error View Controller-->
         <scene sceneID="B5t-zb-uOo">
@@ -300,7 +300,7 @@
     <resources>
         <image name="Swipe down" width="67" height="76"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

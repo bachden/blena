@@ -94,11 +94,17 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         self.loadingProgressContainer.isHidden = true
-        self._maybeShowErrorUI(error)
+        let ud = UserDefaults.standard
+        let lastLocation = ud.string(forKey: "LastDirectLocation")
+        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
+        self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        self._maybeShowErrorUI(error)
+        let ud = UserDefaults.standard
+        let lastLocation = ud.string(forKey: "LastDirectLocation")
+        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
+        self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
     // MARK: - WKUIDelegate
@@ -179,14 +185,15 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         self.webView.wbManager = self.wbManager
     }
 
-    private func _maybeShowErrorUI(_ error: Error) {
-        let nserror = error as NSError
-        if (
-            nserror.domain == NSURLErrorDomain
-            && nserror.code == NSURLErrorCancelled
-        ) {
-            return
-        }
-        self.performSegue(withIdentifier: "nav-error-segue", sender: error)
+    private func _maybeShowErrorUI(_ error: URL) {
+//        let nserror = error as NSError
+//        if (
+//            nserror.domain == NSURLErrorDomain
+//            && nserror.code == NSURLErrorCancelled
+//        ) {
+//            return
+//        }
+//        self.performSegue(withIdentifier: "nav-error-segue", sender: error)
+        self.webView.load(URLRequest(url: URL(string: "https://www.google.com/search?q=" + error.absoluteString)!))
     }
 }

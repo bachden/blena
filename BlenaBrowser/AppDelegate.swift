@@ -43,8 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         let ud = UserDefaults.standard
-        if ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) is String {
-            // Instantiate the view controller with the correct identifier
+        if(ud.value(forKey: "HomePageLocation") != nil){
             if let homeVC = storyboard.instantiateViewController(withIdentifier: "URLViewController") as? ViewController {
                 // Wrap the HomeViewController in a UINavigationController
                 let navigationController = UINavigationController(rootViewController: homeVC)
@@ -56,16 +55,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Error: URLViewController could not be instantiated from storyboard")
             }
         } else {
-            // Instantiate the view controller with the correct identifier
-            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                // Wrap the HomeViewController in a UINavigationController
-                let navigationController = UINavigationController(rootViewController: homeVC)
-
-                // Set the rootViewController of the window to the UINavigationController
-                window?.rootViewController = navigationController
+            if ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) is String {
+                // Instantiate the view controller with the correct identifier
+                if let homeVC = storyboard.instantiateViewController(withIdentifier: "URLViewController") as? ViewController {
+                    // Wrap the HomeViewController in a UINavigationController
+                    let navigationController = UINavigationController(rootViewController: homeVC)
+                    
+                    // Set the rootViewController of the window to the UINavigationController
+                    window?.rootViewController = navigationController
+                } else {
+                    // Handle the error gracefully if the view controller could not be instantiated
+                    print("Error: URLViewController could not be instantiated from storyboard")
+                }
             } else {
-                // Handle the error gracefully if the view controller could not be instantiated
-                print("Error: HomeViewController could not be instantiated from storyboard")
+                // Instantiate the view controller with the correct identifier
+                if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                    // Wrap the HomeViewController in a UINavigationController
+                    let navigationController = UINavigationController(rootViewController: homeVC)
+                    
+                    // Set the rootViewController of the window to the UINavigationController
+                    window?.rootViewController = navigationController
+                } else {
+                    // Handle the error gracefully if the view controller could not be instantiated
+                    print("Error: HomeViewController could not be instantiated from storyboard")
+                }
             }
         }
 

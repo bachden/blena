@@ -30,7 +30,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
-        case device, requestDevice, getAvailability
+        case device, requestDevice, getAvailability, vibrate
     }
 
     // MARK: - Properties
@@ -236,6 +236,9 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
                 self.requestDeviceTransaction = nil
             }
             self.devicePicker.showPicker()
+        case .vibrate:
+            NSLog("call to vibrate()")
+            vibrate(style: VibrateStyle.test)
         }
     }
 

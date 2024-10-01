@@ -68,7 +68,7 @@
                                     <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4lM-e7-eXY">
                                         <rect key="frame" x="100" y="3" width="260" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="search" textContentType="url"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search" textContentType="url"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO1-mF-VKM">
                                         <rect key="frame" x="360" y="9.6666666666666732" width="40" height="20.666666666666671"/>
@@ -103,6 +103,11 @@
                                                 <command title="Home Page" id="l4X-Hh-KDk">
                                                     <connections>
                                                         <action selector="optionSelection:" destination="dkx-z0-nzr" id="goX-yJ-vOX"/>
+                                                    </connections>
+                                                </command>
+                                                <command title="Set As Home Page" id="ImK-kz-V2j">
+                                                    <connections>
+                                                        <action selector="optionSelection:" destination="dkx-z0-nzr" id="PHH-er-9g0"/>
                                                     </connections>
                                                 </command>
                                             </children>

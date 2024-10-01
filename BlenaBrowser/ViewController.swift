@@ -51,24 +51,33 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         case "Share":
             sharePage()
         case "Home Page":
-            // Assuming you are using a storyboard named "Main" or the default storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-            // Instantiate HomeViewController using its storyboard ID
-            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                // Set the presentation style if needed
-                homeVC.modalPresentationStyle = .fullScreen
-
-                // Create a transition animation
-                let transition = CATransition()
-                transition.duration = 0.3
-                transition.type = .push // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
-                transition.subtype = .fromRight // Direction of the transition, e.g., `.fromRight`
-                homeVC.navigationController?.setNavigationBarHidden(true, animated: false)
-                // Add the transition to the window's layer
-                self.navigationController?.pushViewController(homeVC, animated: true)
+            let ud = UserDefaults.standard
+            let homePageLocation = ud.value(forKey: "HomePageLocation") as? String
+            if  homePageLocation != nil{
+                self.loadURL(URL(string: homePageLocation!)!)
+            } else {
+                // Assuming you are using a storyboard named "Main" or the default storyboard
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                // Instantiate HomeViewController using its storyboard ID
+                if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                    // Set the presentation style if needed
+                    homeVC.modalPresentationStyle = .fullScreen
+                    
+                    // Create a transition animation
+                    let transition = CATransition()
+                    transition.duration = 0.3
+                    transition.type = .push // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
+                    transition.subtype = .fromRight // Direction of the transition, e.g., `.fromRight`
+                    homeVC.navigationController?.setNavigationBarHidden(true, animated: false)
+                    // Add the transition to the window's layer
+                    self.navigationController?.pushViewController(homeVC, animated: true)
+                }
             }
-
+        case "Set As Home Page":
+            let ud = UserDefaults.standard
+            ud.set(locationTextField.text, forKey: "HomePageLocation")
+            self.view.makeToast("Successfully set as home page")
         default :
             break
         }
@@ -204,12 +213,18 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     func loadLocation(_ location: String) {
         var location = location
         if !location.hasPrefix("http://") && !location.hasPrefix("https://") {
-            location = "https://www.google.com/search?q=\(location)"
+            if(location.contains(".")){
+                location = "https://\(location)"
+            } else {
+                location = "https://www.google.com/search?q=\(location)"
+            }
         }
         guard let url = URL(string: location) else {
             NSLog("Failed to convert location \(location) into a URL")
             return
         }
+        let ud = UserDefaults.standard
+        ud.set(location, forKey: "LastDirectLocation")
         loadURL(url)
     }
 
