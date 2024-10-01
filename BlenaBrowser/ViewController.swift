@@ -189,10 +189,15 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         else {
             var lastLocation: String
-            if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
-                lastLocation = prefLoc
-            } else {
-                lastLocation = "https://www.google.com/"
+            if(ud.string(forKey: "HomePageLocation") != nil){
+                lastLocation = ud.string(forKey: "HomePageLocation")!
+            }
+            else {
+                if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
+                    lastLocation = prefLoc
+                } else {
+                    lastLocation = "https://www.google.com/"
+                }
             }
             self.loadLocation(lastLocation)
         }
