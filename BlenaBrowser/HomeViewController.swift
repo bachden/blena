@@ -24,6 +24,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        textFieldSearch.placeholder = "Search or enter website name"
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
 
@@ -84,6 +86,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
                     location = "https://www.google.com/search?q=\(location)"
                 }
             }
+            
+            NSLog(location)
 
             
             let ud = UserDefaults.standard
@@ -91,7 +95,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             // Create a transition animation
             let transition = CATransition()
             transition.duration = 0.3
-            transition.type = .push // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
+            transition.type = .moveIn // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
             transition.subtype = .fromRight // Direction of the transition, e.g., `.fromRight`
             homeVC.navigationController?.setNavigationBarHidden(true, animated: false)
             homeVC.loadURL(URL(string: location)!)

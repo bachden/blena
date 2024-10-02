@@ -65,22 +65,20 @@
                                             <action selector="goForward" destination="BYZ-38-t0r" eventType="touchUpInside" id="XTp-fy-hfJ"/>
                                         </connections>
                                     </button>
-                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4lM-e7-eXY">
+                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4lM-e7-eXY" customClass="CustomAdressBar" customModule="Blena" customModuleProvider="target">
                                         <rect key="frame" x="100" y="3" width="260" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search" textContentType="url"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO1-mF-VKM">
-                                        <rect key="frame" x="360" y="9.6666666666666732" width="40" height="20.666666666666671"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO1-mF-VKM">
+                                        <rect key="frame" x="360" y="9" width="40" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="LnS-2S-urE"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal">
-                                            <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="medium"/>
-                                        </state>
+                                        <state key="normal" image="house" catalog="system"/>
                                         <connections>
-                                            <action selector="reload" destination="BYZ-38-t0r" eventType="touchUpInside" id="8KU-fd-z0c"/>
+                                            <action selector="goToHomePage" destination="BYZ-38-t0r" eventType="touchUpInside" id="8tw-04-YcU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbB-L7-i2i">
@@ -98,11 +96,6 @@
                                                 <command title="Share" id="Vum-yz-AAs">
                                                     <connections>
                                                         <action selector="optionSelection:" destination="dkx-z0-nzr" id="nsm-Dc-oiU"/>
-                                                    </connections>
-                                                </command>
-                                                <command title="Home Page" id="l4X-Hh-KDk">
-                                                    <connections>
-                                                        <action selector="optionSelection:" destination="dkx-z0-nzr" id="goX-yJ-vOX"/>
                                                     </connections>
                                                 </command>
                                                 <command title="Set As Home Page" id="ImK-kz-V2j">
@@ -315,7 +308,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydA-Xn-sl9">
                                         <rect key="frame" x="16" y="17.666666666666629" width="408" height="35"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u4C-Uh-XKc">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u4C-Uh-XKc">
                                                 <rect key="frame" x="0.0" y="0.0" width="408" height="35"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -379,11 +372,11 @@
     </scenes>
     <resources>
         <image name="apple-icon.png" width="500" height="500"/>
-        <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
         <image name="chevron.backward.square.fill" catalog="system" width="128" height="114"/>
         <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="google-icon.png" width="144" height="144"/>
+        <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="wikipedia-icon.png" width="480" height="480"/>
         <image name="youtube-icon.png" width="480" height="480"/>

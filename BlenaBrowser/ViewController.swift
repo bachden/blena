@@ -16,17 +16,21 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate {
+enum URLTextFieldState : String {
+    case editing, inactive
+}
 
+class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate {
+    
     enum prefKeys: String {
         case consoleOpen
         case version
     }
-
+    
     // MARK: - Properties
     let currentPrefVersion = 1
     let bottomMarginNotToHideBarsIn: CGFloat = 100.0
-
+    
     // MARK: IBOutlets
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet var goBackButton: UIButton!
@@ -35,13 +39,66 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     @IBOutlet var urlStackView : UIStackView!
     @IBOutlet var showURLBarButton : UIButton!
     @IBOutlet var settingButton : UIButton!
-
+    
     // MARK: layout IBoutlet
     @IBOutlet weak var containerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var urlStackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var urlStackViewConstrantLeading: NSLayoutConstraint!
     @IBOutlet weak var urlStackViewConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var ShowURLBarButtonHeight: NSLayoutConstraint!
+    
+    // MARK: define private widget
+    private let reloadButton = UIButton(type: .system)
+    
+    
+    var activityState = URLTextFieldState.inactive {
+        didSet {
+            switch activityState {
+            case .editing:
+                self.locationTextField.placeholder = nil
+                self.locationTextField.rightView = nil
+                //            self.locationTextField.selectAll(nil)
+                self.locationTextField.textColor = .black
+            case .inactive:
+                self.locationTextField.rightView = self.locationTextField.hasText ? reloadButton : reloadButton
+                self.locationTextField.textColor = .black
+            }
+        }
+    }
+    
+    
+    
+    func setupReloadButton() {
+        reloadButton.setImage(UIImage(systemName: "arrow.clockwise")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        reloadButton.imageView?.contentMode = .scaleAspectFit
+        reloadButton.tintColor = .black
+        reloadButton.addTarget(self, action: #selector(innerReloadTap), for: .touchUpInside)
+        // Ensure that auto layout is used
+        reloadButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add the reload button as a rightView to the locationTextField
+        locationTextField.rightView = reloadButton
+        locationTextField.rightViewMode = .always
+        
+        // Set constraints for the reload button within the text field
+        if let rightView = locationTextField.rightView {
+            rightView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                // Position the reload button 8 points from the right edge of the text field
+                rightView.trailingAnchor.constraint(equalTo: locationTextField.trailingAnchor, constant: -16),
+                // Align the reload button vertically to the center of the text field
+                rightView.centerYAnchor.constraint(equalTo: locationTextField.centerYAnchor),
+                // Set a width and height for the reload button
+                rightView.widthAnchor.constraint(equalToConstant: 14),
+                rightView.heightAnchor.constraint(equalToConstant: 14)
+            ])
+        }
+        
+    }
+    
+    @objc func innerReloadTap() {
+        self.reload()
+    }
     
     //MARK: action
     @IBAction func optionSelection(_ sender: UIAction) {
@@ -50,30 +107,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             hideUrlStackView()
         case "Share":
             sharePage()
-        case "Home Page":
-            let ud = UserDefaults.standard
-            let homePageLocation = ud.value(forKey: "HomePageLocation") as? String
-            if  homePageLocation != nil{
-                self.loadURL(URL(string: homePageLocation!)!)
-            } else {
-                // Assuming you are using a storyboard named "Main" or the default storyboard
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                // Instantiate HomeViewController using its storyboard ID
-                if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                    // Set the presentation style if needed
-                    homeVC.modalPresentationStyle = .fullScreen
-                    
-                    // Create a transition animation
-                    let transition = CATransition()
-                    transition.duration = 0.3
-                    transition.type = .push // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
-                    transition.subtype = .fromRight // Direction of the transition, e.g., `.fromRight`
-                    homeVC.navigationController?.setNavigationBarHidden(true, animated: false)
-                    // Add the transition to the window's layer
-                    self.navigationController?.pushViewController(homeVC, animated: true)
-                }
-            }
         case "Set As Home Page":
             let ud = UserDefaults.standard
             ud.set(locationTextField.text, forKey: "HomePageLocation")
@@ -82,14 +115,40 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             break
         }
     }
-
+    
+    @IBAction func goToHomePage(){
+        let ud = UserDefaults.standard
+        let homePageLocation = ud.value(forKey: "HomePageLocation") as? String
+        if  homePageLocation != nil{
+            self.loadURL(URL(string: homePageLocation!)!)
+        } else {
+            // Assuming you are using a storyboard named "Main" or the default storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // Instantiate HomeViewController using its storyboard ID
+            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                // Set the presentation style if needed
+                homeVC.modalPresentationStyle = .fullScreen
+                
+                // Create a transition animation
+                let transition = CATransition()
+                transition.duration = 0.3
+                transition.type = .push // Use desired type like `.fade`, `.moveIn`, `.reveal`, etc.
+                transition.subtype = .fromRight // Direction of the transition, e.g., `.fromRight`
+                homeVC.navigationController?.setNavigationBarHidden(true, animated: false)
+                // Add the transition to the window's layer
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
+        }
+    }
+    
     var initialURL: URL?
     var lastRefresh: Date?
-
+    
     var consoleViewBottomConstraint: NSLayoutConstraint? = nil
-
+    
     let pattern = #"https://pmf\.mjbuilder\.dev/.*"#
-
+    
     var webViewContainerController: WBWebViewContainerController {
         get {
             return self.children.first(where: {$0 as? WBWebViewContainerController != nil}) as! WBWebViewContainerController
@@ -110,7 +169,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             return self.children.first(where: {$0 as? ConsoleViewContainerController != nil}) as? ConsoleViewContainerController
         }
     }
-
+    
     @IBAction func goForward() {
         NSLog("Go forward")
         self.webView.goForward()
@@ -139,25 +198,30 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         self.lastRefresh = Date()
     }
-
+    
     // MARK: - Home bar indicator control
     override var prefersHomeIndicatorAutoHidden: Bool {
         return false
     }
-
+    
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         self.loadLocation(textField.text!)
         return true
     }
-
+    
+    
+    
     // MARK: - Event handling
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         self.showURLBarButton.isHidden = true
         self.additionalSafeAreaInsets.top = 0
+        setupReloadButton()
+        self.activityState = .inactive
+        self.locationTextField.rightViewMode = .always
         
         let nc = self.navigationController!
         nc.setNavigationBarHidden(true, animated: false)
@@ -165,24 +229,24 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.goBackButton.isEnabled = false
         self.goForwardButton.isEnabled = false
         let ud = UserDefaults.standard
-
+        
         // connect view to other objects
         self.locationTextField.delegate = self
         self.webView.addNavigationDelegate(self)
         self.webView.scrollView.delegate = self
         self.webView.scrollView.clipsToBounds = true
         self.webViewContainerController.addObserver(self, forKeyPath: "pickerIsShowing", options: [], context: nil)
-
+        
         if #available(iOS 11.0, *){
             self.webView.scrollView.contentInsetAdjustmentBehavior = .automatic
         } else{
             automaticallyAdjustsScrollViewInsets = true
         }
-
+        
         for path in ["canGoBack", "canGoForward"] {
             self.webView.addObserver(self, forKeyPath: path, options: .new, context: nil)
         }
-
+        
         // Load last location
         if let url = initialURL {
             loadURL(url)
@@ -201,20 +265,49 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             }
             self.loadLocation(lastLocation)
         }
+        
+        // #MARK: Set swipe direction and add gesture recognizer for StackView
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeLeft.direction = .left
+        swipeRight.direction = .right
+        self.urlStackView.addGestureRecognizer(swipeRight)
+        self.urlStackView.addGestureRecognizer(swipeLeft)
     }
-
+    
+    @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .left {
+            if(self.containerViewConstraint.constant == 0){
+                NSLog("Swiped left!")
+                showUrlStackView()
+            } else {
+                NSLog("Shouldn't Swiped left!")
+                
+            }
+            // Perform actions for left swipe (e.g., remove a view or change layout)
+        } else if gesture.direction == .right {
+            if(self.containerViewConstraint.constant == 0){
+                NSLog("shoudln't Swiped right!")
+            } else {
+                NSLog("Swiped right!")
+                hideUrlStackView()
+                
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-//        let nc = self.navigationController as! NavigationViewController
-//        nc.addObserver(self, forKeyPath: "navBarIsHidden", options: [.initial, .new], context: nil)
+        
+        //        let nc = self.navigationController as! NavigationViewController
+        //        nc.addObserver(self, forKeyPath: "navBarIsHidden", options: [.initial, .new], context: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
-//        let nc = self.navigationController as! NavigationViewController
-//        nc.removeObserver(self, forKeyPath: "navBarIsHidden")
+        //        let nc = self.navigationController as! NavigationViewController
+        //        nc.removeObserver(self, forKeyPath: "navBarIsHidden")
         super.viewWillDisappear(animated)
     }
-
+    
     func loadLocation(_ location: String) {
         var location = location
         if !location.hasPrefix("http://") && !location.hasPrefix("https://") {
@@ -232,41 +325,36 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         ud.set(location, forKey: "LastDirectLocation")
         loadURL(url)
     }
-
+    
     func loadURL(_ url: URL) {
-        var maskURL = ""
+        //        var maskURL = ""
+        //        guard self.isViewLoaded else {
+        //            do{
+        //                let regex = try NSRegularExpression(pattern: pattern)
+        //                let range = NSRange(url.absoluteString.startIndex..<url.absoluteString.endIndex, in: url.absoluteString)
+        //                if(regex.firstMatch(in: url.absoluteString, range: range) != nil) {
+        //                    NSLog("match")
+        //                    maskURL = ""
+        //                } else {
+        //                    NSLog("not match")
+        //                    maskURL = url.absoluteString
+        //                }
+        //            } catch{}
+        //
+        //        }
         guard self.isViewLoaded else {
-            do{
-                let regex = try NSRegularExpression(pattern: pattern)
-                let range = NSRange(url.absoluteString.startIndex..<url.absoluteString.endIndex, in: url.absoluteString)
-                if(regex.firstMatch(in: url.absoluteString, range: range) != nil) {
-                    NSLog("match")
-                    maskURL = ""
-                } else {
-                    NSLog("not match")
-                    maskURL = url.absoluteString
-                }
-            } catch{}
-            self.initialURL = URL(string: maskURL)
+            self.initialURL = URL(string: url.absoluteString)
             return
         }
-
-
-        self.setLocationText(maskURL)
+        
+        self.setLocationText(url.absoluteString)
         self.webView.load(URLRequest(url: url))
     }
     func setLocationText(_ text: String) {
-        do{
-            let regex = try NSRegularExpression(pattern: pattern)
-            let range = NSRange(text.startIndex..<text.endIndex, in: text)
-            if(regex.firstMatch(in: text, range: range) != nil) {
-            } else {
-            }
-        } catch{}
         self.locationTextField.text = text
-
+        
     }
-
+    
     // MARK: - WKNavigationDelegate
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         if let urlString = webView.url?.absoluteString {
@@ -275,14 +363,14 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 let regex = try NSRegularExpression(pattern: pattern)
                 let range = NSRange(urlString.startIndex..<urlString.endIndex, in: urlString)
                 if(regex.firstMatch(in: urlString, range: range) != nil) {
-
+                    
                 } else {
-
+                    
                 }
             } catch{}
         }
     }
-
+    
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
@@ -322,7 +410,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         return true
     }
-
+    
     // MARK: - Observe protocol
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard
@@ -332,7 +420,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog("Unexpected change with either no keyPath or no change dictionary!")
             return
         }
-
+        
         switch defKeyPath {
         case "canGoBack":
             NSLog(defChange[NSKeyValueChangeKey.newKey] as! Bool == true ? "true" : "false")
@@ -347,14 +435,14 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }
     }
-
+    
     func setHidesOnSwipesFromScrollView(_ scrollView: UIScrollView) {
         // Due to an apparent bug this should not be called when the toolbar / navbar are animating up or down as far as possible as that seems to cause a crash
         let yOffset = scrollView.contentOffset.y
         let frameHeight = scrollView.frame.size.height
         let contentHeight = scrollView.contentSize.height
         let nc = self.navigationController!
-
+        
         if yOffset + frameHeight > (
             contentHeight > self.bottomMarginNotToHideBarsIn
             ? contentHeight - self.bottomMarginNotToHideBarsIn
@@ -369,7 +457,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             }
         }
     }
-
+    
     func hideUrlStackView() {
         self.containerViewConstraint.constant = 0
         self.locationTextField.alpha = 0
@@ -418,31 +506,42 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             self.view.layoutIfNeeded()
         }
     }
-
+    
     func loadInitialURL() {
         let defaultURL = URL(string: "https://www.google.com/")!
         let request = URLRequest(url: defaultURL)
         webView.load(request)
     }
-
+    
     // MARK: Share page
     func sharePage() {
         guard let currentURL = self.webView.url else {
-                    // If there's no URL loaded, show an alert
-                    let alert = UIAlertController(title: "No Page Loaded", message: "There is no page loaded in the web view to share.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    present(alert, animated: true, completion: nil)
-                    return
-                }
-
-                // Create the activity view controller
-                let activityViewController = UIActivityViewController(activityItems: [currentURL], applicationActivities: nil)
-
-                // Exclude certain activity types if necessary
-                activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll]
-
-                // Present the activity view controller
-                present(activityViewController, animated: true, completion: nil)
+            // If there's no URL loaded, show an alert
+            let alert = UIAlertController(title: "No Page Loaded", message: "There is no page loaded in the web view to share.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        // Create the activity view controller
+        let activityViewController = UIActivityViewController(activityItems: [currentURL], applicationActivities: nil)
+        
+        // Exclude certain activity types if necessary
+        activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll]
+        
+        // Present the activity view controller
+        present(activityViewController, animated: true, completion: nil)
     }
-
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.activityState = .editing
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        self.activityState = .inactive
+        return true
+    }
+    
+    
 }

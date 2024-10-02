@@ -96,6 +96,7 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         self.loadingProgressContainer.isHidden = true
         let ud = UserDefaults.standard
         let lastLocation = ud.string(forKey: "LastDirectLocation")
+        NSLog(lastLocation!)
         let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
         self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
@@ -103,6 +104,7 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         let ud = UserDefaults.standard
         let lastLocation = ud.string(forKey: "LastDirectLocation")
+        NSLog(lastLocation!)
         let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
         self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
