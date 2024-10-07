@@ -23,6 +23,7 @@ import UIKit
 import WebKit
 
 class WBWebView: WKWebView, WKNavigationDelegate {
+    
     let webBluetoothHandlerName = "bluetooth"
     private var _wbManager: WBManager?
     var wbManager: WBManager? {
@@ -41,10 +42,33 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     }
 
     private var _navDelegates: [WKNavigationDelegate] = []
+    
 
     // MARK: - Initializers
     required public override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
+        self.allowsLinkPreview = true
+    }
+    
+    override func goBack() -> WKNavigation? {
+        if let backItem = self.backForwardList.backItem{
+            let url = backItem.url
+            let ud = UserDefaults.standard
+            ud.set(url, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
+        }
+            
+        // Allow normal back navigation for other URLs
+        return super.goBack()
+    }
+    
+    override func goForward() -> WKNavigation? {
+        if let forwardItem = self.backForwardList.forwardItem{
+            let url = forwardItem.url
+            let ud = UserDefaults.standard
+            ud.set(url, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
+        }
+        
+        return super.goForward()
     }
 
     convenience public required init?(coder: NSCoder) {
@@ -53,6 +77,12 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         let userController = WKUserContentController()
         webCfg.userContentController = userController
         webCfg.allowsInlineMediaPlayback = true
+        webCfg.allowsPictureInPictureMediaPlayback = true
+        if #available(iOS 17.0, *) {
+            webCfg.allowsInlinePredictions = true
+        } else {
+            // Fallback on earlier versions
+        }
 
         // Set up the user agent name to include an app specific append rather
         // than just the default WKWebView build number
@@ -72,6 +102,15 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             + "\(bundleName)/\(shortVersionString) "
             + "(like Safari)"
         )
+        
+        // Register the custom URL scheme handler
+        let customSchemeHandler = HomepageSchemeHandler()
+        webCfg
+            .setURLSchemeHandler(
+                customSchemeHandler,
+                forURLScheme: "homepage"
+            )
+        
 
         self.init(
             frame: CGRect(),
@@ -83,12 +122,12 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         // Before configuring the WKWebView, delete caches since
         // it seems a bit arbitrary when this happens otherwise.
         // This from http://stackoverflow.com/a/34376943/5920499
-        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache]) as! Set<String>
-        let ds = WKWebsiteDataStore.default()
-        ds.removeData(
-            ofTypes: websiteDataTypes,
-            modifiedSince: NSDate(timeIntervalSince1970: 0) as Date,
-            completionHandler:{})
+//        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache]) as! Set<String>
+//        let ds = WKWebsiteDataStore.default()
+//        ds.removeData(
+//            ofTypes: websiteDataTypes,
+//            modifiedSince: NSDate(timeIntervalSince1970: 0) as Date,
+//            completionHandler:{})
 
         // Load js
         for jsfilename in [
@@ -122,6 +161,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         // WKWebView static config
         self.translatesAutoresizingMaskIntoConstraints = false
         self.allowsBackForwardNavigationGestures = true
+        self.allowsLinkPreview = true
     }
 
     // MARK: - API

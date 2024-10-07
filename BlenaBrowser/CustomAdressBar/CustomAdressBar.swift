@@ -27,7 +27,7 @@ class CustomAdressBar : UITextField {
           selectAll(nil)
           textColor = .black
         case .inactive:
-            rightView = hasText ? reloadButton : reloadButton
+            rightView = hasText ? reloadButton : nil
             textColor = .black
         }
       }
@@ -71,4 +71,17 @@ class CustomAdressBar : UITextField {
       reloadButton.imageView?.contentMode = .scaleAspectFit
       reloadButton.tintColor = .black
     }
+    
+    override func layoutSubviews() {
+            super.layoutSubviews()
+
+            for view in subviews {
+                if let button = view as? UIButton {
+                    button.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
+                    button.tintColor = .systemGray
+                }
+            }
+        }
+    
+    
 }

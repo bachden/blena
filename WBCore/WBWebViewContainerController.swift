@@ -88,25 +88,86 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         if let urlString = webView.url?.absoluteString,
             urlString != "about:blank" {
             UserDefaults.standard.setValue(urlString, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
+            UserDefaults.standard.setValue(urlString, forKey: "LastDirectLocation")
+            let backForwardList = webView.backForwardList.backList
+            for item in backForwardList {
+                NSLog(item.url.absoluteString)
+                    }
         }
+        let script = """
+                (function() {
+                    var rgb = window.getComputedStyle(document.body).backgroundColor;
+                    return rgb;
+                })();
+                """
+                
+                // Inject JavaScript and handle the result
+                webView.evaluateJavaScript(script) { [weak self] result, error in
+                    let ud = UserDefaults.standard
+                    NSLog(result as! String)
+                    if(result as! String == "rgba(0, 0, 0, 0)"){
+                        ud.setValue("#FFFFFF", forKey: "StatusBarColor")
+                    } else {
+                        ud.setValue(self?.rgbToHex(rgb: (result as! String)), forKey: "StatusBarColor")
+                    }
+                    if let rgbString = result as? String {
+                        // Convert the RGB string to Hex in Swift
+                        if let hexColor = self?.rgbToHex(rgb: rgbString) {
+                            print("Hex Color: \(hexColor)")
+                        }
+                    } else if let error = error {
+                        print("Error evaluating JavaScript: \(error.localizedDescription)")
+                    }
+                }
+            
         self.loadingProgressContainer.isHidden = true
     }
     
+    // Function to convert RGB string to Hex in Swift
+        func rgbToHex(rgb: String) -> String? {
+            // Extract the rgb values using a regex
+            let regex = try! NSRegularExpression(pattern: "\\d+")
+            let matches = regex.matches(in: rgb, range: NSRange(rgb.startIndex..., in: rgb))
+            
+            let rgbValues = matches.compactMap {
+                Int((rgb as NSString).substring(with: $0.range))
+            }
+            
+            guard rgbValues.count == 3 else { return nil } // Ensure there are exactly 3 RGB values
+            
+            let red = rgbValues[0]
+            let green = rgbValues[1]
+            let blue = rgbValues[2]
+            
+            // Convert to hex and pad with zeroes if necessary
+            return String(format: "#%02X%02X%02X", red, green, blue)
+        }
+    
+    
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        NSLog(error.localizedDescription)
+        if (error as NSError).code == NSURLErrorCancelled {
+            self.loadingProgressContainer.isHidden = true
+                return
+            }
         self.loadingProgressContainer.isHidden = true
         let ud = UserDefaults.standard
-        let lastLocation = ud.string(forKey: "LastDirectLocation")
+        let lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         NSLog(lastLocation!)
         let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
         self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        NSLog(error.localizedDescription)
+        if (error as NSError).code == NSURLErrorCancelled {
+            self.loadingProgressContainer.isHidden = true
+            return
+            }
         let ud = UserDefaults.standard
-        let lastLocation = ud.string(forKey: "LastDirectLocation")
+        let lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         NSLog(lastLocation!)
-        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
-        self._maybeShowErrorUI(URL(string: cleanedURL)!)
+        self._maybeShowErrorUI(URL(string: lastLocation!)!)
     }
     
     // MARK: - WKUIDelegate
@@ -188,14 +249,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     }
 
     private func _maybeShowErrorUI(_ error: URL) {
-//        let nserror = error as NSError
-//        if (
-//            nserror.domain == NSURLErrorDomain
-//            && nserror.code == NSURLErrorCancelled
-//        ) {
-//            return
-//        }
-//        self.performSegue(withIdentifier: "nav-error-segue", sender: error)
         self.webView.load(URLRequest(url: URL(string: "https://www.google.com/search?q=" + error.absoluteString)!))
     }
 }

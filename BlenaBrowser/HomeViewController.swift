@@ -8,24 +8,23 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController, UITextFieldDelegate {
+class HomeViewController: UIViewController {
     @IBOutlet var imageViewGoogle: UIStackView!
     @IBOutlet var imageViewYoutube: UIStackView!
     @IBOutlet var imageViewWikipedia: UIStackView!
     @IBOutlet var imageViewApple: UIStackView!
     @IBOutlet var textFieldSearch: UITextField!
     @IBOutlet weak var StackViewCenterYConstant: NSLayoutConstraint!
-    
+
     // Function to dismiss the keyboard
         @objc func dismissKeyboard() {
             view.endEditing(true)
         }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        textFieldSearch.placeholder = "Search or enter website name"
-        
+
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
 
@@ -35,8 +34,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         imageViewYoutube.layer.cornerRadius = 16
         imageViewWikipedia.layer.cornerRadius = 16
 
-        textFieldSearch.delegate = self
-
         let googleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(googleTapGestureRecognizerAction))
         imageViewGoogle.addGestureRecognizer(googleTapGestureRecognizer)
         let youtubeTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(youtubeTapGestureRecognizerAction))
@@ -45,9 +42,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         imageViewWikipedia.addGestureRecognizer(wikipediaTapGestureRecognizer)
         let appleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appleTapGestureRecognizerAction))
         imageViewApple.addGestureRecognizer(appleTapGestureRecognizer)
-        textFieldSearch.layer.borderColor = UIColor(red: 51/255, green: 90/255, blue: 255/255, alpha: 1.0).cgColor
-        textFieldSearch.layer.borderWidth = 1.0
-        textFieldSearch.layer.cornerRadius = 10.0
+
     }
 
     @objc func googleTapGestureRecognizerAction() {
@@ -86,10 +81,10 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
                     location = "https://www.google.com/search?q=\(location)"
                 }
             }
-            
+
             NSLog(location)
 
-            
+
             let ud = UserDefaults.standard
             ud.set(location, forKey: "LastDirectLocation")
             // Create a transition animation
@@ -107,27 +102,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
 
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            // Trigger the search action when "Enter" key is pressed
-            var searchText = textField.text
-        if(searchText == nil || searchText!.isEmpty){
-            searchText = " "
-        }
-        passURLandNavigate(url: URL(string: searchText!)!)
 
-            // Dismiss the keyboard
-            textField.resignFirstResponder()
-            return true
-        }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.StackViewCenterYConstant.constant = -100
-        return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        self.StackViewCenterYConstant.constant = 0
-        return true
-    }
-    
+
 }

@@ -12,6 +12,7 @@
 		112011032CA66ACD005D598B /* youtube-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011022CA66ACD005D598B /* youtube-icon.png */; };
 		112011052CA66B05005D598B /* wikipedia-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011042CA66B05005D598B /* wikipedia-icon.png */; };
 		112011072CA66B31005D598B /* apple-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011062CA66B31005D598B /* apple-icon.png */; };
+		1130C5D52CAFE0D60024030A /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = 1130C5D42CAFE0D60024030A /* Telegraph */; };
 		11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */; };
 		11C9A9632CABA3C8009BB168 /* vibration.js in Resources */ = {isa = PBXBuildFile; fileRef = 11C9A9622CABA3C8009BB168 /* vibration.js */; };
 		11C9A9652CABAC84009BB168 /* WBVibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C9A9642CABAC7A009BB168 /* WBVibrator.swift */; };
@@ -75,6 +76,7 @@
 		112011022CA66ACD005D598B /* youtube-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube-icon.png"; sourceTree = "<group>"; };
 		112011042CA66B05005D598B /* wikipedia-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wikipedia-icon.png"; sourceTree = "<group>"; };
 		112011062CA66B31005D598B /* apple-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-icon.png"; sourceTree = "<group>"; };
+		1130C5DC2CAFE80C0024030A /* customHomePage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = customHomePage.html; path = BlenaBrowser/CustomHomePageHTML/customHomePage.html; sourceTree = "<group>"; };
 		114B78BD2CA2713B00D42932 /* Blena.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blena.entitlements; sourceTree = SOURCE_ROOT; };
 		11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTabViewController.swift; sourceTree = "<group>"; };
 		11C9A9622CABA3C8009BB168 /* vibration.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = vibration.js; sourceTree = "<group>"; };
@@ -142,10 +144,15 @@
 		112010F92CA667F4005D598B /* CustomImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomImageView; sourceTree = "<group>"; };
 		112011082CA66C8F005D598B /* HomeView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HomeView; sourceTree = "<group>"; };
 		112011162CA6ABC5005D598B /* SharedFunction */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedFunction; sourceTree = "<group>"; };
+		1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomHomePageHTML; sourceTree = "<group>"; };
+		1130C5DD2CAFF7840024030A /* LocalIPGetter */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LocalIPGetter; sourceTree = "<group>"; };
 		11357B7F2CA84B290009FB1E /* Tab */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tab; sourceTree = "<group>"; };
+		11BB59152CB39E1B00F07CCB /* SchemeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SchemeHandler; sourceTree = "<group>"; };
 		11C9A95D2CAB9D56009BB168 /* Toast */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Toast; sourceTree = "<group>"; };
 		11C9A9692CAC47DF009BB168 /* Animation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Animation; sourceTree = "<group>"; };
 		11C9A96B2CAC49B6009BB168 /* CustomAdressBar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomAdressBar; sourceTree = "<group>"; };
+		11DD70F62CAE496100946743 /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
+		11DD70FB2CAE5A7D00946743 /* SettingViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SettingViewController; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1130C5D52CAFE0D60024030A /* Telegraph in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +236,7 @@
 		E44C184D1A36203E00734F8B = {
 			isa = PBXGroup;
 			children = (
+				1130C5DC2CAFE80C0024030A /* customHomePage.html */,
 				5A233341230353E1008D9F03 /* WBCore */,
 				E44C18581A36203E00734F8B /* Blena */,
 				E44C18571A36203E00734F8B /* Products */,
@@ -246,6 +255,11 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
+				1130C5DD2CAFF7840024030A /* LocalIPGetter */,
+				1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */,
+				11DD70FB2CAE5A7D00946743 /* SettingViewController */,
+				11DD70F62CAE496100946743 /* Extension */,
 				11C9A96B2CAC49B6009BB168 /* CustomAdressBar */,
 				11C9A95D2CAB9D56009BB168 /* Toast */,
 				11357B7F2CA84B290009FB1E /* Tab */,
@@ -296,9 +310,14 @@
 				112010F92CA667F4005D598B /* CustomImageView */,
 				112011082CA66C8F005D598B /* HomeView */,
 				112011162CA6ABC5005D598B /* SharedFunction */,
+				1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */,
+				1130C5DD2CAFF7840024030A /* LocalIPGetter */,
 				11357B7F2CA84B290009FB1E /* Tab */,
+				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
 				11C9A95D2CAB9D56009BB168 /* Toast */,
 				11C9A96B2CAC49B6009BB168 /* CustomAdressBar */,
+				11DD70F62CAE496100946743 /* Extension */,
+				11DD70FB2CAE5A7D00946743 /* SettingViewController */,
 			);
 			name = Blena;
 			productName = BlenaBrowser;
@@ -355,6 +374,9 @@
 				Base,
 			);
 			mainGroup = E44C184D1A36203E00734F8B;
+			packageReferences = (
+				1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */,
+			);
 			productRefGroup = E44C18571A36203E00734F8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -594,7 +616,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
@@ -624,7 +646,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
@@ -708,6 +730,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Building42/Telegraph.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.40.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1130C5D42CAFE0D60024030A /* Telegraph */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */;
+			productName = Telegraph;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E44C184E1A36203E00734F8B /* Project object */;
 }

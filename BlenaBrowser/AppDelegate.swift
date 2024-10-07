@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let homeVC = storyboard.instantiateViewController(withIdentifier: "URLViewController") as? ViewController {
                     // Wrap the HomeViewController in a UINavigationController
                     let navigationController = UINavigationController(rootViewController: homeVC)
-                    
+
                     // Set the rootViewController of the window to the UINavigationController
                     window?.rootViewController = navigationController
                 } else {
@@ -69,15 +69,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             } else {
                 // Instantiate the view controller with the correct identifier
-                if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                if let homeVC = storyboard.instantiateViewController(withIdentifier: "URLViewController") as? ViewController {
                     // Wrap the HomeViewController in a UINavigationController
                     let navigationController = UINavigationController(rootViewController: homeVC)
-                    
+
                     // Set the rootViewController of the window to the UINavigationController
                     window?.rootViewController = navigationController
                 } else {
                     // Handle the error gracefully if the view controller could not be instantiated
-                    print("Error: HomeViewController could not be instantiated from storyboard")
+                    print("Error: URLViewController could not be instantiated from storyboard")
                 }
             }
         }
