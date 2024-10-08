@@ -91,7 +91,7 @@ let homePageHTMLPage = """
         <a href="https://wikipedia.org" class="homepage_link">
             <div class="icon-box">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Notification-icon-Wikipedia-logo.svg/1200px-Notification-icon-Wikipedia-logo.svg.png" alt="Wikipedia">
-                <p>Wikiped</p>
+                <p>Wikipedia</p>
             </div>
         </a>
         <a href="https://apple.com" class="homepage_link">

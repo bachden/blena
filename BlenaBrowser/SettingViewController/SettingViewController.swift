@@ -18,6 +18,7 @@ class SettingViewController: UIViewController {
     @IBOutlet var clearHistoryButton : UIStackView!
     @IBOutlet var privacyPolicyButton : UIStackView!
     @IBOutlet var forwardButton : UIButton!
+    @IBOutlet var supportUsButton : UIStackView!
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -31,9 +32,11 @@ class SettingViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let clearCacheGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let privacyPolicyGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let supportUsGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.clearCacheButton.addGestureRecognizer(tapGesture)
         self.clearHistoryButton.addGestureRecognizer(clearCacheGesture)
         self.privacyPolicyButton.addGestureRecognizer(privacyPolicyGesture)
+        self.supportUsButton.addGestureRecognizer(supportUsGesture)
         
         // Enable user interaction
         self.clearCacheButton.isUserInteractionEnabled = true
@@ -77,6 +80,8 @@ class SettingViewController: UIViewController {
             removeHistory()
         case self.privacyPolicyButton:
             self.goToPrivacyPolicy()
+        case self.supportUsButton:
+            self.supportUsFunction()
         default:
             break
         }
@@ -124,5 +129,9 @@ class SettingViewController: UIViewController {
     // Mark: Privacy Policy
     func goToPrivacyPolicy() {
         NSLog("Privacy Policy")
+    }
+    
+    func supportUsFunction() {
+        NSLog("Support Us")
     }
 }

@@ -146,6 +146,20 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         NSLog(error.localizedDescription)
+        if(error as NSError).code == NSURLErrorTimedOut {
+            let alert = UIAlertController(title: "Timeout", message: "The request timed out. Please try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.loadingProgressContainer.isHidden = true
+            return
+        }
+        if (error as NSError).code == NSURLErrorNotConnectedToInternet {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.loadingProgressContainer.isHidden = true
+            return
+        }
         if (error as NSError).code == NSURLErrorCancelled {
             self.loadingProgressContainer.isHidden = true
                 return
@@ -160,14 +174,30 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         NSLog(error.localizedDescription)
-        if (error as NSError).code == NSURLErrorCancelled {
+        if(error as NSError).code == NSURLErrorTimedOut {
+            let alert = UIAlertController(title: "Timeout", message: "The request timed out. Please try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             self.loadingProgressContainer.isHidden = true
             return
+        }
+        if (error as NSError).code == NSURLErrorNotConnectedToInternet {
+            let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.loadingProgressContainer.isHidden = true
+            return
+        }
+        if (error as NSError).code == NSURLErrorCancelled {
+            self.loadingProgressContainer.isHidden = true
+                return
             }
+        self.loadingProgressContainer.isHidden = true
         let ud = UserDefaults.standard
         let lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         NSLog(lastLocation!)
-        self._maybeShowErrorUI(URL(string: lastLocation!)!)
+        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
+        self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
     // MARK: - WKUIDelegate

@@ -48,7 +48,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     @IBOutlet weak var urlStackViewConstrantLeading: NSLayoutConstraint!
     @IBOutlet weak var urlStackViewConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var ShowURLBarButtonHeight: NSLayoutConstraint!
-
+    @IBOutlet weak var locationTextFieldLeadingSpace: NSLayoutConstraint!
+    @IBOutlet weak var locationTextFieldTrailingSpace: NSLayoutConstraint!
+    @IBOutlet weak var goFowardWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var homeButtonWidthConstraint: NSLayoutConstraint!
     // MARK: define private widget
     private let reloadButton = UIButton(type: .system)
 
@@ -57,13 +60,44 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         didSet {
             switch activityState {
             case .editing:
-                self.locationTextField.placeholder = nil
                 self.locationTextField.rightView = nil
                 //            self.locationTextField.selectAll(nil)
                 self.locationTextField.textColor = .black
+                self.goBackButton.alpha = 0
+                self.goBackButton.isHidden = true
+                self.settingButton.alpha = 0
+                self.settingButton.isHidden = true
+                self.goForwardButton.alpha = 0
+                self.goForwardButton.isEnabled = false
+                self.goFowardWidthConstraint.constant = 16
+                self.refreshButton.alpha = 0
+                self.refreshButton.isEnabled = false
+                self.homeButtonWidthConstraint.constant = 16
+                UIView.animate(withDuration: 0.3) {
+                    // Hide floating button
+                    self.view.layoutIfNeeded()
+                }
             case .inactive:
                 self.locationTextField.rightView = self.locationTextField.hasText ? reloadButton : reloadButton
                 self.locationTextField.textColor = .black
+                self.goBackButton.alpha = 1
+                self.goBackButton.isHidden = false
+                self.goForwardButton.alpha = 1
+                self.goForwardButton.isHidden = false
+                self.refreshButton.alpha = 1
+                self.refreshButton.isHidden = false
+                self.settingButton.alpha = 1
+                self.settingButton.isHidden = false
+                self.goForwardButton.alpha = 1
+                self.goForwardButton.isEnabled = UserDefaults.standard.bool(forKey: "OldCanGoForward")
+                self.goFowardWidthConstraint.constant = 40
+                self.refreshButton.alpha = 1
+                self.refreshButton.isEnabled = true
+                self.homeButtonWidthConstraint.constant = 40
+                UIView.animate(withDuration: 0.3) {
+                    // Hide floating button
+                    self.view.layoutIfNeeded()
+                }
             }
         }
     }
@@ -120,7 +154,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 if #available(iOS 15.0, *) {
                     if let sheet = settingsVC.sheetPresentationController {
                         // Customize detents (heights) for the bottom sheet
-                        sheet.detents = [.medium(), .large()] // Medium and large sizes
+                        sheet.detents = [.large()] // Medium and large sizes
                         sheet.largestUndimmedDetentIdentifier = .medium
                     }
                 } else {
@@ -229,6 +263,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
+        UserDefaults.standard.set(false, forKey: "OldCanGoForward")
     }
 
     // MARK: - Event handling
@@ -447,6 +482,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog(defChange[NSKeyValueChangeKey.newKey] as! Bool == true ? "true" : "false")
             self.goBackButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "canGoForward":
+            UserDefaults.standard.setValue(defChange[NSKeyValueChangeKey.newKey] as! Bool, forKey: "OldCanGoForward")
             self.goForwardButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "navBarIsHidden":
             return ;

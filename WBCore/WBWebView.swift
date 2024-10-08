@@ -78,11 +78,19 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         webCfg.userContentController = userController
         webCfg.allowsInlineMediaPlayback = true
         webCfg.allowsPictureInPictureMediaPlayback = true
+        webCfg.mediaTypesRequiringUserActionForPlayback = []
+
+        if #available(iOS 15.4, *) {
+            webCfg.preferences.isElementFullscreenEnabled = true
+        } else {
+            // Fallback on earlier versions
+        }
         if #available(iOS 17.0, *) {
             webCfg.allowsInlinePredictions = true
         } else {
             // Fallback on earlier versions
         }
+        
 
         // Set up the user agent name to include an app specific append rather
         // than just the default WKWebView build number
@@ -170,6 +178,14 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     }
     open func removeNavigationDelegate(_ del: WKNavigationDelegate) {
         self._navDelegates.removeAll(where: {$0.isEqual(del)})
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        return nil
+    }
+
+    func webViewDidClose(_ webView: WKWebView) {
+        // Handle the full-screen exit
     }
 
     // MARK: - WKNavigationDelegate
