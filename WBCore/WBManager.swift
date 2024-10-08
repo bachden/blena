@@ -30,7 +30,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
-        case device, requestDevice, getAvailability, vibrate
+        case device, requestDevice, getAvailability, vibrate, log
     }
 
     // MARK: - Properties
@@ -89,7 +89,6 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - WKScriptMessageHandler
     open func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-
         guard let trans = WBTransaction(withMessage: message) else {
             /* The transaction will have handled the error */
             return
@@ -237,8 +236,9 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             }
             self.devicePicker.showPicker()
         case .vibrate:
-            NSLog("call to vibrate()")
             vibrate(style: VibrateStyle.test)
+        case .log:
+            NSLog(transaction.messageData.jsonify())
         }
     }
 

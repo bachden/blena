@@ -23,6 +23,8 @@ import UIKit
 import WebKit
 
 class WBWebView: WKWebView, WKNavigationDelegate {
+        
+    
     
     let webBluetoothHandlerName = "bluetooth"
     private var _wbManager: WBManager?
@@ -75,6 +77,9 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         // load polyfill script
         let webCfg = WKWebViewConfiguration()
         let userController = WKUserContentController()
+        
+        
+        
         webCfg.userContentController = userController
         webCfg.allowsInlineMediaPlayback = true
         webCfg.allowsPictureInPictureMediaPlayback = true
@@ -224,6 +229,17 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             completionHandler: { _, error in
                 if let error_ = error {
                     NSLog("Error enabling vibrator in view: \(error_)")
+                }
+            }
+        )
+    }
+    
+    open func _enableLogging() {
+        self.evaluateJavaScript(
+            "window.iOSNativeAPI.enableLog()",
+            completionHandler: { _, error in
+                if let error_ = error {
+                    NSLog("Error enabling logging in view: \(error_)")
                 }
             }
         )

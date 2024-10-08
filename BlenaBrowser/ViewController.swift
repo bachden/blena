@@ -211,13 +211,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
     @IBAction func goForward() {
-        NSLog("Go forward")
         if(self.webView.canGoForward){
             self.webView.goForward()
         }
     }
     @IBAction func goBackward() {
-        NSLog("Go backward")
         if(self.webView.canGoBack){
             self.webView.goBack()
         }
@@ -226,14 +224,12 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         if self.webView.url != nil {
             if let lastRefresh = self.lastRefresh,
                Date() < lastRefresh + 1 {
-                NSLog("Hard reload")
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 if self.webView.isLoading {
                     self.webView.stopLoading()
                 }
                 self.webView.reloadFromOrigin()
             } else {
-                NSLog("Reload")
                 self.webView.reload()
             }
         } else if let textLocation = self.locationTextField?.text {
@@ -278,11 +274,23 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.urlStackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 234/255, alpha: 1.0)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissBottomSheet))
         self.view.superview?.addGestureRecognizer(tapGesture)
-
+        
+        let consoleScript = """
+                var originalLog = console.log;
+                console.log = function(message) {
+                    window.webkit.messageHandlers.consoleHandler.postMessage(String(message));
+                    originalLog.apply(console, arguments);
+                };
+                """
+        
+        let userScript = WKUserScript(source: consoleScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        self.webView.configuration.userContentController.addUserScript(userScript)
+        self.webView.configuration.userContentController.add(self, name: "consoleHandler")
 
         let nc = self.navigationController!
         nc.setNavigationBarHidden(true, animated: false)
         nc.setToolbarHidden(true, animated: false)
+        self.webView.isUserInteractionEnabled = true
 
         self.goBackButton.isEnabled = false
         self.goForwardButton.isEnabled = false

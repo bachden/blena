@@ -33,6 +33,14 @@
   }
 
   let native;
+  
+  let normalLog = window.console.log
+
+  let log = async function (text) {
+    normalLog(text)
+    // vibrate = native.sendMessage('log', {data : {log: text}})
+  }
+
 
   nslog('Create BluetoothGATTDescriptor');
   function BluetoothGATTDescriptor(characteristic, uuid) {
@@ -275,6 +283,9 @@
     enableVibrate: function (){
       navigator.vibrate = vibrate;
     },
+    enableLog : function (){
+//      window.console.log = log;
+    },
     // defeat the linter's "out of scope" warnings for not yet defined functions
     BluetoothRemoteGATTCharacteristic: wb.BluetoothRemoteGATTCharacteristic,
     BluetoothRemoteGATTServer: wb.BluetoothRemoteGATTServer,
@@ -296,6 +307,7 @@
   nslog('call enableBluetooth!');
   native.enableBluetooth();
   native.enableVibrate();
+  native.enableLog();
 
   // MARK: - Patches
   // Patch window.open so it doesn't attempt to open in a separate window or tab ever.

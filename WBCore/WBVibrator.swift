@@ -26,3 +26,7 @@ func vibrate(style: VibrateStyle){
               UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 }
+
+func JSLog(_ message: String) {
+    NSLog("JavaScript: \(message)")
+}

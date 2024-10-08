@@ -14,6 +14,8 @@ protocol ConsoleToggler {
 
 class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUIDelegate, WBPicker {
     
+    
+    
     enum prefKeys: String {
         case lastLocation
     }
@@ -119,6 +121,8 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                         print("Error evaluating JavaScript: \(error.localizedDescription)")
                     }
                 }
+        
+        
             
         self.loadingProgressContainer.isHidden = true
     }
@@ -146,13 +150,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         NSLog(error.localizedDescription)
-        if(error as NSError).code == NSURLErrorTimedOut {
-            let alert = UIAlertController(title: "Timeout", message: "The request timed out. Please try again.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            self.loadingProgressContainer.isHidden = true
-            return
-        }
         if (error as NSError).code == NSURLErrorNotConnectedToInternet {
             let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -168,19 +165,12 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         let ud = UserDefaults.standard
         let lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         NSLog(lastLocation!)
-        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
+        let cleanedURL = lastLocation?.replacingOccurrences(of: "https://", with: "") ?? "homepage://"
         self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         NSLog(error.localizedDescription)
-        if(error as NSError).code == NSURLErrorTimedOut {
-            let alert = UIAlertController(title: "Timeout", message: "The request timed out. Please try again.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            self.loadingProgressContainer.isHidden = true
-            return
-        }
         if (error as NSError).code == NSURLErrorNotConnectedToInternet {
             let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -196,7 +186,7 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         let ud = UserDefaults.standard
         let lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         NSLog(lastLocation!)
-        let cleanedURL = lastLocation!.replacingOccurrences(of: "https://", with: "")
+        let cleanedURL = lastLocation?.replacingOccurrences(of: "https://", with: "") ?? "homepage://"
         self._maybeShowErrorUI(URL(string: cleanedURL)!)
     }
     
@@ -279,6 +269,10 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     }
 
     private func _maybeShowErrorUI(_ error: URL) {
-        self.webView.load(URLRequest(url: URL(string: "https://www.google.com/search?q=" + error.absoluteString)!))
+        if(error.absoluteString == "homepage://"){
+            self.webView.load(URLRequest(url: URL(string: "homepage://")!))
+        } else {
+            self.webView.load(URLRequest(url: URL(string: "https://www.google.com/search?q=" + error.absoluteString)!))
+        }
     }
 }

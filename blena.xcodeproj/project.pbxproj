@@ -140,6 +140,8 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		11022CA72CB51573009750C1 /* ScriptLogViewer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ScriptLogViewer; sourceTree = "<group>"; };
+		11022CD42CB5185A009750C1 /* GlobalScriptDataSource */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlobalScriptDataSource; sourceTree = "<group>"; };
 		112010F62CA65CD3005D598B /* Constraint */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Constraint; sourceTree = "<group>"; };
 		112010F92CA667F4005D598B /* CustomImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomImageView; sourceTree = "<group>"; };
 		112011082CA66C8F005D598B /* HomeView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HomeView; sourceTree = "<group>"; };
@@ -255,6 +257,8 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				11022CD42CB5185A009750C1 /* GlobalScriptDataSource */,
+				11022CA72CB51573009750C1 /* ScriptLogViewer */,
 				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
 				1130C5DD2CAFF7840024030A /* LocalIPGetter */,
 				1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */,
@@ -306,6 +310,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				11022CA72CB51573009750C1 /* ScriptLogViewer */,
+				11022CD42CB5185A009750C1 /* GlobalScriptDataSource */,
 				112010F62CA65CD3005D598B /* Constraint */,
 				112010F92CA667F4005D598B /* CustomImageView */,
 				112011082CA66C8F005D598B /* HomeView */,
@@ -614,9 +620,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Blena.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Blena;
@@ -626,9 +634,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.ble.browser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Blena;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -644,9 +653,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Blena.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = YMNF5MXCL7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Blena;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -655,9 +666,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.ble.browser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Blena;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

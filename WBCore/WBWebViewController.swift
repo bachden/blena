@@ -18,6 +18,10 @@ class WBWebViewController: UIViewController, WKNavigationDelegate {
             _ userContentController: WKUserContentController,
             didReceive message: WKScriptMessage
             ) {
+                
+                if message.name == "consoleHandler", let messageBody = message.body as? String {
+                    NSLog("JavaScript console.log: \(messageBody)")
+                }
             var log: WBLog
             switch (message.body) {
             case let bodyDict as [String: Any]:

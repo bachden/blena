@@ -19,6 +19,7 @@ class SettingViewController: UIViewController {
     @IBOutlet var privacyPolicyButton : UIStackView!
     @IBOutlet var forwardButton : UIButton!
     @IBOutlet var supportUsButton : UIStackView!
+    @IBOutlet var showScriptButton : UIStackView!
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -33,10 +34,12 @@ class SettingViewController: UIViewController {
         let clearCacheGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let privacyPolicyGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let supportUsGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let showScriptGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.clearCacheButton.addGestureRecognizer(tapGesture)
         self.clearHistoryButton.addGestureRecognizer(clearCacheGesture)
         self.privacyPolicyButton.addGestureRecognizer(privacyPolicyGesture)
         self.supportUsButton.addGestureRecognizer(supportUsGesture)
+        self.showScriptButton.addGestureRecognizer(showScriptGesture)
         
         // Enable user interaction
         self.clearCacheButton.isUserInteractionEnabled = true
@@ -82,6 +85,8 @@ class SettingViewController: UIViewController {
             self.goToPrivacyPolicy()
         case self.supportUsButton:
             self.supportUsFunction()
+        case self.showScriptButton:
+            self.scriptDebugViewer()
         default:
             break
         }
@@ -133,5 +138,24 @@ class SettingViewController: UIViewController {
     
     func supportUsFunction() {
         NSLog("Support Us")
+    }
+    
+    func scriptDebugViewer() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let settingsVC = storyboard.instantiateViewController(withIdentifier: "ScriptLogViewer") as? ScriptLogViewer {
+            settingsVC.modalPresentationStyle = .pageSheet
+            if #available(iOS 15.0, *) {
+                if let sheet = settingsVC.sheetPresentationController {
+                    // Customize detents (heights) for the bottom sheet
+                    sheet.detents = [.large()] // Medium and large sizes
+                    sheet.largestUndimmedDetentIdentifier = .large
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+
+            // Present the bottom sheet
+            self.present(settingsVC, animated: true, completion: nil)
+        }
     }
 }
