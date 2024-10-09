@@ -12,6 +12,7 @@ class ScriptLogViewer: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBOutlet weak var segmentControler: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    var noDataLabel: UILabel!
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -21,6 +22,15 @@ class ScriptLogViewer: UIViewController, UITableViewDelegate, UITableViewDataSou
 
             // Assign the data source
             tableView.dataSource = self
+        
+            noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text = "No Data Available"
+            noDataLabel.textColor = .gray
+            noDataLabel.textAlignment = .center
+            noDataLabel.font = UIFont.systemFont(ofSize: 20)
+            noDataLabel.isHidden = false // Hide initially
+        
+            tableView.backgroundView = noDataLabel
 
             // Reload the table view when data changes
             tableView.reloadData()
@@ -30,7 +40,15 @@ class ScriptLogViewer: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         // Return the number of rows for the table view (in this case, the number of log data entries)
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return GlobalDataSource.shared.data.count
+            let count = GlobalDataSource.shared.data.count
+            if count == 0 {
+                       noDataLabel.isHidden = false
+                       tableView.separatorStyle = .none
+                   } else {
+                       noDataLabel.isHidden = true
+                       tableView.separatorStyle = .singleLine
+                   }
+            return count
         }
 
         // Provide a cell object for each row

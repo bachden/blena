@@ -106,8 +106,10 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                 // Inject JavaScript and handle the result
                 webView.evaluateJavaScript(script) { [weak self] result, error in
                     let ud = UserDefaults.standard
-                    NSLog(result as! String)
-                    if(result as! String == "rgba(0, 0, 0, 0)"){
+                    if(result == nil){
+                        ud.setValue("#FFFFFF", forKey: "StatusBarColor")
+                    }
+                    else if(result as! String == "rgba(0, 0, 0, 0)"){
                         ud.setValue("#FFFFFF", forKey: "StatusBarColor")
                     } else {
                         ud.setValue(self?.rgbToHex(rgb: (result as! String)), forKey: "StatusBarColor")

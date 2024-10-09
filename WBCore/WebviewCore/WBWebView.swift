@@ -23,8 +23,6 @@ import UIKit
 import WebKit
 
 class WBWebView: WKWebView, WKNavigationDelegate {
-        
-    
     
     let webBluetoothHandlerName = "bluetooth"
     private var _wbManager: WBManager?
@@ -72,6 +70,27 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         
         return super.goForward()
     }
+    
+    // Correctly overriding the WKNavigationDelegate method
+        func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+            // Check if the MIME type can be displayed
+            if navigationResponse.canShowMIMEType {
+                NSLog(navigationResponse.response.mimeType!)
+                if(MimeTypeHandler().isDownloadable(mimeType: navigationResponse.response.mimeType!)){
+                    decisionHandler(.download)
+                } else{
+                    decisionHandler(.allow)
+                }
+            } else {
+                if #available(iOS 14.5, *) {
+                    // If the MIME type can't be displayed, start the download (iOS 14.5+)
+                    decisionHandler(.download)
+                } else {
+                    // Fallback for older iOS versions (just cancel the request)
+                    decisionHandler(.cancel)
+                }
+            }
+        }
 
     convenience public required init?(coder: NSCoder) {
         // load polyfill script
@@ -244,6 +263,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             }
         )
     }
+    
     
 
 }

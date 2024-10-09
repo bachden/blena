@@ -170,6 +170,7 @@
                         <outlet property="refreshButton" destination="oO1-mF-VKM" id="57J-h8-njt"/>
                         <outlet property="settingButton" destination="EbB-L7-i2i" id="A9G-3z-EUT"/>
                         <outlet property="showURLBarButton" destination="70A-XE-Fay" id="tgS-dN-q7q"/>
+                        <outlet property="showURLBarWidth" destination="FR4-V2-50a" id="Frh-Nw-3gg"/>
                         <outlet property="urlStackView" destination="lT4-1X-djj" id="ggn-xD-yHg"/>
                         <outlet property="urlStackViewConstraint" destination="maD-oI-MvD" id="REB-NJ-Dns"/>
                         <outlet property="urlStackViewConstraintHeight" destination="maD-oI-MvD" id="wFo-SK-M6U"/>

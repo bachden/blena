@@ -53,6 +53,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     @IBOutlet weak var goFowardWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var homeButtonWidthConstraint: NSLayoutConstraint!
     // MARK: define private widget
+    @IBOutlet weak var showURLBarWidth: NSLayoutConstraint!
     private let reloadButton = UIButton(type: .system)
 
 
@@ -105,31 +106,32 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
 
     func setupReloadButton() {
-        reloadButton.setImage(UIImage(systemName: "arrow.clockwise")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        reloadButton.imageView?.contentMode = .scaleAspectFit
-        reloadButton.tintColor = .black
-        reloadButton.addTarget(self, action: #selector(innerReloadTap), for: .touchUpInside)
-        // Ensure that auto layout is used
-        reloadButton.translatesAutoresizingMaskIntoConstraints = false
-
-        // Add the reload button as a rightView to the locationTextField
-        locationTextField.rightView = reloadButton
-        locationTextField.rightViewMode = .always
-
-        // Set constraints for the reload button within the text field
-        if let rightView = locationTextField.rightView {
-            rightView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                // Position the reload button 8 points from the right edge of the text field
-                rightView.trailingAnchor.constraint(equalTo: locationTextField.trailingAnchor, constant: -16),
-                // Align the reload button vertically to the center of the text field
-                rightView.centerYAnchor.constraint(equalTo: locationTextField.centerYAnchor),
-                // Set a width and height for the reload button
-                rightView.widthAnchor.constraint(equalToConstant: 14),
-                rightView.heightAnchor.constraint(equalToConstant: 14)
-            ])
-        }
-
+        // Ensure button creation is on the main thread
+            DispatchQueue.main.async {
+                self.reloadButton.setImage(UIImage(systemName: "arrow.clockwise")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                self.reloadButton.imageView?.contentMode = .scaleAspectFit
+                self.reloadButton.tintColor = .black
+                self.reloadButton.addTarget(self, action: #selector(self.innerReloadTap), for: .touchUpInside)
+                
+                // Ensure that auto layout is used
+                self.reloadButton.translatesAutoresizingMaskIntoConstraints = false
+                
+                // Add the reload button as a rightView to the locationTextField
+                self.locationTextField.rightView = self.reloadButton
+                self.locationTextField.rightViewMode = .always
+                
+                // Set constraints for the reload button within the text field
+                if let rightView = self.locationTextField.rightView {
+                    rightView.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    // Constrain the rightView inside the text field
+                    NSLayoutConstraint.activate([
+//                        rightView.centerYAnchor.constraint(equalTo: self.locationTextField.centerYAnchor),
+                        rightView.widthAnchor.constraint(equalToConstant: 24), // Adjust button size
+                        rightView.heightAnchor.constraint(equalToConstant: 24)
+                    ])
+                }
+            }
     }
 
     @objc func innerReloadTap() {
@@ -266,15 +268,15 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        self.showURLBarWidth.constant = 0
         self.showURLBarButton.isHidden = true
-        self.additionalSafeAreaInsets.top = 0
         setupReloadButton()
         self.activityState = .inactive
         self.locationTextField.rightViewMode = .always
         self.urlStackView.backgroundColor = UIColor(red: 229/255, green: 229/255, blue: 234/255, alpha: 1.0)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissBottomSheet))
         self.view.superview?.addGestureRecognizer(tapGesture)
-        
+
         let consoleScript = """
                 var originalLog = console.log;
                 console.log = function(message) {
@@ -282,7 +284,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                     originalLog.apply(console, arguments);
                 };
                 """
-        
+
         let userScript = WKUserScript(source: consoleScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         self.webView.configuration.userContentController.addUserScript(userScript)
         self.webView.configuration.userContentController.add(self, name: "consoleHandler")
@@ -543,6 +545,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.urlStackViewConstraintHeight.constant = 100
         self.showURLBarButton.isHidden = false
         self.ShowURLBarButtonHeight.constant = 70
+        self.showURLBarWidth.constant = 20
         self.view.bringSubviewToFront(self.urlStackView)
         self.view.backgroundColor = statusColor
         UIView.animate(withDuration: 0.3) {
@@ -551,6 +554,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
     @IBAction func showUrlStackView() {
+        self.showURLBarWidth.constant = 0
         let statusColor = UIColor(red: 229/255, green: 229/255, blue: 234/255, alpha: 1.0)
         self.urlStackViewConstrantLeading.constant = 0
         self.containerViewConstraint.constant = 40
