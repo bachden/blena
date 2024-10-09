@@ -138,7 +138,7 @@ class SettingViewController: UIViewController {
     
     func supportUsFunction() {
         NSLog("Support Us")
-        let url = URL(string: "a.v")!
+        let url = URL(string: "https://buymeacoffee.com/hoangbachb1")!
         guard UIApplication.shared.canOpenURL(url) else {
             let alert = UIAlertController(title: "Can't open URL",message: "Can't navigate to this URL.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
