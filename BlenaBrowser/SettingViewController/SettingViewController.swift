@@ -18,7 +18,6 @@ class SettingViewController: UIViewController {
     @IBOutlet var clearHistoryButton : UIStackView!
     @IBOutlet var privacyPolicyButton : UIStackView!
     @IBOutlet var forwardButton : UIButton!
-    @IBOutlet var supportUsButton : UIStackView!
     @IBOutlet var showScriptButton : UIStackView!
     
     override func viewDidLoad() {
@@ -33,12 +32,10 @@ class SettingViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let clearCacheGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let privacyPolicyGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let supportUsGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let showScriptGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.clearCacheButton.addGestureRecognizer(tapGesture)
         self.clearHistoryButton.addGestureRecognizer(clearCacheGesture)
         self.privacyPolicyButton.addGestureRecognizer(privacyPolicyGesture)
-        self.supportUsButton.addGestureRecognizer(supportUsGesture)
         self.showScriptButton.addGestureRecognizer(showScriptGesture)
         
         // Enable user interaction
@@ -83,8 +80,6 @@ class SettingViewController: UIViewController {
             removeHistory()
         case self.privacyPolicyButton:
             self.goToPrivacyPolicy()
-        case self.supportUsButton:
-            self.supportUsFunction()
         case self.showScriptButton:
             self.scriptDebugViewer()
         default:
@@ -135,18 +130,7 @@ class SettingViewController: UIViewController {
     func goToPrivacyPolicy() {
         NSLog("Privacy Policy")
     }
-    
-    func supportUsFunction() {
-        NSLog("Support Us")
-        let url = URL(string: "https://buymeacoffee.com/hoangbachb1")!
-        guard UIApplication.shared.canOpenURL(url) else {
-            let alert = UIAlertController(title: "Can't open URL",message: "Can't navigate to this URL.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
+
     
     func scriptDebugViewer() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

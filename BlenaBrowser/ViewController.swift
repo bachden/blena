@@ -166,6 +166,15 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 // Present the bottom sheet
                 self.present(settingsVC, animated: true, completion: nil)
             }
+        case "Support Us":
+                let url = URL(string: "https://buymeacoffee.com/bachhoangnguyen")!
+                guard UIApplication.shared.canOpenURL(url) else {
+                    let alert = UIAlertController(title: "Can't open URL",message: "Can't navigate to this URL.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
         default :
             break
         }
