@@ -111,15 +111,23 @@ class SettingViewController: UIViewController {
     
     // Mark: Remove history
     func removeHistory() {
-        let alertActionController = UIAlertController(title: "Clear History", message: "Are you sure you want to remove history?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { action in
-            self.removeAllHistory()
-            self.view.makeToast("History has been cleared successfully.")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let settingsVC = storyboard.instantiateViewController(withIdentifier: "HistoryViewController") as? HistoryViewController {
+            settingsVC.modalPresentationStyle = .pageSheet
+            if #available(iOS 15.0, *) {
+                if let sheet = settingsVC.sheetPresentationController {
+                    // Customize detents (heights) for the bottom sheet
+                    sheet.detents = [.large()] // Medium and large sizes
+                    sheet.largestUndimmedDetentIdentifier = .large
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+
+            // Present the bottom sheet
+            self.present(settingsVC, animated: true, completion: nil)
         }
-        let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        alertActionController.addAction(yesAction)
-        alertActionController.addAction(noAction)
-        present(alertActionController, animated: true, completion: nil)
     }
     
     func removeAllHistory() {

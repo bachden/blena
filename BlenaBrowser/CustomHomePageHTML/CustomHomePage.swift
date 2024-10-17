@@ -40,7 +40,7 @@ let homePageHTMLPage = """
             justify-content: center;
             gap: 20px;
         }
-        
+
         .homepage_link{
             border-radius: 16px;
             text-decoration: none; /* Remove underline */

@@ -12,7 +12,7 @@ let DURATION = 0.3
 class WBShowPickerSegue: UIStoryboardSegue {
     override func perform() {
         let wvcc = self.source as! WBWebViewContainerController
-        let puvc = self.destination as! WBPopUpPickerController
+        let puvc = self.destination as! ConnectDeviceViewController
         wvcc.addChild(self.destination)
         wvcc.view.addSubview(self.destination.view)
         let topBotConstraint = wvcc.view.bottomAnchor.constraint(equalTo: puvc.view.topAnchor)
@@ -35,7 +35,7 @@ class WBShowPickerSegue: UIStoryboardSegue {
 class WBHidePickerSegue: UIStoryboardSegue {
     override func perform() {
         let wvcc = self.destination as! WBWebViewContainerController
-        let puvc = self.source as! WBPopUpPickerController
+        let puvc = self.source as! ConnectDeviceViewController
         wvcc.view.removeConstraint(wvcc.popUpPickerBottomConstraint!)
         wvcc.popUpPickerBottomConstraint = nil
         UIView.animate(withDuration: DURATION, animations: {
@@ -62,7 +62,7 @@ class ShowConsoleSegue: UIStoryboardSegue {
         cc.wbLogManager = vc.webViewController.logManager
 
         // Configure the height
-        let prevHeight = CGFloat(UserDefaults.standard.float(forKey: "lastConsoleHeight"))
+        let prevHeight = CGFloat(UserDefaults(suiteName: "group.com.nhb.blena")!.float(forKey: "lastConsoleHeight"))
         let heightConstraint =
             cc.consoleScrollViewHeightConstraint!
         heightConstraint.constant = (
@@ -116,7 +116,7 @@ class ShowConsoleSegue: UIStoryboardSegue {
             }
         )
 
-        UserDefaults.standard.setValue(true, forKey: ViewController.prefKeys.consoleOpen.rawValue)
+        UserDefaults(suiteName: "group.com.nhb.blena")!.setValue(true, forKey: ViewController.prefKeys.consoleOpen.rawValue)
     }
 }
 
@@ -148,6 +148,6 @@ class HideConsoleSegue: UIStoryboardSegue {
                 vcv.layoutIfNeeded()
             }
         )
-        UserDefaults.standard.setValue(true, forKey: ViewController.prefKeys.consoleOpen.rawValue)
+        UserDefaults(suiteName: "group.com.nhb.blena")!.setValue(true, forKey: ViewController.prefKeys.consoleOpen.rawValue)
     }
 }

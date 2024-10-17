@@ -14,6 +14,10 @@
 		112011072CA66B31005D598B /* apple-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011062CA66B31005D598B /* apple-icon.png */; };
 		1130C5D52CAFE0D60024030A /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = 1130C5D42CAFE0D60024030A /* Telegraph */; };
 		1141D0E82CB63680004B78BB /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 1141D0E72CB63680004B78BB /* Documentation.docc */; };
+		116ABF7C2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */; };
+		116ABF7D2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */; };
+		116ABFA32CBE7B11005F9726 /* OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116ABFA22CBE7B11005F9726 /* OpenURL.swift */; };
+		116ABFA42CBE7B11005F9726 /* OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116ABFA22CBE7B11005F9726 /* OpenURL.swift */; };
 		11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */; };
 		11C9A9632CABA3C8009BB168 /* vibration.js in Resources */ = {isa = PBXBuildFile; fileRef = 11C9A9622CABA3C8009BB168 /* vibration.js */; };
 		11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8401B2CA5656A00CC5235 /* HomeViewController.swift */; };
@@ -64,6 +68,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		116ABF7A2CBE6B7E005F9726 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		116ABFA12CBE7AEB005F9726 /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		111ABF662CA705720010F952 /* BLENA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLENA.png; sourceTree = "<group>"; };
 		112011002CA66A78005D598B /* google-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-icon.png"; sourceTree = "<group>"; };
@@ -73,6 +100,14 @@
 		1141D0D62CB61AD3004B78BB /* BlenaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1141D0E72CB63680004B78BB /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		114B78BD2CA2713B00D42932 /* Blena.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blena.entitlements; sourceTree = SOURCE_ROOT; };
+		116ABF582CBE6B7E005F9726 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		116ABF632CBE6B7E005F9726 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = OpenURL.intentdefinition; sourceTree = "<group>"; };
+		116ABFA22CBE7B11005F9726 /* OpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenURL.swift; sourceTree = "<group>"; };
+		116AC0302CBFA236005F9726 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		116AC0322CBFA236005F9726 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		116AC0812CBFC7B3005F9726 /* BlenaDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlenaDebug.entitlements; sourceTree = SOURCE_ROOT; };
+		116AC0822CBFC7DB005F9726 /* widgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = widgetExtensionDebug.entitlements; path = widgetExtension/widgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTabViewController.swift; sourceTree = "<group>"; };
 		11C9A9622CABA3C8009BB168 /* vibration.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = vibration.js; sourceTree = "<group>"; };
 		11D8401B2CA5656A00CC5235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +165,7 @@
 		1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomHomePageHTML; sourceTree = "<group>"; };
 		1130C5DD2CAFF7840024030A /* LocalIPGetter */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LocalIPGetter; sourceTree = "<group>"; };
 		11357B7F2CA84B290009FB1E /* Tab */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tab; sourceTree = "<group>"; };
+		113889A72CB8C8B2007CA59C /* BluetoothDevicesList */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BluetoothDevicesList; sourceTree = "<group>"; };
 		1141D0A12CB52AE3004B78BB /* MineTypeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MineTypeHandler; sourceTree = "<group>"; };
 		1141D0D72CB61AD3004B78BB /* BlenaUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BlenaUITests; sourceTree = "<group>"; };
 		1141D0E12CB633DB004B78BB /* ErrorViewHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ErrorViewHandler; sourceTree = "<group>"; };
@@ -138,10 +174,16 @@
 		1141D0E42CB6340E004B78BB /* Bridge */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Bridge; sourceTree = "<group>"; };
 		1141D0E52CB63431004B78BB /* WebviewCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebviewCore; sourceTree = "<group>"; };
 		1141D0E62CB6343F004B78BB /* LogManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LogManager; sourceTree = "<group>"; };
+		116AC0262CBF69B7005F9726 /* Intent */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Intent; sourceTree = "<group>"; };
+		116AC0832CBFD1EB005F9726 /* Shared Function */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Shared Function"; sourceTree = "<group>"; };
+		1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DebugStatusStream; sourceTree = "<group>"; };
+		1198F7572CC1012500A0D0E1 /* AboutBlena */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutBlena; sourceTree = "<group>"; };
 		11BB59152CB39E1B00F07CCB /* SchemeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SchemeHandler; sourceTree = "<group>"; };
 		11C9A95D2CAB9D56009BB168 /* Toast */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Toast; sourceTree = "<group>"; };
 		11C9A9692CAC47DF009BB168 /* Animation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Animation; sourceTree = "<group>"; };
 		11C9A96B2CAC49B6009BB168 /* CustomAdressBar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomAdressBar; sourceTree = "<group>"; };
+		11CEFA322CB77E3F00BCB18F /* History */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = History; sourceTree = "<group>"; };
+		11CEFA3A2CB7C3AF00BCB18F /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		11DD70F62CAE496100946743 /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
 		11DD70FB2CAE5A7D00946743 /* SettingViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SettingViewController; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -172,6 +214,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		116ABF572CBE6B7E005F9726 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				116ABF582CBE6B7E005F9726 /* Intents.framework */,
+				116ABF632CBE6B7E005F9726 /* IntentsUI.framework */,
+				116AC0302CBFA236005F9726 /* WidgetKit.framework */,
+				116AC0322CBFA236005F9726 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5A10929C2168D5B6002CC973 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +244,7 @@
 		5A233341230353E1008D9F03 /* WBCore */ = {
 			isa = PBXGroup;
 			children = (
+				113889A72CB8C8B2007CA59C /* BluetoothDevicesList */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E42CB6340E004B78BB /* Bridge */,
@@ -227,10 +281,14 @@
 		E44C184D1A36203E00734F8B = {
 			isa = PBXGroup;
 			children = (
+				116AC0822CBFC7DB005F9726 /* widgetExtensionDebug.entitlements */,
+				116ABFA22CBE7B11005F9726 /* OpenURL.swift */,
+				116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */,
 				1141D0E72CB63680004B78BB /* Documentation.docc */,
 				5A233341230353E1008D9F03 /* WBCore */,
 				E44C18581A36203E00734F8B /* Blena */,
 				1141D0D72CB61AD3004B78BB /* BlenaUITests */,
+				116ABF572CBE6B7E005F9726 /* Frameworks */,
 				E44C18571A36203E00734F8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -248,6 +306,13 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				1198F7572CC1012500A0D0E1 /* AboutBlena */,
+				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
+				116AC0832CBFD1EB005F9726 /* Shared Function */,
+				116AC0812CBFC7B3005F9726 /* BlenaDebug.entitlements */,
+				116AC0262CBF69B7005F9726 /* Intent */,
+				11CEFA3A2CB7C3AF00BCB18F /* Shared */,
+				11CEFA322CB77E3F00BCB18F /* History */,
 				11022CD42CB5185A009750C1 /* GlobalScriptDataSource */,
 				11022CA72CB51573009750C1 /* ScriptLogViewer */,
 				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
@@ -318,6 +383,8 @@
 				E44C18521A36203E00734F8B /* Sources */,
 				E44C18531A36203E00734F8B /* Frameworks */,
 				E44C18541A36203E00734F8B /* Resources */,
+				116ABF7A2CBE6B7E005F9726 /* Embed Foundation Extensions */,
+				116ABFA12CBE7AEB005F9726 /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
@@ -333,6 +400,7 @@
 				1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */,
 				1130C5DD2CAFF7840024030A /* LocalIPGetter */,
 				11357B7F2CA84B290009FB1E /* Tab */,
+				113889A72CB8C8B2007CA59C /* BluetoothDevicesList */,
 				1141D0A12CB52AE3004B78BB /* MineTypeHandler */,
 				1141D0E12CB633DB004B78BB /* ErrorViewHandler */,
 				1141D0E22CB633EE004B78BB /* WebkitSegues */,
@@ -340,9 +408,15 @@
 				1141D0E42CB6340E004B78BB /* Bridge */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
+				116AC0262CBF69B7005F9726 /* Intent */,
+				116AC0832CBFD1EB005F9726 /* Shared Function */,
+				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
+				1198F7572CC1012500A0D0E1 /* AboutBlena */,
 				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
 				11C9A95D2CAB9D56009BB168 /* Toast */,
 				11C9A96B2CAC49B6009BB168 /* CustomAdressBar */,
+				11CEFA322CB77E3F00BCB18F /* History */,
+				11CEFA3A2CB7C3AF00BCB18F /* Shared */,
 				11DD70F62CAE496100946743 /* Extension */,
 				11DD70FB2CAE5A7D00946743 /* SettingViewController */,
 			);
@@ -473,6 +547,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1141D0E82CB63680004B78BB /* Documentation.docc in Sources */,
+				116ABFA32CBE7B11005F9726 /* OpenURL.swift in Sources */,
+				116ABF7C2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,8 +559,10 @@
 				5A4B8E1F2157ABC500C7C858 /* ConsoleLogViewController.swift in Sources */,
 				11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */,
 				5AC8067D21655B5E00AA5176 /* DividerView.swift in Sources */,
+				116ABF7D2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */,
 				5A7579EA2151588B003F0CEA /* ConsoleViewController.swift in Sources */,
 				5A4B8E1B2157A34800C7C858 /* ConsoleLogView.swift in Sources */,
+				116ABFA42CBE7B11005F9726 /* OpenURL.swift in Sources */,
 				E44C185C1A36203E00734F8B /* AppDelegate.swift in Sources */,
 				11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */,
 				5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */,
@@ -722,11 +800,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Blena.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BlenaDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
@@ -742,7 +820,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Blena;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = blena_prov;
 				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -761,7 +839,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;

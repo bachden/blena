@@ -49,7 +49,7 @@ class TabManager {
     }
     func saveBookmarks() {
         let bms = self.tabItems.map{$0.dictionary}
-        let ud = UserDefaults.standard
+        let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         ud.set(bms, forKey: self.key)
         ud.synchronize()
     }

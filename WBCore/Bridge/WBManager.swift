@@ -23,10 +23,44 @@ import WebKit
 protocol WBPicker {
     func showPicker()
     func updatePicker()
+    func addRow(_ row: String)
 }
 
-open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler, WBPopUpPickerViewDelegate
+protocol ConnectDeviceDelegate: AnyObject {
+    func dismissVC()
+}
+
+
+open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler, WBPopUpPickerViewDelegate, UITableViewDelegate, UITableViewDataSource
 {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.pickerDevices.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dev = self.pickerDevices[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BluetoothTableViewColumn", for: indexPath) as? BluetoothTableViewCell else {
+            return UITableViewCell(
+            )
+        }
+        // Configure the cell with the history object
+        cell.configure(with: dev.name ?? "No Name" , uuid: dev.internalUUID.uuidString, description: dev.description, connecAction: {
+            self.selectDeviceAt(indexPath.row)
+        }, closeTableView: {
+            self.connectDeviceViewControllerDelegate?.dismissVC()
+        })
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NSLog("tapped")
+        guard let tappedCell = tableView.cellForRow(at: indexPath) as? BluetoothTableViewCell else { return }
+
+       // Toggle the details of the tapped cell
+       tappedCell.toggleDetails()
+    }
+    
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
@@ -37,6 +71,8 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     let debug = true
     let centralManager = CBCentralManager(delegate: nil, queue: nil)
     var devicePicker: WBPicker
+    var connectDeviceViewControllerDelegate : ConnectDeviceDelegate?
+    
 
     /*! @abstract The devices selected by the user for use by this manager. Keyed by the UUID provided by the system. */
     var devicesByInternalUUID = [UUID: WBDevice]()
@@ -65,8 +101,9 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     }
 
     // MARK: - Constructors / destructors
-    init(devicePicker: WBPicker) {
+    init(devicePicker: WBPicker, connectDeviceDelegate: ConnectDeviceDelegate) {
         self.devicePicker = devicePicker
+        self.connectDeviceViewControllerDelegate = connectDeviceDelegate
         super.init()
         self.centralManager.delegate = self
     }
@@ -85,6 +122,15 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         self.requestDeviceTransaction?.resolveAsFailure(withMessage: "User cancelled")
         self.stopScanForPeripherals()
         self._clearPickerView()
+    }
+    
+    public func refreshData() {
+        self.cancelDeviceSearch()
+        if(self.filters == nil){
+            self.scanForAllPeripherals()
+        } else {
+            scanForPeripherals(with: self.filters!)
+        }
     }
 
     // MARK: - WKScriptMessageHandler
@@ -257,6 +303,16 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         self._clearPickerView()
     }
 
+    public func disconnectAllDevices() {
+        for (_, device) in devicesByInternalUUID {
+                let peripheral = device.peripheral
+                if peripheral.state == .connected {
+                    centralManager.cancelPeripheralConnection(peripheral)
+                    print("Disconnecting device: \(device.name ?? "<no name>")")
+                }
+            }
+        }
+    
     private func deviceWasSelected(_ device: WBDevice) {
         // TODO: think about whether overwriting any existing device is an issue.
         self.devicesByExternalUUID[device.deviceId] = device;
@@ -264,13 +320,14 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     }
 
     func scanForAllPeripherals() {
+        disconnectAllDevices()
         self._clearPickerView()
         self.filters = nil
         centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
 
     func scanForPeripherals(with filters:[[String: AnyObject]]) {
-
+        disconnectAllDevices()
         let services = filters.reduce([String](), {
             (currReduction, nextValue) in
             if let nextServices = nextValue["services"] as? [String] {

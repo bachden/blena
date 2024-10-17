@@ -16,6 +16,7 @@
 import UIKit
 import WebKit
 import Telegraph
+import WidgetKit
 
 enum URLTextFieldState : String {
     case editing, inactive
@@ -90,7 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 self.settingButton.alpha = 1
                 self.settingButton.isHidden = false
                 self.goForwardButton.alpha = 1
-                self.goForwardButton.isEnabled = UserDefaults.standard.bool(forKey: "OldCanGoForward")
+                self.goForwardButton.isEnabled = UserDefaults(suiteName: "group.com.nhb.blena")!.bool(forKey: "OldCanGoForward")
                 self.goFowardWidthConstraint.constant = 40
                 self.refreshButton.alpha = 1
                 self.refreshButton.isEnabled = true
@@ -104,7 +105,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
 
-
     func setupReloadButton() {
         // Ensure button creation is on the main thread
             DispatchQueue.main.async {
@@ -112,18 +112,18 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 self.reloadButton.imageView?.contentMode = .scaleAspectFit
                 self.reloadButton.tintColor = .black
                 self.reloadButton.addTarget(self, action: #selector(self.innerReloadTap), for: .touchUpInside)
-                
+
                 // Ensure that auto layout is used
                 self.reloadButton.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 // Add the reload button as a rightView to the locationTextField
                 self.locationTextField.rightView = self.reloadButton
                 self.locationTextField.rightViewMode = .always
-                
+
                 // Set constraints for the reload button within the text field
                 if let rightView = self.locationTextField.rightView {
                     rightView.translatesAutoresizingMaskIntoConstraints = false
-                    
+
                     // Constrain the rightView inside the text field
                     NSLayoutConstraint.activate([
 //                        rightView.centerYAnchor.constraint(equalTo: self.locationTextField.centerYAnchor),
@@ -146,9 +146,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         case "Share":
             sharePage()
         case "Set As Home Page":
-            let ud = UserDefaults.standard
+            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
             ud.set(locationTextField.text, forKey: "HomePageLocation")
             self.view.makeToast("Successfully set as home page")
+            WidgetCenter.shared.reloadAllTimelines()
         case "Settings":
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as? SettingViewController {
@@ -166,22 +167,30 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 // Present the bottom sheet
                 self.present(settingsVC, animated: true, completion: nil)
             }
-        case "Support Us":
-                let url = URL(string: "https://buymeacoffee.com/bachhoangnguyen")!
-                guard UIApplication.shared.canOpenURL(url) else {
-                    let alert = UIAlertController(title: "Can't open URL",message: "Can't navigate to this URL.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                    return
+        case "About Blena":
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let settingsVC = storyboard.instantiateViewController(withIdentifier: "AboutBlenaController") as? AboutBlenaController {
+                settingsVC.modalPresentationStyle = .pageSheet
+                if #available(iOS 15.0, *) {
+                    if let sheet = settingsVC.sheetPresentationController {
+                        // Customize detents (heights) for the bottom sheet
+                        sheet.detents = [.large()] // Medium and large sizes
+                        sheet.largestUndimmedDetentIdentifier = .large
+                    }
+                } else {
+                    // Fallback on earlier versions
                 }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                
+                    self.present(settingsVC, animated: true, completion: nil)
+                // Present the bottom sheet
+            }
         default :
             break
         }
     }
 
     @IBAction func goToHomePage(){
-        let ud = UserDefaults.standard
+        let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         let homePageLocation = ud.value(forKey: "HomePageLocation") as? String
         NSLog("homePageLocation: \(homePageLocation!)")
         if(homePageLocation != nil){
@@ -270,7 +279,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
-        UserDefaults.standard.set(false, forKey: "OldCanGoForward")
+        UserDefaults(suiteName: "group.com.nhb.blena")!.set(false, forKey: "OldCanGoForward")
     }
 
     // MARK: - Event handling
@@ -297,6 +306,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         let userScript = WKUserScript(source: consoleScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         self.webView.configuration.userContentController.addUserScript(userScript)
         self.webView.configuration.userContentController.add(self, name: "consoleHandler")
+        if #available(iOS 16.4, *) {
+            self.webView.isInspectable = true
+        } else {
+            // Fallback on earlier versions
+        }
 
         let nc = self.navigationController!
         nc.setNavigationBarHidden(true, animated: false)
@@ -305,7 +319,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
         self.goBackButton.isEnabled = false
         self.goForwardButton.isEnabled = false
-        let ud = UserDefaults.standard
+        let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         let homePageLocation = ud.value(forKey: "HomePageLocation") as? String
         if(homePageLocation == nil){
                 ud.set("homepage://", forKey: "HomePageLocation")
@@ -406,7 +420,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog("Failed to convert location \(location) into a URL")
             return
         }
-        let ud = UserDefaults.standard
+        let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         ud.set(location, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         loadURL(url)
     }
@@ -418,7 +432,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             return
         }
         self.setLocationText(url.absoluteString)
-        UserDefaults.standard.set(url.absoluteString, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
+        UserDefaults(suiteName: "group.com.nhb.blena")!.set(url.absoluteString, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         self.webView.load(URLRequest(url: url))
     }
     func setLocationText(_ text: String) {
@@ -443,6 +457,53 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
                 }
             } catch{}
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        Task {
+            do {
+                let (faviconUrl, title) = try await getFaviconAndTitle()
+                print("Favicon URL: \(faviconUrl)")
+                print("Page Title: \(title)")
+            } catch {
+                print("Failed to fetch favicon and title: \(error)")
+            }
+        }
+    }
+
+
+    func getFaviconAndTitle() async throws -> (String, String) {
+        // JavaScript to get the favicon and the page title
+        let js = """
+            (function() {
+                let favicon = '';
+                // Try to get favicon from link tags
+                var nodeList = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
+                if (nodeList.length > 0) {
+                    favicon = nodeList[0].href;
+                }
+                let title = document.title; // Get the title of the page
+
+                return {
+                    favicon: favicon,
+                    title: title
+                };
+            })();
+        """
+
+        return try await withCheckedThrowingContinuation { continuation in
+            webView.evaluateJavaScript(js) { (result, error) in
+                if let resultDict = result as? [String: Any] {
+                    // Extract the favicon and title from the result
+                    let faviconUrl = resultDict["favicon"] as? String ?? "No Favicon"
+                    let title = resultDict["title"] as? String ?? "No Title"
+
+                    continuation.resume(returning: (faviconUrl, title))
+                } else if let error = error {
+                    continuation.resume(returning: ("No Fav", "No Tittle"))
+                }
+            }
         }
     }
 
@@ -501,12 +562,41 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             NSLog(defChange[NSKeyValueChangeKey.newKey] as! Bool == true ? "true" : "false")
             self.goBackButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "canGoForward":
-            UserDefaults.standard.setValue(defChange[NSKeyValueChangeKey.newKey] as! Bool, forKey: "OldCanGoForward")
+            UserDefaults(suiteName: "group.com.nhb.blena")!.setValue(defChange[NSKeyValueChangeKey.newKey] as! Bool, forKey: "OldCanGoForward")
             self.goForwardButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "navBarIsHidden":
             return ;
         case "pickerIsShowing":
             return;
+//        case "URL":
+//            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
+//            if(ud.data(forKey: HistoryKeyword.rawValue.rawValue) == nil){
+//                setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
+//                Task {
+//                    do {
+//                        let (favIcon, title) = try await getFaviconAndTitle()
+//                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString, image: favIcon), at: 0)
+//                        let saveStatus = HistoryDataSource.shared.saveHistory()
+//                        NSLog("\(saveStatus)")
+//                    } catch {
+//                        print("Failed to fetch favicon and title: \(error)")
+//                    }
+//                }
+//            } else if let historyData = ud.data(forKey: HistoryKeyword.rawValue.rawValue), let history = try? JSONDecoder().decode([HistoryObject].self, from: historyData), history.first?.url == (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString{
+//                return;
+//            } else {
+//                setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
+//                Task {
+//                    do {
+//                        let (favIcon, title) = try await getFaviconAndTitle()
+//                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString, image: favIcon), at: 0)
+//                        let saveStatus = HistoryDataSource.shared.saveHistory()
+//                        NSLog("\(saveStatus)")
+//                    } catch {
+//                        print("Failed to fetch favicon and title: \(error)")
+//                    }
+//                }
+//            }
         default:
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }
@@ -535,7 +625,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
     func hideUrlStackView() {
-        let ud = UserDefaults.standard
+        let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         print(ud.string(forKey: "StatusBarColor")!)
         let statusColor = UIColor(hex: ud.string(forKey: "StatusBarColor")!)
         self.containerViewConstraint.constant = 0

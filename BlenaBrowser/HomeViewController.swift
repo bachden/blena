@@ -85,7 +85,7 @@ class HomeViewController: UIViewController {
             NSLog(location)
 
 
-            let ud = UserDefaults.standard
+            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
             ud.set(location, forKey: "LastDirectLocation")
             // Create a transition animation
             let transition = CATransition()

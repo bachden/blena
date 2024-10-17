@@ -13,7 +13,7 @@ class AllTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tabManager = TabManager(userDefaults: UserDefaults.standard, key: "tab")
+        let tabManager = TabManager(userDefaults: UserDefaults(suiteName: "group.com.nhb.blena")!, key: "tab")
         NSLog("\(tabManager.tabItems)")
     }
 }

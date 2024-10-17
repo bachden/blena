@@ -53,7 +53,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     override func goBack() -> WKNavigation? {
         if let backItem = self.backForwardList.backItem{
             let url = backItem.url
-            let ud = UserDefaults.standard
+            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
             ud.set(url, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         }
             
@@ -64,12 +64,27 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     override func goForward() -> WKNavigation? {
         if let forwardItem = self.backForwardList.forwardItem{
             let url = forwardItem.url
-            let ud = UserDefaults.standard
+            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
             ud.set(url, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         }
         
         return super.goForward()
     }
+    
+    
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        NSLog("catch")
+    }
+    
+    
+    // WKNavigationDelegate method: Catch URL changes and update the URL bar
+       func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+           if let url = navigationAction.request.url {
+               // Update the URL text field with the current URL
+           }
+           decisionHandler(.allow)
+       }
+       
     
     // Correctly overriding the WKNavigationDelegate method
         func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

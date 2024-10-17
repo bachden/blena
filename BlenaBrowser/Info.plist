@@ -37,14 +37,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Blena requires access to devices on the local network to load content.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Blena implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth peripheral access is required to allow webpages to use the Web Bluetooth APIs</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow webpages to use your camera</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Blena requires access to devices on the local network to load content.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow webpages to use your location. You will be prompted for each page that asks for it.</string>
 	<key>NSMicrophoneUsageDescription</key>
