@@ -173,6 +173,34 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
             }
         }
         
+        if(webView.url != nil && webView.url?.absoluteString != "homepage://"){
+            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
+            if(ud.data(forKey: HistoryKeyword.rawValue.rawValue) == nil){
+                Task {
+                    do {
+                        let (favIcon, title) = try await GetFavAndName.shared.getFaviconAndTitle(webView)
+                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: webView.url!.absoluteString, image: favIcon, dateSuft: Date()), at: 0)
+                        let saveStatus = HistoryDataSource.shared.saveHistory()
+                        NSLog("\(saveStatus)")
+                    } catch {
+                        print("Failed to fetch favicon and title: \(error)")
+                    }
+                }
+            } else if let historyData = ud.data(forKey: HistoryKeyword.rawValue.rawValue), let history = try? JSONDecoder().decode([HistoryObject].self, from: historyData), history.first?.url == webView.url!.absoluteString{
+                return;
+            } else {
+                Task {
+                    do {
+                        let (favIcon, title) = try await GetFavAndName.shared.getFaviconAndTitle(webView)
+                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: webView.url!.absoluteString, image: favIcon, dateSuft: Date()), at: 0)
+                        let saveStatus = HistoryDataSource.shared.saveHistory()
+                        NSLog("\(saveStatus)")
+                    } catch {
+                        print("Failed to fetch favicon and title: \(error)")
+                    }
+                }
+            }
+        }
         
             
         self.loadingProgressContainer.isHidden = true

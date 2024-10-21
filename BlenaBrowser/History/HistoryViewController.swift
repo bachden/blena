@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,6 +15,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var trashButton: UIButton!
     var noDataLabel: UILabel!
+    
+    var historyByDate: [String: [HistoryObject]] = [:]
+    var dateSections: [String] = []
     
     @IBAction func removeHistory(_ sender: Any) {
         if(HistoryDataSource.shared.browserHistory.isEmpty){
@@ -24,7 +28,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             let alertActionController = UIAlertController(title: "Clear History", message: "Are you sure you want to clear history?", preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "Yes", style: .default) { action in
                 HistoryDataSource.shared.browserHistory = []
+                self.historyByDate.removeAll()
+                self.dateSections.removeAll()
                 NSLog("\(HistoryDataSource.shared.saveHistory())")
+                let webView = ((self.view.window?.rootViewController as! UINavigationController).topViewController as! ViewController).webView
+                let url = URL(string: webView.url!.absoluteString)!
                 self.tableView.reloadData()
             }
             let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
@@ -34,6 +42,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
         
+    }
+    
+    func loadReplace(url: URL, in webView: WKWebView) {
+        let replaceScript = "location.replace('\(url.absoluteString)')"
+        webView.evaluateJavaScript(replaceScript) { result, error in
+            if let error = error {
+                print("JavaScript Error: \(error.localizedDescription)")
+            } else {
+                print("URL replaced successfully")
+            }
+        }
     }
 
     override func viewDidLoad() {
@@ -66,23 +85,70 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.backgroundView = noDataLabel
         tableView.isUserInteractionEnabled = true
 
+        groupHistoryByDate()
         // Reload the table view when data changes
         tableView.reloadData()
     }
+    
+    // Helper function to group history objects by date (ignoring time)
+        func groupHistoryByDate() {
+            let historyObjects = HistoryDataSource.shared.browserHistory
+            
+            // Clear previous grouping
+            historyByDate.removeAll()
+            dateSections.removeAll()
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            
+            for historyObject in historyObjects {
+                let formattedDate = dateFormatter.string(from: historyObject.dateSuft)
+                
+                // Group history objects by their date string
+                if historyByDate[formattedDate] == nil {
+                    historyByDate[formattedDate] = [historyObject]
+                    dateSections.append(formattedDate)
+                } else {
+                    historyByDate[formattedDate]?.append(historyObject)
+                }
+            }
+        }
 
     // MARK: - UITableViewDataSource Methods
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = HistoryDataSource.shared.browserHistory.count
-        if count == 0 {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if dateSections.count == 0 {
             noDataLabel.isHidden = false
             tableView.separatorStyle = .none
         } else {
             noDataLabel.isHidden = true
             tableView.separatorStyle = .singleLine
         }
-        return count
+        return dateSections.count
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return dateSections[section] // Display the date as section header
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let dateKey = dateSections[section]
+        return historyByDate[dateKey]?.count ?? 0
+    }
+
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        let count = HistoryDataSource.shared.browserHistory.count
+//        if count == 0 {
+//            noDataLabel.isHidden = false
+//            tableView.separatorStyle = .none
+//        } else {
+//            noDataLabel.isHidden = true
+//            tableView.separatorStyle = .singleLine
+//        }
+//        return count
+//    }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as? HistoryTableViewCell else {

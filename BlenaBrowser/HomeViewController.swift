@@ -98,8 +98,6 @@ class HomeViewController: UIViewController {
             // Add the transition to the window's layer
             self.navigationController?.pushViewController(homeVC, animated: true)
         }
-
-
     }
 
 

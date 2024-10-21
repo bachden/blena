@@ -22,6 +22,36 @@ import Foundation
 import UIKit
 import WebKit
 
+class WebViewHistory: WKBackForwardList {
+
+    /* Solution 1: return nil, discarding what is in backList & forwardList */
+
+    override var backItem: WKBackForwardListItem? {
+        return nil
+    }
+
+    override var forwardItem: WKBackForwardListItem? {
+        return nil
+    }
+
+    /* Solution 2: override backList and forwardList to add a setter */
+
+    var myBackList = [WKBackForwardListItem]()
+
+    override var backList: [WKBackForwardListItem] {
+        get {
+            return myBackList
+        }
+        set(list) {
+            myBackList = list
+        }
+    }
+
+    func clearBackList() {
+        backList.removeAll()
+    }
+}
+
 class WBWebView: WKWebView, WKNavigationDelegate {
     
     let webBluetoothHandlerName = "bluetooth"
@@ -234,7 +264,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self._enableBluetoothInView()
+//        self._enableBluetoothInView()
         self._navDelegates.forEach{$0.webView?(webView, didFinish: navigation)}
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

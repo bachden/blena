@@ -15,7 +15,6 @@
 
 import UIKit
 import WebKit
-import Telegraph
 import WidgetKit
 
 enum URLTextFieldState : String {
@@ -180,7 +179,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 } else {
                     // Fallback on earlier versions
                 }
-                
+
                     self.present(settingsVC, animated: true, completion: nil)
                 // Present the bottom sheet
             }
@@ -330,7 +329,6 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.webView.addNavigationDelegate(self)
         self.webView.scrollView.delegate = self
         self.webView.scrollView.clipsToBounds = true
-        self.webViewContainerController.addObserver(self, forKeyPath: "pickerIsShowing", options: [], context: nil)
 
         if #available(iOS 11.0, *){
             self.webView.scrollView.contentInsetAdjustmentBehavior = .never
@@ -338,7 +336,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             automaticallyAdjustsScrollViewInsets = false
         }
 
-        for path in ["canGoBack", "canGoForward"] {
+        for path in ["canGoBack", "canGoForward", "URL"] {
             self.webView.addObserver(self, forKeyPath: path, options: .new, context: nil)
         }
 
@@ -347,24 +345,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             loadURL(url)
         }
         else {
-            var lastLocation: String
-            if(ud.string(forKey: "HomePageLocation") != nil){
-                lastLocation = ud.string(forKey: "HomePageLocation")!
-                if(lastLocation == "homepage://"){
-                    if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
-                        lastLocation = prefLoc
-                    } else {
-                        lastLocation = "homepage://"
-                    }
-                }
-            }
-            else {
-                if let prefLoc = ud.value(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) as? String {
-                    lastLocation = prefLoc
-                } else {
-                    lastLocation = "homepage://"
-                }
-            }
+        var lastLocation: String
+            lastLocation = ud.string(forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue) ?? "homepage://"
 //            self.loadLocation(lastLocation)
             self.loadLocation(lastLocation)
         }
@@ -402,6 +384,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     override func viewWillDisappear(_ animated: Bool) {
         //        let nc = self.navigationController as! NavigationViewController
         //        nc.removeObserver(self, forKeyPath: "navBarIsHidden")
+        for path in ["canGoBack", "canGoForward", "URL"] {
+            self.webView.removeObserver(self, forKeyPath: path)
+        }
         super.viewWillDisappear(animated)
     }
 
@@ -460,52 +445,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
     }
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        Task {
-            do {
-                let (faviconUrl, title) = try await getFaviconAndTitle()
-                print("Favicon URL: \(faviconUrl)")
-                print("Page Title: \(title)")
-            } catch {
-                print("Failed to fetch favicon and title: \(error)")
-            }
-        }
-    }
 
 
-    func getFaviconAndTitle() async throws -> (String, String) {
-        // JavaScript to get the favicon and the page title
-        let js = """
-            (function() {
-                let favicon = '';
-                // Try to get favicon from link tags
-                var nodeList = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
-                if (nodeList.length > 0) {
-                    favicon = nodeList[0].href;
-                }
-                let title = document.title; // Get the title of the page
-
-                return {
-                    favicon: favicon,
-                    title: title
-                };
-            })();
-        """
-
-        return try await withCheckedThrowingContinuation { continuation in
-            webView.evaluateJavaScript(js) { (result, error) in
-                if let resultDict = result as? [String: Any] {
-                    // Extract the favicon and title from the result
-                    let faviconUrl = resultDict["favicon"] as? String ?? "No Favicon"
-                    let title = resultDict["title"] as? String ?? "No Title"
-
-                    continuation.resume(returning: (faviconUrl, title))
-                } else if let error = error {
-                    continuation.resume(returning: ("No Fav", "No Tittle"))
-                }
-            }
-        }
-    }
 
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -564,39 +505,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         case "canGoForward":
             UserDefaults(suiteName: "group.com.nhb.blena")!.setValue(defChange[NSKeyValueChangeKey.newKey] as! Bool, forKey: "OldCanGoForward")
             self.goForwardButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
-        case "navBarIsHidden":
-            return ;
-        case "pickerIsShowing":
-            return;
-//        case "URL":
-//            let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
-//            if(ud.data(forKey: HistoryKeyword.rawValue.rawValue) == nil){
-//                setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
-//                Task {
-//                    do {
-//                        let (favIcon, title) = try await getFaviconAndTitle()
-//                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString, image: favIcon), at: 0)
-//                        let saveStatus = HistoryDataSource.shared.saveHistory()
-//                        NSLog("\(saveStatus)")
-//                    } catch {
-//                        print("Failed to fetch favicon and title: \(error)")
-//                    }
-//                }
-//            } else if let historyData = ud.data(forKey: HistoryKeyword.rawValue.rawValue), let history = try? JSONDecoder().decode([HistoryObject].self, from: historyData), history.first?.url == (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString{
-//                return;
-//            } else {
-//                setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
-//                Task {
-//                    do {
-//                        let (favIcon, title) = try await getFaviconAndTitle()
-//                        HistoryDataSource.shared.browserHistory.insert(HistoryObject(title: title, url: (defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString, image: favIcon), at: 0)
-//                        let saveStatus = HistoryDataSource.shared.saveHistory()
-//                        NSLog("\(saveStatus)")
-//                    } catch {
-//                        print("Failed to fetch favicon and title: \(error)")
-//                    }
-//                }
-//            }
+        case "URL":
+            setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
         default:
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }
@@ -692,14 +602,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             return
         }
 
-        // Create the activity view controller
-        let activityViewController = UIActivityViewController(activityItems: [currentURL], applicationActivities: nil)
-
-        // Exclude certain activity types if necessary
-        activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll]
-
-        // Present the activity view controller
-        present(activityViewController, animated: true, completion: nil)
+        ShareActionSheet.shared.shareActionSheet(viewController: self, url: currentURL)
     }
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

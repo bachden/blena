@@ -12,15 +12,17 @@
 		112011032CA66ACD005D598B /* youtube-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011022CA66ACD005D598B /* youtube-icon.png */; };
 		112011052CA66B05005D598B /* wikipedia-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011042CA66B05005D598B /* wikipedia-icon.png */; };
 		112011072CA66B31005D598B /* apple-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011062CA66B31005D598B /* apple-icon.png */; };
-		1130C5D52CAFE0D60024030A /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = 1130C5D42CAFE0D60024030A /* Telegraph */; };
-		1141D0E82CB63680004B78BB /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 1141D0E72CB63680004B78BB /* Documentation.docc */; };
 		116ABF7C2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */; };
 		116ABF7D2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */; };
 		116ABFA32CBE7B11005F9726 /* OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116ABFA22CBE7B11005F9726 /* OpenURL.swift */; };
 		116ABFA42CBE7B11005F9726 /* OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116ABFA22CBE7B11005F9726 /* OpenURL.swift */; };
+		1198F8272CC21DAA00A0D0E1 /* shareextension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1198F81D2CC21DAA00A0D0E1 /* shareextension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1198F8552CC24A1200A0D0E1 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1198F8312CC2495700A0D0E1 /* UniformTypeIdentifiers.framework */; };
+		1198F8612CC24A1200A0D0E1 /* widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1198F8542CC24A1200A0D0E1 /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11AB9C812CA8506C001CF3F6 /* AllTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */; };
 		11C9A9632CABA3C8009BB168 /* vibration.js in Resources */ = {isa = PBXBuildFile; fileRef = 11C9A9622CABA3C8009BB168 /* vibration.js */; };
 		11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8401B2CA5656A00CC5235 /* HomeViewController.swift */; };
+		11EAE4D62CC60165004E530F /* blena_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 11EAE4D52CC60165004E530F /* blena_transparent.png */; };
 		5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */; };
 		5A1A8E1628009CD200271575 /* URLTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A8E1528009C3200271575 /* URLTextField.swift */; };
 		5A31618721CC55ED00C4446B /* Copy@480.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A31618621CC55ED00C4446B /* Copy@480.png */; };
@@ -59,6 +61,20 @@
 			remoteGlobalIDString = E44C18551A36203E00734F8B;
 			remoteInfo = Blena;
 		};
+		1198F8252CC21DAA00A0D0E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E44C184E1A36203E00734F8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1198F81C2CC21DAA00A0D0E1;
+			remoteInfo = shareextension;
+		};
+		1198F85F2CC24A1200A0D0E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E44C184E1A36203E00734F8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1198F8532CC24A1200A0D0E1;
+			remoteInfo = widget;
+		};
 		5A495413233D37C1007CA132 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E44C184E1A36203E00734F8B /* Project object */;
@@ -75,6 +91,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				1198F8612CC24A1200A0D0E1 /* widget.appex in Embed Foundation Extensions */,
+				1198F8272CC21DAA00A0D0E1 /* shareextension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,7 +116,6 @@
 		112011042CA66B05005D598B /* wikipedia-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wikipedia-icon.png"; sourceTree = "<group>"; };
 		112011062CA66B31005D598B /* apple-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-icon.png"; sourceTree = "<group>"; };
 		1141D0D62CB61AD3004B78BB /* BlenaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1141D0E72CB63680004B78BB /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		114B78BD2CA2713B00D42932 /* Blena.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blena.entitlements; sourceTree = SOURCE_ROOT; };
 		116ABF582CBE6B7E005F9726 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		116ABF632CBE6B7E005F9726 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
@@ -107,10 +124,13 @@
 		116AC0302CBFA236005F9726 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		116AC0322CBFA236005F9726 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		116AC0812CBFC7B3005F9726 /* BlenaDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlenaDebug.entitlements; sourceTree = SOURCE_ROOT; };
-		116AC0822CBFC7DB005F9726 /* widgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = widgetExtensionDebug.entitlements; path = widgetExtension/widgetExtensionDebug.entitlements; sourceTree = "<group>"; };
+		1198F81D2CC21DAA00A0D0E1 /* shareextension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = shareextension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1198F8312CC2495700A0D0E1 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		1198F8542CC24A1200A0D0E1 /* widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		11AB9C802CA8506C001CF3F6 /* AllTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTabViewController.swift; sourceTree = "<group>"; };
 		11C9A9622CABA3C8009BB168 /* vibration.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = vibration.js; sourceTree = "<group>"; };
 		11D8401B2CA5656A00CC5235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		11EAE4D52CC60165004E530F /* blena_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blena_transparent.png; sourceTree = "<group>"; };
 		5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewContainerController.swift; sourceTree = "<group>"; };
 		5A1A8E1528009C3200271575 /* URLTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTextField.swift; sourceTree = "<group>"; };
 		5A31618621CC55ED00C4446B /* Copy@480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Copy@480.png"; sourceTree = "<group>"; };
@@ -146,6 +166,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1198F82B2CC21DAA00A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1198F81C2CC21DAA00A0D0E1 /* shareextension */;
+		};
+		1198F8652CC24A1200A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1198F8532CC24A1200A0D0E1 /* widget */;
+		};
 		11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -174,10 +208,12 @@
 		1141D0E42CB6340E004B78BB /* Bridge */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Bridge; sourceTree = "<group>"; };
 		1141D0E52CB63431004B78BB /* WebviewCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebviewCore; sourceTree = "<group>"; };
 		1141D0E62CB6343F004B78BB /* LogManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LogManager; sourceTree = "<group>"; };
-		116AC0262CBF69B7005F9726 /* Intent */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Intent; sourceTree = "<group>"; };
 		116AC0832CBFD1EB005F9726 /* Shared Function */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Shared Function"; sourceTree = "<group>"; };
 		1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DebugStatusStream; sourceTree = "<group>"; };
 		1198F7572CC1012500A0D0E1 /* AboutBlena */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutBlena; sourceTree = "<group>"; };
+		1198F8162CC20C9400A0D0E1 /* ShareActionSheet */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ShareActionSheet; sourceTree = "<group>"; };
+		1198F81E2CC21DAA00A0D0E1 /* shareextension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1198F82B2CC21DAA00A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = shareextension; sourceTree = "<group>"; };
+		1198F8562CC24A1200A0D0E1 /* widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1198F8652CC24A1200A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = widget; sourceTree = "<group>"; };
 		11BB59152CB39E1B00F07CCB /* SchemeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SchemeHandler; sourceTree = "<group>"; };
 		11C9A95D2CAB9D56009BB168 /* Toast */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Toast; sourceTree = "<group>"; };
 		11C9A9692CAC47DF009BB168 /* Animation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Animation; sourceTree = "<group>"; };
@@ -196,11 +232,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1198F81A2CC21DAA00A0D0E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1198F8512CC24A1200A0D0E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1198F8552CC24A1200A0D0E1 /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E44C18531A36203E00734F8B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1130C5D52CAFE0D60024030A /* Telegraph in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +271,7 @@
 				116ABF632CBE6B7E005F9726 /* IntentsUI.framework */,
 				116AC0302CBFA236005F9726 /* WidgetKit.framework */,
 				116AC0322CBFA236005F9726 /* SwiftUI.framework */,
+				1198F8312CC2495700A0D0E1 /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,6 +295,7 @@
 		5A233341230353E1008D9F03 /* WBCore */ = {
 			isa = PBXGroup;
 			children = (
+				1198F8162CC20C9400A0D0E1 /* ShareActionSheet */,
 				113889A72CB8C8B2007CA59C /* BluetoothDevicesList */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
@@ -281,13 +333,13 @@
 		E44C184D1A36203E00734F8B = {
 			isa = PBXGroup;
 			children = (
-				116AC0822CBFC7DB005F9726 /* widgetExtensionDebug.entitlements */,
 				116ABFA22CBE7B11005F9726 /* OpenURL.swift */,
 				116ABF7B2CBE757C005F9726 /* OpenURL.intentdefinition */,
-				1141D0E72CB63680004B78BB /* Documentation.docc */,
 				5A233341230353E1008D9F03 /* WBCore */,
 				E44C18581A36203E00734F8B /* Blena */,
 				1141D0D72CB61AD3004B78BB /* BlenaUITests */,
+				1198F81E2CC21DAA00A0D0E1 /* shareextension */,
+				1198F8562CC24A1200A0D0E1 /* widget */,
 				116ABF572CBE6B7E005F9726 /* Frameworks */,
 				E44C18571A36203E00734F8B /* Products */,
 			);
@@ -299,6 +351,8 @@
 				E44C18561A36203E00734F8B /* Blena.app */,
 				E44C186B1A36203E00734F8B /* BlenaTests.xctest */,
 				1141D0D62CB61AD3004B78BB /* BlenaUITests.xctest */,
+				1198F81D2CC21DAA00A0D0E1 /* shareextension.appex */,
+				1198F8542CC24A1200A0D0E1 /* widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,11 +360,11 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				11EAE4D52CC60165004E530F /* blena_transparent.png */,
 				1198F7572CC1012500A0D0E1 /* AboutBlena */,
 				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
 				116AC0832CBFD1EB005F9726 /* Shared Function */,
 				116AC0812CBFC7B3005F9726 /* BlenaDebug.entitlements */,
-				116AC0262CBF69B7005F9726 /* Intent */,
 				11CEFA3A2CB7C3AF00BCB18F /* Shared */,
 				11CEFA322CB77E3F00BCB18F /* History */,
 				11022CD42CB5185A009750C1 /* GlobalScriptDataSource */,
@@ -376,6 +430,50 @@
 			productReference = 1141D0D62CB61AD3004B78BB /* BlenaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1198F81C2CC21DAA00A0D0E1 /* shareextension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1198F8282CC21DAA00A0D0E1 /* Build configuration list for PBXNativeTarget "shareextension" */;
+			buildPhases = (
+				1198F8192CC21DAA00A0D0E1 /* Sources */,
+				1198F81A2CC21DAA00A0D0E1 /* Frameworks */,
+				1198F81B2CC21DAA00A0D0E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1198F81E2CC21DAA00A0D0E1 /* shareextension */,
+			);
+			name = shareextension;
+			packageProductDependencies = (
+			);
+			productName = shareextension;
+			productReference = 1198F81D2CC21DAA00A0D0E1 /* shareextension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		1198F8532CC24A1200A0D0E1 /* widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1198F8622CC24A1200A0D0E1 /* Build configuration list for PBXNativeTarget "widget" */;
+			buildPhases = (
+				1198F8502CC24A1200A0D0E1 /* Sources */,
+				1198F8512CC24A1200A0D0E1 /* Frameworks */,
+				1198F8522CC24A1200A0D0E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1198F8562CC24A1200A0D0E1 /* widget */,
+			);
+			name = widget;
+			packageProductDependencies = (
+			);
+			productName = widget;
+			productReference = 1198F8542CC24A1200A0D0E1 /* widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E44C18551A36203E00734F8B /* Blena */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Blena" */;
@@ -389,6 +487,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				1198F8262CC21DAA00A0D0E1 /* PBXTargetDependency */,
+				1198F8602CC24A1200A0D0E1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				11022CA72CB51573009750C1 /* ScriptLogViewer */,
@@ -408,10 +508,10 @@
 				1141D0E42CB6340E004B78BB /* Bridge */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
-				116AC0262CBF69B7005F9726 /* Intent */,
 				116AC0832CBFD1EB005F9726 /* Shared Function */,
 				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
 				1198F7572CC1012500A0D0E1 /* AboutBlena */,
+				1198F8162CC20C9400A0D0E1 /* ShareActionSheet */,
 				11BB59152CB39E1B00F07CCB /* SchemeHandler */,
 				11C9A95D2CAB9D56009BB168 /* Toast */,
 				11C9A96B2CAC49B6009BB168 /* CustomAdressBar */,
@@ -458,6 +558,12 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = E44C18551A36203E00734F8B;
 					};
+					1198F81C2CC21DAA00A0D0E1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					1198F8532CC24A1200A0D0E1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					E44C18551A36203E00734F8B = {
 						CreatedOnToolsVersion = 6.1.1;
 						LastSwiftMigration = 1030;
@@ -480,7 +586,6 @@
 			);
 			mainGroup = E44C184D1A36203E00734F8B;
 			packageReferences = (
-				1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */,
 			);
 			productRefGroup = E44C18571A36203E00734F8B /* Products */;
 			projectDirPath = "";
@@ -489,12 +594,28 @@
 				E44C18551A36203E00734F8B /* Blena */,
 				E44C186A1A36203E00734F8B /* BlenaTests */,
 				1141D0D52CB61AD3004B78BB /* BlenaUITests */,
+				1198F81C2CC21DAA00A0D0E1 /* shareextension */,
+				1198F8532CC24A1200A0D0E1 /* widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1141D0D42CB61AD3004B78BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1198F81B2CC21DAA00A0D0E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1198F8522CC24A1200A0D0E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -525,6 +646,7 @@
 				5ADE336E23663353007E6AD7 /* Images.xcassets in Resources */,
 				5A8FD3FC233966050032DCE7 /* Console.storyboard in Resources */,
 				5AFC77FE22ECD09E0071E792 /* WBEventTarget.js in Resources */,
+				11EAE4D62CC60165004E530F /* blena_transparent.png in Resources */,
 				E44C18661A36203E00734F8B /* LaunchScreen.xib in Resources */,
 				E44C18631A36203E00734F8B /* Images.xcassets in Resources */,
 				111ABF672CA705720010F952 /* BLENA.png in Resources */,
@@ -546,9 +668,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1141D0E82CB63680004B78BB /* Documentation.docc in Sources */,
 				116ABFA32CBE7B11005F9726 /* OpenURL.swift in Sources */,
 				116ABF7C2CBE757C005F9726 /* OpenURL.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1198F8192CC21DAA00A0D0E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1198F8502CC24A1200A0D0E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +722,16 @@
 			isa = PBXTargetDependency;
 			target = E44C18551A36203E00734F8B /* Blena */;
 			targetProxy = 1141D0DC2CB61AD3004B78BB /* PBXContainerItemProxy */;
+		};
+		1198F8262CC21DAA00A0D0E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1198F81C2CC21DAA00A0D0E1 /* shareextension */;
+			targetProxy = 1198F8252CC21DAA00A0D0E1 /* PBXContainerItemProxy */;
+		};
+		1198F8602CC24A1200A0D0E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1198F8532CC24A1200A0D0E1 /* widget */;
+			targetProxy = 1198F85F2CC24A1200A0D0E1 /* PBXContainerItemProxy */;
 		};
 		5A495414233D37C1007CA132 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -684,6 +829,182 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Blena;
+			};
+			name = Release;
+		};
+		1198F8292CC21DAA00A0D0E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = shareextension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = shareextension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena.shareextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = share_exten_pro_dev;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1198F82A2CC21DAA00A0D0E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = shareextension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = shareextension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena.shareextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = share_exten_pro_dev;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1198F8632CC24A1200A0D0E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Open in Blena";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = widget_pro_for_dev;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1198F8642CC24A1200A0D0E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Open in Blena";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = widget_pro_for_dev;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -804,7 +1125,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
@@ -839,7 +1160,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
@@ -909,6 +1230,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1198F8282CC21DAA00A0D0E1 /* Build configuration list for PBXNativeTarget "shareextension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1198F8292CC21DAA00A0D0E1 /* Debug */,
+				1198F82A2CC21DAA00A0D0E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1198F8622CC24A1200A0D0E1 /* Build configuration list for PBXNativeTarget "widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1198F8632CC24A1200A0D0E1 /* Debug */,
+				1198F8642CC24A1200A0D0E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E44C18511A36203E00734F8B /* Build configuration list for PBXProject "blena" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -937,25 +1276,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Building42/Telegraph.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.40.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1130C5D42CAFE0D60024030A /* Telegraph */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1130C5D32CAFE0D60024030A /* XCRemoteSwiftPackageReference "Telegraph" */;
-			productName = Telegraph;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E44C184E1A36203E00734F8B /* Project object */;
 }

@@ -38,6 +38,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if let error = error {
+                print("Error requesting notification authorization: \(error.localizedDescription)")
+            } else if granted {
+                print("Notification authorization granted.")
+            }
+        }
+        
+        // Set the delegate here
+        UNUserNotificationCenter.current().delegate = self
+
         // Override point for customization after application launch.
         // Create a new window for the window property
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -144,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.loadLocation(param)
         return true
     }
-    
+
     func application(_ application: UIApplication,
                          continue userActivity: NSUserActivity,
                          restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
@@ -179,6 +190,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             return false
         }
+}
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        if let sharedURLString = userInfo["sharedURL"] as? String, let url = URL(string: sharedURLString) {
+            // Handle the URL in the main app, for example by opening it in a view controller.
+            print("Received shared URL from notification: \(url)")
+            
+            // Load or use the URL in your view controller.
+            if let rootVC = window?.rootViewController as? UINavigationController,
+               let viewController = rootVC.topViewController as? ViewController {
+                viewController.loadLocation(url.absoluteString)
+            }
+        }
+        completionHandler()
+    }
 }
 

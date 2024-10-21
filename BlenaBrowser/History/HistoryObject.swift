@@ -10,11 +10,13 @@ class HistoryObject : Codable {
     let url : String
     let title : String
     let image : String
+    let dateSuft : Date
     
-    init(title: String, url: String, image: String) {
+    init(title: String, url: String, image: String, dateSuft: Date) {
         self.title = title
         self.url = url
         self.image = image
+        self.dateSuft = dateSuft
     }
 }
 
