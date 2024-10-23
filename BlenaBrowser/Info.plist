@@ -37,10 +37,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Blena implements the web bluetooth APIs, and therefore needs bluetooth peripheral access</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
@@ -53,6 +49,8 @@
 	<string>Allow webpages to use your location. You will be prompted for each page that asks for it.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow webpages to use your microphone</string>
+	<key>NSSiriUsageDescription</key>
+	<string>Allow Blena to open url with your command with Siri</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

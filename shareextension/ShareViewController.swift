@@ -1,8 +1,16 @@
+//
+//  ActionViewController.swift
+//  widget
+//
+//  Created by Lê Vinh on 10/18/24.
+//
+
 import UIKit
+import MobileCoreServices
 import UniformTypeIdentifiers
-import Social
 
 class ShareViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,8 +31,8 @@ class ShareViewController: UIViewController {
                 }
 
                 if let url = item as? URL {
-                    // Open the main app with the received URL.
-                    self.openMainApp(with: url)
+                    // Send a notification with the received URL.
+                    self.openApp(url: url)
                 } else {
                     NSLog("Shared item is not a valid URL.")
                     self.completeExtensionRequest()
@@ -35,30 +43,42 @@ class ShareViewController: UIViewController {
             completeExtensionRequest()
         }
     }
-    
-    private func openMainApp(with url: URL) {
-        // Encode the URL string to make sure it can be passed as a parameter.
-        let encodedURLString = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? url.absoluteString
-        let customURLString = "myapp://open?url=\(encodedURLString)"
-        
-        if let appURL = URL(string: customURLString) {
-            extensionContext?.open(appURL, completionHandler: { success in
-                if success {
-                    NSLog("Successfully opened the main app with URL.")
-                } else {
-                    NSLog("Failed to open the main app.")
-                }
-                // Always complete the request after attempting to open the main app.
-                self.completeExtensionRequest()
-            })
-        } else {
-            NSLog("Failed to create app URL.")
-            completeExtensionRequest()
-        }
-    }
 
     private func completeExtensionRequest() {
-        // Finish the extension context to dismiss the Action Extension.
-        extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+        // Finish the extension context to dismiss the Share Extension.
+        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+        NSLog("done")
     }
+
+    func openApp(url: URL) {
+            let scheme = "blena://open?url=\(url.absoluteString)"
+            guard let appURL = URL(string: scheme) else {
+                print("Invalid URL: \(scheme)")
+                return
+            }
+
+            // Traverse the responder chain to find an instance of UIApplication
+            var responder = self as UIResponder?
+            responder = (responder as? UIViewController)?.parent
+
+            while responder != nil && !(responder is UIApplication) {
+                responder = responder?.next
+            }
+
+            if let application = responder as? UIApplication {
+                // Use the modern open(_:options:completionHandler:) method
+                application.open(appURL, options: [:], completionHandler: { success in
+                    if success {
+                        print("Successfully opened app with URL: \(appURL)")
+                        self.completeExtensionRequest()
+                    } else {
+                        print("Failed to open app with URL: \(appURL)")
+                        self.completeExtensionRequest()
+                    }
+                })
+            } else {
+                print("UIApplication not found in responder chain.")
+                self.completeExtensionRequest()
+            }
+        }
 }

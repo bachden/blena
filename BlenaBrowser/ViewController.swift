@@ -393,7 +393,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     func loadLocation(_ location: String) {
         var location = location
         if !location.hasPrefix("http://") && !location.hasPrefix("https://") {
-            if(location.contains(".") || location.contains("www")){
+            if(LocalHostRegrexShared.shared.isLocalHost(location)){
+                location = "http://\(location)"
+            } else if(location.contains(".") || location.contains("www")){
                 location = "https://\(location)"
             } else if(location != "homepage://"){
                 location = "https://www.google.com/search?q=\(location)"
@@ -506,7 +508,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             UserDefaults(suiteName: "group.com.nhb.blena")!.setValue(defChange[NSKeyValueChangeKey.newKey] as! Bool, forKey: "OldCanGoForward")
             self.goForwardButton.isEnabled = defChange[NSKeyValueChangeKey.newKey] as! Bool
         case "URL":
-            setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
+            let defURL = defChange[NSKeyValueChangeKey.newKey] as? URL
+            if defURL != nil{
+                setLocationText((defChange[NSKeyValueChangeKey.newKey] as! URL).absoluteString)
+            }
         default:
             NSLog("Unexpected change observed by ViewController: \(defKeyPath)")
         }

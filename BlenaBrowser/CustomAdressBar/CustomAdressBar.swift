@@ -17,7 +17,7 @@ extension CustomAdressBar {
 
 class CustomAdressBar : UITextField {
     private let reloadButton = UIButton(type: .system)
-    
+
     var activityState = State.inactive {
         didSet {
             switch activityState {
@@ -32,7 +32,7 @@ class CustomAdressBar : UITextField {
             }
         }
     }
-    
+
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         let width = CGFloat(16)
         let height = CGFloat(16)
@@ -44,18 +44,18 @@ class CustomAdressBar : UITextField {
             height: height
         )
     }
-        
-    
+
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
+
     func setupView() {
         layer.cornerRadius = 12
         backgroundColor = .white
@@ -70,7 +70,7 @@ class CustomAdressBar : UITextField {
         setupReloadButton()
         activityState = .inactive
     }
-    
+
     func setupReloadButton() {
         reloadButton
             .setImage(
@@ -81,11 +81,11 @@ class CustomAdressBar : UITextField {
         reloadButton.imageView?.contentMode = .scaleAspectFit
         reloadButton.tintColor = .black
     }
-    
-    
+
+
     override func layoutSubviews() {
         super.layoutSubviews()
     }
-    
-    
+
+
 }

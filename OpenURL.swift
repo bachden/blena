@@ -37,16 +37,19 @@ struct OpenURL: AppIntent, WidgetConfigurationIntent, CustomIntentMigratedAppInt
 
     func perform() async throws -> some IntentResult & ProvidesDialog {
         NSLog("perform")
-        
+
         await MainActor.run {
-                // Update the UI or open a specific view in response to the intent
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                   let window = appDelegate.window,
-                   let rootVC = window.rootViewController as? UINavigationController,
-                   let viewController = rootVC.topViewController as? ViewController {
-                    viewController.loadLocation(URL!)  // Load the URL in your custom view controller
-                }
+            // Update the UI or open a specific view in response to the intent
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+               let window = appDelegate.window,
+               let rootVC = window.rootViewController as? UINavigationController,
+               let viewController = rootVC.topViewController as? ViewController {
+                viewController
+                    .loadLocation(
+                        URL!
+                    )  // Load the URL in your custom view controller
             }
+        }
         return .result(dialog: .responseSuccess)
     }
 }
@@ -69,11 +72,16 @@ fileprivate extension IntentDialog {
 struct MyAppShortcuts: AppShortcutsProvider {
     @AppShortcutsBuilder
     static var appShortcuts: [AppShortcut] {
-            AppShortcut(
-                intent: OpenURL(),
-                phrases: ["Open [URL] in Blena"],
-                shortTitle: "Open URL",
-                systemImageName: "globe"
-            )
+        AppShortcut(
+            intent: OpenURL(),
+            phrases: [
+                "Open [URL] in Blena",
+                "Use Blena to open [URL]",
+                "Blena open [URL]",
+                "Open URL with Blena"
+            ],
+            shortTitle: "Open URL",
+            systemImageName: "globe"
+        )
     }
 }

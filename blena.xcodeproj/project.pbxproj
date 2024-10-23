@@ -187,6 +187,14 @@
 			);
 			target = E44C18551A36203E00734F8B /* Blena */;
 		};
+		11EAE5552CC7B0D7004E530F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LocalHostRegrexShared.swift,
+				Model/LastConnectedDevices.swift,
+			);
+			target = 1141D0D52CB61AD3004B78BB /* BlenaUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -204,7 +212,6 @@
 		1141D0D72CB61AD3004B78BB /* BlenaUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BlenaUITests; sourceTree = "<group>"; };
 		1141D0E12CB633DB004B78BB /* ErrorViewHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ErrorViewHandler; sourceTree = "<group>"; };
 		1141D0E22CB633EE004B78BB /* WebkitSegues */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebkitSegues; sourceTree = "<group>"; };
-		1141D0E32CB633FF004B78BB /* PickerView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = PickerView; sourceTree = "<group>"; };
 		1141D0E42CB6340E004B78BB /* Bridge */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Bridge; sourceTree = "<group>"; };
 		1141D0E52CB63431004B78BB /* WebviewCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebviewCore; sourceTree = "<group>"; };
 		1141D0E62CB6343F004B78BB /* LogManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LogManager; sourceTree = "<group>"; };
@@ -219,7 +226,7 @@
 		11C9A9692CAC47DF009BB168 /* Animation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Animation; sourceTree = "<group>"; };
 		11C9A96B2CAC49B6009BB168 /* CustomAdressBar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomAdressBar; sourceTree = "<group>"; };
 		11CEFA322CB77E3F00BCB18F /* History */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = History; sourceTree = "<group>"; };
-		11CEFA3A2CB7C3AF00BCB18F /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		11CEFA3A2CB7C3AF00BCB18F /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11EAE5552CC7B0D7004E530F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		11DD70F62CAE496100946743 /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
 		11DD70FB2CAE5A7D00946743 /* SettingViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SettingViewController; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -300,7 +307,6 @@
 				1141D0E62CB6343F004B78BB /* LogManager */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E42CB6340E004B78BB /* Bridge */,
-				1141D0E32CB633FF004B78BB /* PickerView */,
 				1141D0E22CB633EE004B78BB /* WebkitSegues */,
 				1141D0E12CB633DB004B78BB /* ErrorViewHandler */,
 				1141D0A12CB52AE3004B78BB /* MineTypeHandler */,
@@ -504,7 +510,6 @@
 				1141D0A12CB52AE3004B78BB /* MineTypeHandler */,
 				1141D0E12CB633DB004B78BB /* ErrorViewHandler */,
 				1141D0E22CB633EE004B78BB /* WebkitSegues */,
-				1141D0E32CB633FF004B78BB /* PickerView */,
 				1141D0E42CB6340E004B78BB /* Bridge */,
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
@@ -937,6 +942,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -983,6 +989,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = widget/Info.plist;
@@ -1125,7 +1132,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
@@ -1160,7 +1167,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
@@ -1175,7 +1182,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Blena;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = blena_prov;
 				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

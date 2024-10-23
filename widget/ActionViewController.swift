@@ -11,47 +11,71 @@ import UniformTypeIdentifiers
 
 class ActionViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Get the item[s] we're handling from the extension context.
+        // Retrieve the first item shared.
+        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
+              let itemProvider = extensionItem.attachments?.first else {
+            completeExtensionRequest()
+            return
+        }
 
-        // For example, look for an image and place it into an image view.
-        // Replace this with something appropriate for the type[s] your extension supports.
-        var imageFound = false
-        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-            for provider in item.attachments! {
-                if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
-                    // This is an image. We'll load it, then place it in our image view.
-                    weak var weakImageView = self.imageView
-                    provider.loadItem(forTypeIdentifier: UTType.image.identifier) { (imageURL, error) in
-                        if let imageURL = imageURL as? URL {
-                            Task { @MainActor in
-                                if let strongImageView = weakImageView {
-                                    strongImageView.image = UIImage(data: try! Data(contentsOf: imageURL))
-                                }
-                            }
-                        }
-                    }
+        // Check if the shared content is a URL.
+        if itemProvider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+            itemProvider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading URL: \(error.localizedDescription)")
+                    self.completeExtensionRequest()
+                    return
+                }
 
-                    imageFound = true
-                    break
+                if let url = item as? URL {
+                    // Send a notification with the received URL.
+                    self.openApp(url: url)
+                } else {
+                    NSLog("Shared item is not a valid URL.")
+                    self.completeExtensionRequest()
                 }
             }
-
-            if (imageFound) {
-                // We only handle one image, so stop looking for more.
-                break
-            }
+        } else {
+            NSLog("No URL found in shared content.")
+            completeExtensionRequest()
         }
     }
 
-    @IBAction func done() {
-        // Return any edited content to the host app.
-        // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+    private func completeExtensionRequest() {
+        // Finish the extension context to dismiss the Share Extension.
+        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
 
+    func openApp(url: URL) {
+            let scheme = "blena://open?url=\(url.absoluteString)"
+            guard let appURL = URL(string: scheme) else {
+                print("Invalid URL: \(scheme)")
+                return
+            }
+
+            // Traverse the responder chain to find an instance of UIApplication
+            var responder = self as UIResponder?
+            responder = (responder as? UIViewController)?.parent
+
+            while responder != nil && !(responder is UIApplication) {
+                responder = responder?.next
+            }
+
+            if let application = responder as? UIApplication {
+                // Use the modern open(_:options:completionHandler:) method
+                application.open(appURL, options: [:], completionHandler: { success in
+                    if success {
+                        print("Successfully opened app with URL: \(appURL)")
+                    } else {
+                        print("Failed to open app with URL: \(appURL)")
+                    }
+                })
+            } else {
+                print("UIApplication not found in responder chain.")
+            }
+            self.completeExtensionRequest()
+        }
 }

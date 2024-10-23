@@ -31,36 +31,108 @@ protocol ConnectDeviceDelegate: AnyObject {
 }
 
 
-open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler, WBPopUpPickerViewDelegate, UITableViewDelegate, UITableViewDataSource
+open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler, UITableViewDelegate, UITableViewDataSource
 {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.pickerDevices.count
+//    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.pickerDevices.count
+//    }
+//
+//    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let dev = self.pickerDevices[indexPath.row]
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BluetoothTableViewColumn", for: indexPath) as? BluetoothTableViewCell else {
+//            return UITableViewCell(
+//            )
+//        }
+//        // Configure the cell with the history object
+//        cell.configure(with: dev.displayName , uuid: dev.internalUUID.uuidString, description: dev.description, connecAction: {
+//            self.selectDeviceAt(indexPath.row)
+//            self.centralManager.connect(dev.peripheral)
+//        }, closeTableView: {
+//            self.connectDeviceViewControllerDelegate?.dismissVC()
+//        })
+//        cell.selectionStyle = .none
+//        return cell
+//    }
+//
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let tappedCell = tableView.cellForRow(at: indexPath) as? BluetoothTableViewCell else { return }
+//
+//       // Toggle the details of the tapped cell
+//       tappedCell.toggleDetails()
+//    }
+
+    // MARK: - UITableViewDataSource & UITableViewDelegate
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 2 // One section for last connected devices and another for nearby devices.
     }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dev = self.pickerDevices[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BluetoothTableViewColumn", for: indexPath) as? BluetoothTableViewCell else {
-            return UITableViewCell(
-            )
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return self.lastConnectedDevice.count // Last connected devices
+        case 1:
+            return self.pickerDevices.count // Nearby devices
+        default:
+            return 0
         }
-        // Configure the cell with the history object
-        cell.configure(with: dev.name ?? "No Name" , uuid: dev.internalUUID.uuidString, description: dev.description, connecAction: {
-            self.selectDeviceAt(indexPath.row)
-        }, closeTableView: {
-            self.connectDeviceViewControllerDelegate?.dismissVC()
-        })
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dev: WBDevice
+        let cellIdentifier = "BluetoothTableViewColumn"
+
+        // Determine the device based on the section.
+        if indexPath.section == 0 {
+            dev = self.lastConnectedDevice[indexPath.row] // Last connected device
+        } else {
+            dev = self.pickerDevices[indexPath.row] // Nearby device
+        }
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? BluetoothTableViewCell else {
+            return UITableViewCell()
+        }
+
+        // Configure the cell with the device details.
+        cell.configure(
+            with: dev.displayName,
+            uuid: dev.internalUUID.uuidString,
+            description: dev.description,
+            connecAction: {
+                self.selectDeviceAt(indexPath.row)
+                self.centralManager.connect(dev.peripheral)
+            },
+            closeTableView: {
+                self.connectDeviceViewControllerDelegate?.dismissVC()
+            }
+        )
         cell.selectionStyle = .none
         return cell
     }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NSLog("tapped")
-        guard let tappedCell = tableView.cellForRow(at: indexPath) as? BluetoothTableViewCell else { return }
 
-       // Toggle the details of the tapped cell
-       tappedCell.toggleDetails()
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tappedCell = tableView.cellForRow(at: indexPath) as? BluetoothTableViewCell else {
+            return
+        }
+
+        // Toggle the details of the tapped cell.
+        tappedCell.toggleDetails()
+
+        // Optionally, you might handle connection directly here or use the action set up in `cell.configure`.
     }
-    
+
+    // MARK: - Section Header Titles (Optional)
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Previously Connected Devices"
+        case 1:
+            return "Unknown Devices"
+        default:
+            return nil
+        }
+    }
+
+
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
@@ -69,10 +141,10 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Properties
     let debug = true
-    let centralManager = CBCentralManager(delegate: nil, queue: nil)
+    let centralManager = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: false])
     var devicePicker: WBPicker
     var connectDeviceViewControllerDelegate : ConnectDeviceDelegate?
-    
+
 
     /*! @abstract The devices selected by the user for use by this manager. Keyed by the UUID provided by the system. */
     var devicesByInternalUUID = [UUID: WBDevice]()
@@ -87,7 +159,9 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     /*! @abstract Filters in use on the current device request transaction.  If nil, that means we are accepting all devices.
      */
     var filters: [[String: AnyObject]]? = nil
+    var lastConnectedDevice = [WBDevice]()
     var pickerDevices = [WBDevice]()
+    var deviceCachedName = ""
 
     var bluetoothAuthorized: Bool {
         get {
@@ -123,7 +197,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         self.stopScanForPeripherals()
         self._clearPickerView()
     }
-    
+
     public func refreshData() {
         self.cancelDeviceSearch()
         if(self.filters == nil){
@@ -154,18 +228,42 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             return
         }
 
-        guard self.pickerDevices.first(where: {$0.peripheral == peripheral}) == nil else {
+        guard self.pickerDevices.first(where: {$0.peripheral.identifier.uuidString == peripheral.identifier.uuidString}) == nil else {
             return
         }
 
-        NSLog("New peripheral \(peripheral.name ?? "<no name>") discovered")
         let device = WBDevice(
             peripheral: peripheral, advertisementData: advertisementData,
             RSSI: RSSI, manager: self)
-        if !self.pickerDevices.contains(where: {$0 == device}) {
-            self.pickerDevices.append(device)
-            self.updatePickerData()
+        if(advertisementData[CBAdvertisementDataLocalNameKey] as? String != nil){
+            NSLog("Advertisement data: \(advertisementData)")
         }
+        
+        for deviceItem in LastConnectedDevicesList.shared.getDevices() {
+            if deviceItem.address == device.peripheral.identifier.uuidString {
+                // Check if the device already exists in the `lastConnectedDevice` list
+                if let index = self.lastConnectedDevice.firstIndex(where: { $0.peripheral.identifier.uuidString == device.peripheral.identifier.uuidString }) {
+                    // Replace the existing device at the found index
+                    self.lastConnectedDevice[index] = device
+                } else {
+                    // If the device doesn't exist in the list, add it
+                    self.lastConnectedDevice.append(device)
+                }
+                // Update the picker data after the change
+                self.updatePickerData()
+                return
+            }
+        }
+        
+        if let index = self.pickerDevices.firstIndex(where: { $0.peripheral.identifier.uuidString == device.peripheral.identifier.uuidString }) {
+            // Replace the existing device at the found index
+            self.pickerDevices[index] = device
+        } else {
+            // If the device doesn't exist in the list, add it
+            self.pickerDevices.append(device)
+        }
+        // Update the picker data after the change
+        self.updatePickerData()
     }
 
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -175,6 +273,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             NSLog("Unexpected didConnect notification for \(peripheral.name ?? "<no-name>") \(peripheral.identifier)")
             return
         }
+        NSLog("Connected to /\(device.peripheral.identifier.uuidString)")
         device.didConnect()
     }
 
@@ -312,7 +411,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
                 }
             }
         }
-    
+
     private func deviceWasSelected(_ device: WBDevice) {
         // TODO: think about whether overwriting any existing device is an issue.
         self.devicesByExternalUUID[device.deviceId] = device;
@@ -418,6 +517,9 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     }
     private func _clearPickerView() {
         self.pickerDevices = []
+        self.lastConnectedDevice = []
         self.updatePickerData()
     }
 }
+
+

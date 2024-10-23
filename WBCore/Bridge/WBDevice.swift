@@ -192,6 +192,7 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
     }
 
     weak var manager: WBManager?
+    var localName: String?
 
     /*! @abstract The view should be set when the device is selected by a particular web view. */
     weak var view: WKWebView? = nil
@@ -211,11 +212,17 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
         self.peripheral = peripheral
         self.adData = BluetoothAdvertisingData(advertisementData:advertisementData,RSSI: RSSI)
         self.manager = manager
+        // Extract the local name from advertisement data.
+        self.localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String
         super.init()
         self.peripheral.delegate = self
     }
     static func ==(left: WBDevice, right: WBDevice) -> Bool {
         return left.peripheral == right.peripheral
+    }
+
+    var displayName: String {
+       return localName ?? peripheral.name ?? "No Name"
     }
 
     // MARK: - API
@@ -236,6 +243,14 @@ open class WBDevice: NSObject, Jsonifiable, CBPeripheralDelegate {
     }
     func didConnect() {
         self.connectTransactions.forEach{$0.resolveAsSuccess()}
+        NSLog("connected to \(self.peripheral.identifier.uuidString)")
+        if !LastConnectedDevicesList.shared.getDevices().contains(where: { lastConnectedDevice in
+            lastConnectedDevice.address == self.peripheral.identifier.uuidString
+        }) {
+            LastConnectedDevicesList.shared.add(
+                LastConnectedDevices(name: self.name, address: self.peripheral.identifier.uuidString)
+            )
+        }
     }
     func didFailToConnect() {
         self.connectTransactions.forEach{
@@ -713,11 +728,13 @@ class BluetoothAdvertisingData{
     var rssi: String
     var manufacturerData:String
     var serviceData:[String]
+    var localName: String?
 
     init(advertisementData: [String: Any], RSSI: NSNumber){
         self.appearance = "fakeappearance"
         self.txPower = (advertisementData[CBAdvertisementDataTxPowerLevelKey] as? NSNumber ?? 0)
         self.rssi = String(describing: RSSI)
+        self.localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String
         let data = advertisementData[CBAdvertisementDataManufacturerDataKey]
         self.manufacturerData = ""
         if data != nil {
@@ -741,7 +758,8 @@ class BluetoothAdvertisingData{
             "txPower": self.txPower,
             "rssi": self.rssi as AnyObject,
             "manufacturerData": self.manufacturerData as AnyObject,
-            "serviceData": self.serviceData as AnyObject
+            "serviceData": self.serviceData as AnyObject,
+            "localName": self.localName as AnyObject? ?? NSNull()
         ]
         return dict
     }

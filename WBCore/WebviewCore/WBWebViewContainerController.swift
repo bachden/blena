@@ -53,7 +53,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     // If the pop up picker is showing, then the
     // following two vars are not null.
     @objc var pickerIsShowing = false
-    var popUpPickerController: WBPopUpPickerController!
     var popUpPickerBottomConstraint: NSLayoutConstraint!
     var BluetoothDeviceController : ConnectDeviceViewController?
 
@@ -113,11 +112,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         _ webView: WKWebView,
         didStartProvisionalNavigation navigation: WKNavigation!
     ) {
-        if self.pickerIsShowing {
-            // navigation (refresh, back, link click etc.) attempted while picker visible, so hide it since the navigation implies the user is no longer interested in picking a device
-            self.popUpPickerController
-                .performSegue(withIdentifier: "Cancel", sender: nil)
-        }
         self.loadingProgressContainer.isHidden = false
         self._configureNewManager()
     }
@@ -143,6 +137,8 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                     return rgb;
                 })();
                 """
+        
+    self.loadingProgressContainer.isHidden = true
                 
         // Inject JavaScript and handle the result
         webView.evaluateJavaScript(script) {
@@ -203,7 +199,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         }
         
             
-        self.loadingProgressContainer.isHidden = true
     }
     
     // Function to convert RGB string to Hex in Swift
@@ -323,42 +318,6 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: - Segue handling
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.destination {
-        case let obj as WBPopUpPickerController:
-            self.setValue(true, forKey: "pickerIsShowing")
-            self.popUpPickerController = obj
-            obj.wbManager = self.wbManager
-        case let obj as ErrorViewController:
-            let error = sender as! Error
-            obj.errorMessage = error.localizedDescription
-        default:
-            break
-        }
-    }
-    
-    @IBAction func unwindToWVContainerController(sender: UIStoryboardSegue) {
-        if let puvc = sender.source as? WBPopUpPickerController {
-            self.setValue(false, forKey: "pickerIsShowing")
-            puvc.wbManager = nil
-            self.popUpPickerController = nil
-            switch sender.identifier {
-            case "Cancel":
-                self.wbManager?.cancelDeviceSearch()
-                break
-            case "Done":
-                self.wbManager?.selectDeviceAt(
-                    puvc.pickerView.selectedRow
-                )
-                break
-            default:
-                NSLog(
-                    "Unknown unwind segue ignored: \(sender.identifier ?? "<none>")"
-                )
-            }
-        }
-    }
     
     // MARK: - Observe protocol
     override func observeValue(

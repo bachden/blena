@@ -11,9 +11,9 @@ import UIKit
 class AboutBlenaController: UIViewController {
     @IBOutlet weak var contactMeButton: UIButton!
     @IBOutlet weak var SupportBlenaButton: UIButton!
-    
-    
-    
+
+
+
     @IBAction func donate() {
         let url = URL(string: "https://buymeacoffee.com/bachhoangnguyen")!
         guard UIApplication.shared.canOpenURL(url) else {
@@ -24,9 +24,9 @@ class AboutBlenaController: UIViewController {
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    
+
     @IBAction func contact(){
-        
+
         let email = "hoangbach.bk@gmail.com"
         let subject = "[BLENA] I want to contact with you"
 
