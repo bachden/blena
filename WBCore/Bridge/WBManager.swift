@@ -98,7 +98,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             uuid: dev.internalUUID.uuidString,
             description: dev.description,
             connecAction: {
-                self.selectDeviceAt(indexPath.row)
+                self.selectDeviceAt(dev)
                 self.centralManager.connect(dev.peripheral)
             },
             closeTableView: {
@@ -183,8 +183,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     }
 
     // MARK: - Public API
-    public func selectDeviceAt(_ index: Int) {
-        let device = self.pickerDevices[index]
+    public func selectDeviceAt(_ device: WBDevice) {
         device.view = self.requestDeviceTransaction?.webView
         self.requestDeviceTransaction?.resolveAsSuccess(withObject: device)
         self.deviceWasSelected(device)
