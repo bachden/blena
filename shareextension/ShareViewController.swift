@@ -51,7 +51,14 @@ class ShareViewController: UIViewController {
     }
 
     func openApp(url: URL) {
-            let scheme = "blena://open?url=\(url.absoluteString)"
+        var cleanURL = url
+        if url.absoluteString.contains("blena://open?url=") {
+            // Remove the "blena://" prefix from the URL
+            let cleanedUrlString = url.absoluteString.replacingOccurrences(of: "blena://open?url=", with: "")
+            cleanURL = URL(string: cleanedUrlString)!
+            print("Cleaned URL: \(cleanedUrlString)")
+        }
+        let scheme = "blena://open?url=\(cleanURL.absoluteString)"
             guard let appURL = URL(string: scheme) else {
                 print("Invalid URL: \(scheme)")
                 return

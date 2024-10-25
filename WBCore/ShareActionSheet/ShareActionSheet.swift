@@ -40,7 +40,7 @@ class ShareActionSheet{
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
 
         // Exclude certain activity types if necessary
-        activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll]
+        activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll, UIActivity.ActivityType(rawValue: "com.nhb.blena.shareextension"), UIActivity.ActivityType(rawValue: "com.nhb.blena.widget")]
 
         // Present the activity view controller
         viewController.present(activityViewController, animated: true, completion: nil)
