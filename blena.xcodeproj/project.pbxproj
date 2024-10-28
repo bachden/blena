@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		111ABF672CA705720010F952 /* BLENA.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ABF662CA705720010F952 /* BLENA.png */; };
 		112011012CA66A78005D598B /* google-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011002CA66A78005D598B /* google-icon.png */; };
 		112011032CA66ACD005D598B /* youtube-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011022CA66ACD005D598B /* youtube-icon.png */; };
 		112011052CA66B05005D598B /* wikipedia-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 112011042CA66B05005D598B /* wikipedia-icon.png */; };
@@ -110,7 +109,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		111ABF662CA705720010F952 /* BLENA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLENA.png; sourceTree = "<group>"; };
 		112011002CA66A78005D598B /* google-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-icon.png"; sourceTree = "<group>"; };
 		112011022CA66ACD005D598B /* youtube-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube-icon.png"; sourceTree = "<group>"; };
 		112011042CA66B05005D598B /* wikipedia-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wikipedia-icon.png"; sourceTree = "<group>"; };
@@ -216,6 +214,7 @@
 		1141D0E52CB63431004B78BB /* WebviewCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebviewCore; sourceTree = "<group>"; };
 		1141D0E62CB6343F004B78BB /* LogManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LogManager; sourceTree = "<group>"; };
 		116AC0832CBFD1EB005F9726 /* Shared Function */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Shared Function"; sourceTree = "<group>"; };
+		118DCED62CCF303300A0AD1A /* SingleWebView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SingleWebView; sourceTree = "<group>"; };
 		1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DebugStatusStream; sourceTree = "<group>"; };
 		1198F7572CC1012500A0D0E1 /* AboutBlena */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutBlena; sourceTree = "<group>"; };
 		1198F8162CC20C9400A0D0E1 /* ShareActionSheet */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ShareActionSheet; sourceTree = "<group>"; };
@@ -366,6 +365,7 @@
 		E44C18581A36203E00734F8B /* Blena */ = {
 			isa = PBXGroup;
 			children = (
+				118DCED62CCF303300A0AD1A /* SingleWebView */,
 				11EAE4D52CC60165004E530F /* blena_transparent.png */,
 				1198F7572CC1012500A0D0E1 /* AboutBlena */,
 				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
@@ -383,7 +383,6 @@
 				11C9A96B2CAC49B6009BB168 /* CustomAdressBar */,
 				11C9A95D2CAB9D56009BB168 /* Toast */,
 				11357B7F2CA84B290009FB1E /* Tab */,
-				111ABF662CA705720010F952 /* BLENA.png */,
 				112011162CA6ABC5005D598B /* SharedFunction */,
 				112011082CA66C8F005D598B /* HomeView */,
 				112010F92CA667F4005D598B /* CustomImageView */,
@@ -514,6 +513,7 @@
 				1141D0E52CB63431004B78BB /* WebviewCore */,
 				1141D0E62CB6343F004B78BB /* LogManager */,
 				116AC0832CBFD1EB005F9726 /* Shared Function */,
+				118DCED62CCF303300A0AD1A /* SingleWebView */,
 				1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */,
 				1198F7572CC1012500A0D0E1 /* AboutBlena */,
 				1198F8162CC20C9400A0D0E1 /* ShareActionSheet */,
@@ -654,7 +654,6 @@
 				11EAE4D62CC60165004E530F /* blena_transparent.png in Resources */,
 				E44C18661A36203E00734F8B /* LaunchScreen.xib in Resources */,
 				E44C18631A36203E00734F8B /* Images.xcassets in Resources */,
-				111ABF672CA705720010F952 /* BLENA.png in Resources */,
 				5AE293EE23F9AAE8006CD0BC /* WBBluetoothRemoteGATTCharacteristic.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

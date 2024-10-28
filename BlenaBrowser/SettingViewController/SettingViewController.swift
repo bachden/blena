@@ -18,7 +18,9 @@ class SettingViewController: UIViewController {
     @IBOutlet var clearHistoryButton : UIStackView!
     @IBOutlet var privacyPolicyButton : UIStackView!
     @IBOutlet var forwardButton : UIButton!
+    @IBOutlet var forwardButtonDup : UIButton!
     @IBOutlet var showScriptButton : UIStackView!
+    @IBOutlet weak var termsandconditions: UIStackView!
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -33,16 +35,20 @@ class SettingViewController: UIViewController {
         let clearCacheGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let privacyPolicyGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let showScriptGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let termandconditionsGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.clearCacheButton.addGestureRecognizer(tapGesture)
         self.clearHistoryButton.addGestureRecognizer(clearCacheGesture)
         self.privacyPolicyButton.addGestureRecognizer(privacyPolicyGesture)
         self.showScriptButton.addGestureRecognizer(showScriptGesture)
+        self.termsandconditions.addGestureRecognizer(termandconditionsGesture)
         
         // Enable user interaction
         self.clearCacheButton.isUserInteractionEnabled = true
         self.clearHistoryButton.isUserInteractionEnabled = true
         self.privacyPolicyButton.isUserInteractionEnabled = true
+        self.termsandconditions.isUserInteractionEnabled = true
         self.forwardButton.setTitle("", for: UIControl.State.normal)
+        self.forwardButtonDup.setTitle("", for: UIControl.State.normal)
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +86,8 @@ class SettingViewController: UIViewController {
             removeHistory()
         case self.privacyPolicyButton:
             self.goToPrivacyPolicy()
+        case self.termsandconditions:
+            self.goToTermAndConditions()
         case self.showScriptButton:
             self.scriptDebugViewer()
         default:
@@ -137,6 +145,35 @@ class SettingViewController: UIViewController {
     // Mark: Privacy Policy
     func goToPrivacyPolicy() {
         NSLog("Privacy Policy")
+        
+        let privacyVC = SingleWebView(urlRequest: URLRequest(url: URL(string: "https://bachden.github.io/blena/policy.html")!))
+        if #available(iOS 15.0, *) {
+            if let sheet = privacyVC.sheetPresentationController {
+                sheet.detents = [.large()] // Adjust the height of the bottom sheet
+                sheet.prefersGrabberVisible = true    // Optional: Show grabber at the top
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        self.present(privacyVC, animated: true, completion: nil)
+    }
+
+    
+    func goToTermAndConditions() {
+        NSLog("Terms and Conditions")
+        
+        let privacyVC = SingleWebView(urlRequest: URLRequest(url: URL(string: "https://bachden.github.io/blena/term_and_conditions.html")!))
+        if #available(iOS 15.0, *) {
+            if let sheet = privacyVC.sheetPresentationController {
+                sheet.detents = [.large()] // Adjust the height of the bottom sheet
+                sheet.prefersGrabberVisible = true    // Optional: Show grabber at the top
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        self.present(privacyVC, animated: true, completion: nil)
     }
 
     
