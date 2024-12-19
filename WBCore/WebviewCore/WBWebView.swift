@@ -21,6 +21,7 @@
 import Foundation
 import UIKit
 import WebKit
+import AuthenticationServices
 
 class WebViewHistory: WKBackForwardList {
 
@@ -53,6 +54,8 @@ class WebViewHistory: WKBackForwardList {
 }
 
 class WBWebView: WKWebView, WKNavigationDelegate {
+    
+    private var popupWebView: WKWebView?
     
     let webBluetoothHandlerName = "bluetooth"
     private var _wbManager: WBManager?
@@ -109,12 +112,68 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     
     // WKNavigationDelegate method: Catch URL changes and update the URL bar
        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-           if let url = navigationAction.request.url {
-               // Update the URL text field with the current URL
+           if(navigationAction.shouldPerformDownload){
+               decisionHandler(.download)
+               return
            }
+           
+           if let url = navigationAction.request.url {
+               NSLog(url.absoluteString)
+           }
+//           if let url = navigationAction.request.url {
+//               // Detect Google OAuth 2.0 URL
+//               if url.host == "accounts.google.com" && (url.path.contains("oauth") || url.path.contains("gsi")) {
+//                   print("Detected Google OAuth 2.0 URL: \(url.absoluteString)")
+//                   // Handle Google Sign-In here
+//                   handleGoogleSignIn(url: url)
+//                   decisionHandler(.cancel)
+//                   return
+//                }else {
+//                   decisionHandler(.allow)
+//           }
+//           }
            decisionHandler(.allow)
+//           if navigationAction.request.url?.absoluteString.contains("gsi/select") == true {
+//                   webView.load(navigationAction.request)
+//                   decisionHandler(.cancel) // Prevent new window creation
+//               } else {
+//           if navigationAction.request.url?.absoluteString.contains("gsi/select") == true {
+//               webView.load(navigationAction.request)
+//               decisionHandler(.cancel) // Prevent new window creation
+//           } else {
+//           }
+//               }
        }
        
+    func handleGoogleSignIn(url: URL) {
+            // Open in ASWebAuthenticationSession for secure authentication
+        let session = ASWebAuthenticationSession(url: url, callbackURLScheme: "blena") { callbackURL, error in
+                if let error = error {
+                    print("Authentication error: \(error.localizedDescription)")
+                    return
+                }
+                if let callbackURL = callbackURL {
+                    print("Authentication success: \(callbackURL.absoluteString)")
+                    // Handle the callback
+                    self.processCallback(url: callbackURL)
+                }
+                
+            }
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let window = appDelegate?.window
+        let rootVC = window?.rootViewController as? UINavigationController
+        let viewController = rootVC?.topViewController as? ViewController
+            session.presentationContextProvider = viewController
+            session.start()
+        }
+
+        func processCallback(url: URL) {
+            let queryItems = URLComponents(string: url.absoluteString)?.queryItems
+            if let code = queryItems?.first(where: { $0.name == "code" })?.value {
+                print("Authorization code: \(code)")
+                // Exchange the code for tokens
+            }
+        }
     
     // Correctly overriding the WKNavigationDelegate method
         func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
@@ -147,7 +206,18 @@ class WBWebView: WKWebView, WKNavigationDelegate {
         webCfg.userContentController = userController
         webCfg.allowsInlineMediaPlayback = true
         webCfg.allowsPictureInPictureMediaPlayback = true
+        webCfg.preferences.javaScriptCanOpenWindowsAutomatically = true
         webCfg.mediaTypesRequiringUserActionForPlayback = []
+        if #available(iOS 14.0, *) {
+            let webpagePreferences = WKWebpagePreferences()
+            webpagePreferences.allowsContentJavaScript = true
+            webCfg.preferences.javaScriptEnabled = true
+            webCfg.preferences.javaScriptCanOpenWindowsAutomatically = true
+            webCfg.defaultWebpagePreferences = webpagePreferences
+        } else {
+            webCfg.preferences.javaScriptEnabled = true
+            webCfg.preferences.javaScriptCanOpenWindowsAutomatically = true
+        }
 
         if #available(iOS 15.4, *) {
             webCfg.preferences.isElementFullscreenEnabled = true
@@ -160,6 +230,11 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             // Fallback on earlier versions
         }
         
+        webCfg.preferences.javaScriptCanOpenWindowsAutomatically = true
+        webCfg.defaultWebpagePreferences.allowsContentJavaScript = true
+        webCfg.defaultWebpagePreferences.preferredContentMode = .mobile
+
+        webCfg.websiteDataStore = WKWebsiteDataStore.default()
 
         // Set up the user agent name to include an app specific append rather
         // than just the default WKWebView build number
@@ -175,9 +250,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
             )
         )
         webCfg.applicationNameForUserAgent = (
-            "Version/\(shortOSVersion) "
-            + "\(bundleName)/\(shortVersionString) "
-            + "(like Safari)"
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 OPT/5.2.0"
         )
         
         // Register the custom URL scheme handler
@@ -248,14 +321,6 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     open func removeNavigationDelegate(_ del: WKNavigationDelegate) {
         self._navDelegates.removeAll(where: {$0.isEqual(del)})
     }
-    
-    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        return nil
-    }
-
-    func webViewDidClose(_ webView: WKWebView) {
-        // Handle the full-screen exit
-    }
 
     // MARK: - WKNavigationDelegate
     // Propagates the notification to all the registered delegates
@@ -274,7 +339,9 @@ class WBWebView: WKWebView, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         self._navDelegates.forEach{$0.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)}
     }
-
+    
+    
+    
     // MARK: - Internal
     open func _enableBluetoothInView() {
         self.evaluateJavaScript(
@@ -318,3 +385,5 @@ class SpecialTapRecognizer: UITapGestureRecognizer {
         return false
     }
 }
+
+

@@ -16,18 +16,33 @@
 import UIKit
 import WebKit
 import WidgetKit
+import EasyTipView
+import AuthenticationServices
 
 enum URLTextFieldState : String {
     case editing, inactive
 }
 
-class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, UIScrollViewDelegate, EasyTipViewDelegate {
+    private var popupWebView: WKWebView?
+
+    // Correct implementation of EasyTipViewDelegate methods
+        func easyTipViewDidTap(_ tipView: EasyTipView) {
+            // Handle tap on the EasyTipView
+            print("Tip view tapped.")
+        }
+
+        func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+            // Handle dismissal of the EasyTipView
+            print("Tip view dismissed.")
+        }
+    
 
     enum prefKeys: String {
         case consoleOpen
         case version
     }
-
+    
     // MARK: - Properties
     let currentPrefVersion = 1
     let bottomMarginNotToHideBarsIn: CGFloat = 100.0
@@ -55,6 +70,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     // MARK: define private widget
     @IBOutlet weak var showURLBarWidth: NSLayoutConstraint!
     private let reloadButton = UIButton(type: .system)
+    
+    private var observedKeyPaths: Set<String> = []
+    private var tooltips: EasyTipView?
+    private var preferences = EasyTipView.Preferences()
 
 
     var activityState = URLTextFieldState.inactive {
@@ -195,7 +214,22 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         if(homePageLocation != nil){
             ud.set(homePageLocation, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
             ud.set(homePageLocation, forKey: "LastDirectLocation")
-            self.webView.load(URLRequest(url: URL(string: homePageLocation!)!))
+            var urlRequest = URLRequest(url: URL(string: homePageLocation!)!)
+            if(DisableCacheSession.shared.isDisableCacheSession()){
+                let disableCacheScript = """
+                (function() {
+                    if (window.caches) {
+                        caches.keys().then(function(names) {
+                            for (let name of names) caches.delete(name);
+                        });
+                    }
+                    window.localStorage.clear();
+                    window.sessionStorage.clear();
+                })();
+                """
+                self.webView.evaluateJavaScript(disableCacheScript, completionHandler: nil)
+            }
+            self.webView.load(urlRequest)
         } else {
             self.webView.load(URLRequest(url: URL(string: "homepage://")!))
         }
@@ -240,6 +274,9 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
     }
     @IBAction func reload() {
+        if(DisableCacheSession.shared.isDisableCacheSession()){
+            
+        }
         if self.webView.url != nil {
             if let lastRefresh = self.lastRefresh,
                Date() < lastRefresh + 1 {
@@ -285,6 +322,17 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        webView.uiDelegate = self
+        
+        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        EasyTipView.globalPreferences = preferences
+        tooltips = EasyTipView(text: "The address bar is currently hidden. Click, or swipe the button to reveal it.",
+                               preferences: preferences,
+                               delegate: self)
+        
         self.showURLBarWidth.constant = 0
         self.showURLBarButton.isHidden = true
         setupReloadButton()
@@ -303,7 +351,39 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 """
 
         let userScript = WKUserScript(source: consoleScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        
+        let fakeSafariScript = """
+        Object.defineProperty(navigator, 'userAgent', {
+            get: function() { 
+                return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15';
+            }
+        });
+        Object.defineProperty(navigator, 'platform', {
+            get: function() { 
+                return 'MacIntel';
+            }
+        });
+        Object.defineProperty(navigator, 'vendor', {
+            get: function() { 
+                return 'Apple Computer, Inc.';
+            }
+        });
+        Object.defineProperty(navigator, 'appVersion', {
+            get: function() { 
+                return '5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15';
+            }
+        });
+        Object.defineProperty(window, 'safari', {
+            get: function() {
+                return {};
+            }
+        });
+        """
+
+        let fakeScript = WKUserScript(source: fakeSafariScript, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+
         self.webView.configuration.userContentController.addUserScript(userScript)
+        self.webView.configuration.userContentController.addUserScript(fakeScript)
         self.webView.configuration.userContentController.add(self, name: "consoleHandler")
         if #available(iOS 16.4, *) {
             self.webView.isInspectable = true
@@ -338,6 +418,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
         for path in ["canGoBack", "canGoForward", "URL"] {
             self.webView.addObserver(self, forKeyPath: path, options: .new, context: nil)
+            self.observedKeyPaths.insert(path)
         }
 
         // Load last location
@@ -362,7 +443,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
 
     @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .left {
-            if(self.containerViewConstraint.constant == 0){
+            if(self.containerViewConstraint.constant == -view.safeAreaInsets.top){
                 NSLog("Swiped left!")
                 showUrlStackView()
             } else {
@@ -384,9 +465,13 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     override func viewWillDisappear(_ animated: Bool) {
         //        let nc = self.navigationController as! NavigationViewController
         //        nc.removeObserver(self, forKeyPath: "navBarIsHidden")
-        for path in ["canGoBack", "canGoForward", "URL"] {
-            self.webView.removeObserver(self, forKeyPath: path)
-        }
+        let paths = ["canGoBack", "canGoForward", "URL"]
+                for path in paths {
+                    if observedKeyPaths.contains(path) {
+                        self.webView.removeObserver(self, forKeyPath: path)
+                        observedKeyPaths.remove(path)
+                    }
+                }
         super.viewWillDisappear(animated)
     }
 
@@ -410,6 +495,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         ud.set(location, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
         loadURL(url)
+        
     }
 
     func loadURL(_ directUrl: URL) {
@@ -420,7 +506,18 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         }
         self.setLocationText(url.absoluteString)
         UserDefaults(suiteName: "group.com.nhb.blena")!.set(url.absoluteString, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
-        self.webView.load(URLRequest(url: url))
+        var urlRequest = URLRequest(url: url)
+        if(DisableCacheSession.shared.isDisableCacheSession()){
+            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+            URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
+            URLCache.shared.memoryCapacity = 0
+            URLCache.shared.diskCapacity = 0
+            URLCache.shared.removeAllCachedResponses()
+            URLCache.shared.removeCachedResponse(for: urlRequest)
+            self.webView.load(urlRequest)
+        } else {
+            self.webView.load(urlRequest)
+        }
     }
     func setLocationText(_ text: String) {
         var url: String? = text
@@ -540,10 +637,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     }
 
     func hideUrlStackView() {
+        
         let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
         print(ud.string(forKey: "StatusBarColor")!)
         let statusColor = UIColor(hex: ud.string(forKey: "StatusBarColor")!)
-        self.containerViewConstraint.constant = 0
+        self.containerViewConstraint.constant = -view.safeAreaInsets.top
         self.locationTextField.alpha = 0
         self.locationTextField.isHidden = true
         self.goBackButton.alpha = 0
@@ -564,6 +662,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.view.backgroundColor = statusColor
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
+        }
+        if(!IsFirstTimeUseApp.shared.isFirstTime()){
+            tooltips?.show(animated: true, forView: self.showURLBarButton,
+            withinSuperview: self.navigationController?.view)
+            IsFirstTimeUseApp.shared.setIsFirstTime(true)
         }
     }
 
@@ -594,6 +697,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             // Hide floating button
             self.view.layoutIfNeeded()
         }
+        tooltips?.dismiss()
+        if(!IsFirstTimeUseApp.shared.isFirstTime()){
+            IsFirstTimeUseApp.shared.setIsFirstTime(true)
+        }
+        
     }
 
 
@@ -619,6 +727,92 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.activityState = .inactive
         return true
     }
+    
+    func startGoogleSignIn() {
+            let authURL = URL(string: "https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=com.yourapp:/oauth2redirect&response_type=code&scope=email")!
+            let callbackURLScheme = "com.yourapp"
+
+            let session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: callbackURLScheme) { callbackURL, error in
+                if let error = error {
+                    print("Authentication error: \(error.localizedDescription)")
+                    return
+                }
+
+                if let callbackURL = callbackURL {
+                    // Parse the authorization code from the URL
+                    let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems
+                    if let code = queryItems?.first(where: { $0.name == "code" })?.value {
+                        print("Authorization code: \(code)")
+                        // Exchange code for tokens here
+                    }
+                }
+            }
+
+            session.presentationContextProvider = self
+            session.start()
+        }
+    
+    func processCallback(url: URL) {
+        let queryItems = URLComponents(string: url.absoluteString)?.queryItems
+        if let code = queryItems?.first(where: { $0.name == "code" })?.value {
+            print("Authorization code: \(code)")
+            // Exchange the code for tokens
+        }
+    }
 
 }
 
+extension ViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+
+
+extension ViewController: WKUIDelegate {
+//    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+//        popupWebView = WKWebView(frame: view.bounds, configuration: configuration)
+//        popupWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        popupWebView?.navigationDelegate = self
+//        popupWebView?.uiDelegate = self
+//        if let newWebview = popupWebView {
+//            view.addSubview(newWebview)
+//        }
+//        return popupWebView ?? nil
+//    }
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            UIApplication.shared.open(navigationAction.request.url!, options: [:])
+        }
+        return nil
+    }
+    func webViewDidClose(_ webView: WKWebView) {
+        webView.removeFromSuperview()
+        popupWebView = nil
+    }
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+            let ac = UIAlertController(title: nil,
+                                       message: message,
+                                       preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Ok",
+                                       style: .default) { _ in
+                completionHandler()
+            })
+            present(ac, animated: true)
+    }
+    
+    func webView(_ webView: WKWebView, authenticationChallenge challenge: URLAuthenticationChallenge, shouldAllowDeprecatedTLS decisionHandler: @escaping @MainActor (Bool) -> Void) {
+        // Check the type of challenge
+        if let serverTrust = challenge.protectionSpace.serverTrust {
+            // Validate the server trust if needed
+            if SecTrustEvaluateWithError(serverTrust, nil) {
+                print("Server trust is valid.")
+                // Reject deprecated TLS (recommended)
+                decisionHandler(false)
+                return
+            }
+        }
+        // Allowing deprecated TLS (NOT recommended unless absolutely necessary)
+        print("Deprecated TLS detected. Allowing connection.")
+        decisionHandler(true)
+    }}

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,8 @@
 		11C9A9632CABA3C8009BB168 /* vibration.js in Resources */ = {isa = PBXBuildFile; fileRef = 11C9A9622CABA3C8009BB168 /* vibration.js */; };
 		11D8401C2CA5656A00CC5235 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D8401B2CA5656A00CC5235 /* HomeViewController.swift */; };
 		11EAE4D62CC60165004E530F /* blena_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 11EAE4D52CC60165004E530F /* blena_transparent.png */; };
+		1624A1F1A37E97AB8CB755A5 /* Pods_shareextension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F40623A372A796E674A88D /* Pods_shareextension.framework */; };
+		29F481B501F54F52F366ED6D /* Pods_BlenaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CC5228B2F056ABC1B50437 /* Pods_BlenaTests.framework */; };
 		5A10929B2168D599002CC973 /* ConsoleViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */; };
 		5A1A8E1628009CD200271575 /* URLTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A8E1528009C3200271575 /* URLTextField.swift */; };
 		5A31618721CC55ED00C4446B /* Copy@480.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A31618621CC55ED00C4446B /* Copy@480.png */; };
@@ -44,12 +46,15 @@
 		5AFC77FE22ECD09E0071E792 /* WBEventTarget.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AFC77FD22ECD09E0071E792 /* WBEventTarget.js */; };
 		5AFC780022ECD99B0071E792 /* WBDevice.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AFC77FF22ECD99B0071E792 /* WBDevice.js */; };
 		5AFC780222ECDCC50071E792 /* WBBluetoothRemoteGATTServer.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AFC780122ECDCC40071E792 /* WBBluetoothRemoteGATTServer.js */; };
+		98732F6DBFA6A7B16EBD4D41 /* Pods_BlenaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F663668CFD9AEE455058830 /* Pods_BlenaUITests.framework */; };
 		BB303DF11C41EF2F00FCAF24 /* WBPolyfill.js in Resources */ = {isa = PBXBuildFile; fileRef = BB303DF01C41EF2F00FCAF24 /* WBPolyfill.js */; };
+		D90D3C9B9622D8D072931627 /* Pods_Blena.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDAFEE6EC08A592B372BD89 /* Pods_Blena.framework */; };
 		E44C185C1A36203E00734F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C185B1A36203E00734F8B /* AppDelegate.swift */; };
 		E44C185E1A36203E00734F8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44C185D1A36203E00734F8B /* ViewController.swift */; };
 		E44C18611A36203E00734F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E44C185F1A36203E00734F8B /* Main.storyboard */; };
 		E44C18631A36203E00734F8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44C18621A36203E00734F8B /* Images.xcassets */; };
 		E44C18661A36203E00734F8B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E44C18641A36203E00734F8B /* LaunchScreen.xib */; };
+		FC799D0F7F95BE9C3533D263 /* Pods_widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3073DDF11802180BF74FB /* Pods_widget.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03F991DA69DBBAC11FE08DB4 /* Pods-Blena.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blena.release.xcconfig"; path = "Target Support Files/Pods-Blena/Pods-Blena.release.xcconfig"; sourceTree = "<group>"; };
 		112011002CA66A78005D598B /* google-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-icon.png"; sourceTree = "<group>"; };
 		112011022CA66ACD005D598B /* youtube-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube-icon.png"; sourceTree = "<group>"; };
 		112011042CA66B05005D598B /* wikipedia-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wikipedia-icon.png"; sourceTree = "<group>"; };
@@ -129,6 +135,14 @@
 		11C9A9622CABA3C8009BB168 /* vibration.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = vibration.js; sourceTree = "<group>"; };
 		11D8401B2CA5656A00CC5235 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		11EAE4D52CC60165004E530F /* blena_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blena_transparent.png; sourceTree = "<group>"; };
+		265026FDC55B3CF67675FB1E /* Pods-BlenaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlenaUITests.release.xcconfig"; path = "Target Support Files/Pods-BlenaUITests/Pods-BlenaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		302C5E098AFB85E9F7B15D3A /* Pods-BlenaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlenaTests.debug.xcconfig"; path = "Target Support Files/Pods-BlenaTests/Pods-BlenaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3101B4E8FD2913A7BC9696F0 /* Pods-Blena.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blena.debug.xcconfig"; path = "Target Support Files/Pods-Blena/Pods-Blena.debug.xcconfig"; sourceTree = "<group>"; };
+		37CC5228B2F056ABC1B50437 /* Pods_BlenaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlenaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B2F5B99B7891B35E4F64ED7 /* Pods-BlenaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlenaUITests.debug.xcconfig"; path = "Target Support Files/Pods-BlenaUITests/Pods-BlenaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3DB915E4C2170516A5201BC1 /* Pods-widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widget.debug.xcconfig"; path = "Target Support Files/Pods-widget/Pods-widget.debug.xcconfig"; sourceTree = "<group>"; };
+		4DDAFEE6EC08A592B372BD89 /* Pods_Blena.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blena.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F3073DDF11802180BF74FB /* Pods_widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A10929A2168D599002CC973 /* ConsoleViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewContainerController.swift; sourceTree = "<group>"; };
 		5A1A8E1528009C3200271575 /* URLTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTextField.swift; sourceTree = "<group>"; };
 		5A31618621CC55ED00C4446B /* Copy@480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Copy@480.png"; sourceTree = "<group>"; };
@@ -152,7 +166,12 @@
 		5AFC77FD22ECD09E0071E792 /* WBEventTarget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WBEventTarget.js; sourceTree = "<group>"; };
 		5AFC77FF22ECD99B0071E792 /* WBDevice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WBDevice.js; sourceTree = "<group>"; };
 		5AFC780122ECDCC40071E792 /* WBBluetoothRemoteGATTServer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WBBluetoothRemoteGATTServer.js; sourceTree = "<group>"; };
+		6F663668CFD9AEE455058830 /* Pods_BlenaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlenaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		80F40623A372A796E674A88D /* Pods_shareextension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shareextension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8798F1205DDA3F2FB4229C1C /* Pods-BlenaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlenaTests.release.xcconfig"; path = "Target Support Files/Pods-BlenaTests/Pods-BlenaTests.release.xcconfig"; sourceTree = "<group>"; };
 		BB303DF01C41EF2F00FCAF24 /* WBPolyfill.js */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = WBPolyfill.js; sourceTree = "<group>"; tabWidth = 2; };
+		C817FDFD052073685A4DEB6C /* Pods-widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-widget.release.xcconfig"; path = "Target Support Files/Pods-widget/Pods-widget.release.xcconfig"; sourceTree = "<group>"; };
+		DA62030A37D1DCC995CE163E /* Pods-shareextension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shareextension.debug.xcconfig"; path = "Target Support Files/Pods-shareextension/Pods-shareextension.debug.xcconfig"; sourceTree = "<group>"; };
 		E44C18561A36203E00734F8B /* Blena.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blena.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44C185A1A36203E00734F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E44C185B1A36203E00734F8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,73 +180,218 @@
 		E44C18621A36203E00734F8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E44C18651A36203E00734F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E44C186B1A36203E00734F8B /* BlenaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1B214E0E0BE3CC755155945 /* Pods-shareextension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shareextension.release.xcconfig"; path = "Target Support Files/Pods-shareextension/Pods-shareextension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1198F82B2CC21DAA00A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		1198F82B2CC21DAA00A0D0E1 /* Exceptions for "shareextension" folder in "shareextension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 1198F81C2CC21DAA00A0D0E1 /* shareextension */;
 		};
-		1198F8652CC24A1200A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		1198F8652CC24A1200A0D0E1 /* Exceptions for "widget" folder in "widget" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 1198F8532CC24A1200A0D0E1 /* widget */;
 		};
-		11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		11C9A96A2CAC47EE009BB168 /* Exceptions for "Animation" folder in "Blena" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Animations.swift,
 			);
 			target = E44C18551A36203E00734F8B /* Blena */;
 		};
-		11EAE5552CC7B0D7004E530F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		11EAE5552CC7B0D7004E530F /* Exceptions for "Shared" folder in "BlenaUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DisableCacheSession.swift,
 				LocalHostRegrexShared.swift,
 				Model/LastConnectedDevices.swift,
+				Model/SharedAutoHideUrlBar.swift,
+				Model/TooltipView.swift,
+				ReadableStream.swift,
 			);
 			target = 1141D0D52CB61AD3004B78BB /* BlenaUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		11022CA72CB51573009750C1 /* ScriptLogViewer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ScriptLogViewer; sourceTree = "<group>"; };
-		11022CD42CB5185A009750C1 /* GlobalScriptDataSource */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlobalScriptDataSource; sourceTree = "<group>"; };
-		112010F62CA65CD3005D598B /* Constraint */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Constraint; sourceTree = "<group>"; };
-		112010F92CA667F4005D598B /* CustomImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomImageView; sourceTree = "<group>"; };
-		112011082CA66C8F005D598B /* HomeView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HomeView; sourceTree = "<group>"; };
-		112011162CA6ABC5005D598B /* SharedFunction */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedFunction; sourceTree = "<group>"; };
-		1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomHomePageHTML; sourceTree = "<group>"; };
-		1130C5DD2CAFF7840024030A /* LocalIPGetter */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LocalIPGetter; sourceTree = "<group>"; };
-		11357B7F2CA84B290009FB1E /* Tab */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tab; sourceTree = "<group>"; };
-		113889A72CB8C8B2007CA59C /* BluetoothDevicesList */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BluetoothDevicesList; sourceTree = "<group>"; };
-		1141D0A12CB52AE3004B78BB /* MineTypeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MineTypeHandler; sourceTree = "<group>"; };
-		1141D0D72CB61AD3004B78BB /* BlenaUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BlenaUITests; sourceTree = "<group>"; };
-		1141D0E12CB633DB004B78BB /* ErrorViewHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ErrorViewHandler; sourceTree = "<group>"; };
-		1141D0E22CB633EE004B78BB /* WebkitSegues */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebkitSegues; sourceTree = "<group>"; };
-		1141D0E42CB6340E004B78BB /* Bridge */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Bridge; sourceTree = "<group>"; };
-		1141D0E52CB63431004B78BB /* WebviewCore */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebviewCore; sourceTree = "<group>"; };
-		1141D0E62CB6343F004B78BB /* LogManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LogManager; sourceTree = "<group>"; };
-		116AC0832CBFD1EB005F9726 /* Shared Function */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Shared Function"; sourceTree = "<group>"; };
-		118DCED62CCF303300A0AD1A /* SingleWebView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SingleWebView; sourceTree = "<group>"; };
-		1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DebugStatusStream; sourceTree = "<group>"; };
-		1198F7572CC1012500A0D0E1 /* AboutBlena */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutBlena; sourceTree = "<group>"; };
-		1198F8162CC20C9400A0D0E1 /* ShareActionSheet */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ShareActionSheet; sourceTree = "<group>"; };
-		1198F81E2CC21DAA00A0D0E1 /* shareextension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1198F82B2CC21DAA00A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = shareextension; sourceTree = "<group>"; };
-		1198F8562CC24A1200A0D0E1 /* widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1198F8652CC24A1200A0D0E1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = widget; sourceTree = "<group>"; };
-		11BB59152CB39E1B00F07CCB /* SchemeHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SchemeHandler; sourceTree = "<group>"; };
-		11C9A95D2CAB9D56009BB168 /* Toast */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Toast; sourceTree = "<group>"; };
-		11C9A9692CAC47DF009BB168 /* Animation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11C9A96A2CAC47EE009BB168 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Animation; sourceTree = "<group>"; };
-		11C9A96B2CAC49B6009BB168 /* CustomAdressBar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CustomAdressBar; sourceTree = "<group>"; };
-		11CEFA322CB77E3F00BCB18F /* History */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = History; sourceTree = "<group>"; };
-		11CEFA3A2CB7C3AF00BCB18F /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (11EAE5552CC7B0D7004E530F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
-		11DD70F62CAE496100946743 /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
-		11DD70FB2CAE5A7D00946743 /* SettingViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SettingViewController; sourceTree = "<group>"; };
+		11022CA72CB51573009750C1 /* ScriptLogViewer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScriptLogViewer;
+			sourceTree = "<group>";
+		};
+		11022CD42CB5185A009750C1 /* GlobalScriptDataSource */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GlobalScriptDataSource;
+			sourceTree = "<group>";
+		};
+		112010F62CA65CD3005D598B /* Constraint */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Constraint;
+			sourceTree = "<group>";
+		};
+		112010F92CA667F4005D598B /* CustomImageView */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomImageView;
+			sourceTree = "<group>";
+		};
+		112011082CA66C8F005D598B /* HomeView */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		112011162CA6ABC5005D598B /* SharedFunction */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SharedFunction;
+			sourceTree = "<group>";
+		};
+		1130C5D62CAFE2BE0024030A /* CustomHomePageHTML */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomHomePageHTML;
+			sourceTree = "<group>";
+		};
+		1130C5DD2CAFF7840024030A /* LocalIPGetter */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LocalIPGetter;
+			sourceTree = "<group>";
+		};
+		11357B7F2CA84B290009FB1E /* Tab */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		113889A72CB8C8B2007CA59C /* BluetoothDevicesList */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BluetoothDevicesList;
+			sourceTree = "<group>";
+		};
+		1141D0A12CB52AE3004B78BB /* MineTypeHandler */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MineTypeHandler;
+			sourceTree = "<group>";
+		};
+		1141D0D72CB61AD3004B78BB /* BlenaUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BlenaUITests;
+			sourceTree = "<group>";
+		};
+		1141D0E12CB633DB004B78BB /* ErrorViewHandler */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ErrorViewHandler;
+			sourceTree = "<group>";
+		};
+		1141D0E22CB633EE004B78BB /* WebkitSegues */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WebkitSegues;
+			sourceTree = "<group>";
+		};
+		1141D0E42CB6340E004B78BB /* Bridge */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Bridge;
+			sourceTree = "<group>";
+		};
+		1141D0E52CB63431004B78BB /* WebviewCore */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WebviewCore;
+			sourceTree = "<group>";
+		};
+		1141D0E62CB6343F004B78BB /* LogManager */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LogManager;
+			sourceTree = "<group>";
+		};
+		116AC0832CBFD1EB005F9726 /* Shared Function */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Shared Function";
+			sourceTree = "<group>";
+		};
+		118DCED62CCF303300A0AD1A /* SingleWebView */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SingleWebView;
+			sourceTree = "<group>";
+		};
+		1198F7542CC0C28D00A0D0E1 /* DebugStatusStream */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = DebugStatusStream;
+			sourceTree = "<group>";
+		};
+		1198F7572CC1012500A0D0E1 /* AboutBlena */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AboutBlena;
+			sourceTree = "<group>";
+		};
+		1198F8162CC20C9400A0D0E1 /* ShareActionSheet */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ShareActionSheet;
+			sourceTree = "<group>";
+		};
+		1198F81E2CC21DAA00A0D0E1 /* shareextension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1198F82B2CC21DAA00A0D0E1 /* Exceptions for "shareextension" folder in "shareextension" target */,
+			);
+			path = shareextension;
+			sourceTree = "<group>";
+		};
+		1198F8562CC24A1200A0D0E1 /* widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1198F8652CC24A1200A0D0E1 /* Exceptions for "widget" folder in "widget" target */,
+			);
+			path = widget;
+			sourceTree = "<group>";
+		};
+		11BB59152CB39E1B00F07CCB /* SchemeHandler */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SchemeHandler;
+			sourceTree = "<group>";
+		};
+		11C9A95D2CAB9D56009BB168 /* Toast */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		11C9A9692CAC47DF009BB168 /* Animation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				11C9A96A2CAC47EE009BB168 /* Exceptions for "Animation" folder in "Blena" target */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		11C9A96B2CAC49B6009BB168 /* CustomAdressBar */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomAdressBar;
+			sourceTree = "<group>";
+		};
+		11CEFA322CB77E3F00BCB18F /* History */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = History;
+			sourceTree = "<group>";
+		};
+		11CEFA3A2CB7C3AF00BCB18F /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				11EAE5552CC7B0D7004E530F /* Exceptions for "Shared" folder in "BlenaUITests" target */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		11DD70F62CAE496100946743 /* Extension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		11DD70FB2CAE5A7D00946743 /* SettingViewController */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SettingViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +399,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98732F6DBFA6A7B16EBD4D41 /* Pods_BlenaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +407,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1624A1F1A37E97AB8CB755A5 /* Pods_shareextension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1198F8552CC24A1200A0D0E1 /* UniformTypeIdentifiers.framework in Frameworks */,
+				FC799D0F7F95BE9C3533D263 /* Pods_widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +424,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90D3C9B9622D8D072931627 /* Pods_Blena.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +432,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F481B501F54F52F366ED6D /* Pods_BlenaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,8 +447,30 @@
 				116AC0302CBFA236005F9726 /* WidgetKit.framework */,
 				116AC0322CBFA236005F9726 /* SwiftUI.framework */,
 				1198F8312CC2495700A0D0E1 /* UniformTypeIdentifiers.framework */,
+				4DDAFEE6EC08A592B372BD89 /* Pods_Blena.framework */,
+				37CC5228B2F056ABC1B50437 /* Pods_BlenaTests.framework */,
+				6F663668CFD9AEE455058830 /* Pods_BlenaUITests.framework */,
+				80F40623A372A796E674A88D /* Pods_shareextension.framework */,
+				53F3073DDF11802180BF74FB /* Pods_widget.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		12EB9658B2A5BB9C838BDCF2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3101B4E8FD2913A7BC9696F0 /* Pods-Blena.debug.xcconfig */,
+				03F991DA69DBBAC11FE08DB4 /* Pods-Blena.release.xcconfig */,
+				302C5E098AFB85E9F7B15D3A /* Pods-BlenaTests.debug.xcconfig */,
+				8798F1205DDA3F2FB4229C1C /* Pods-BlenaTests.release.xcconfig */,
+				3B2F5B99B7891B35E4F64ED7 /* Pods-BlenaUITests.debug.xcconfig */,
+				265026FDC55B3CF67675FB1E /* Pods-BlenaUITests.release.xcconfig */,
+				DA62030A37D1DCC995CE163E /* Pods-shareextension.debug.xcconfig */,
+				F1B214E0E0BE3CC755155945 /* Pods-shareextension.release.xcconfig */,
+				3DB915E4C2170516A5201BC1 /* Pods-widget.debug.xcconfig */,
+				C817FDFD052073685A4DEB6C /* Pods-widget.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		5A10929C2168D5B6002CC973 /* Console */ = {
@@ -347,6 +538,7 @@
 				1198F8562CC24A1200A0D0E1 /* widget */,
 				116ABF572CBE6B7E005F9726 /* Frameworks */,
 				E44C18571A36203E00734F8B /* Products */,
+				12EB9658B2A5BB9C838BDCF2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -416,6 +608,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1141D0DE2CB61AD3004B78BB /* Build configuration list for PBXNativeTarget "BlenaUITests" */;
 			buildPhases = (
+				9FFEA88A45EAB35643D9AFE5 /* [CP] Check Pods Manifest.lock */,
 				1141D0D22CB61AD3004B78BB /* Sources */,
 				1141D0D32CB61AD3004B78BB /* Frameworks */,
 				1141D0D42CB61AD3004B78BB /* Resources */,
@@ -429,8 +622,6 @@
 				1141D0D72CB61AD3004B78BB /* BlenaUITests */,
 			);
 			name = BlenaUITests;
-			packageProductDependencies = (
-			);
 			productName = BlenaUITests;
 			productReference = 1141D0D62CB61AD3004B78BB /* BlenaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -439,6 +630,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1198F8282CC21DAA00A0D0E1 /* Build configuration list for PBXNativeTarget "shareextension" */;
 			buildPhases = (
+				E8A6530029F473AB80B749F4 /* [CP] Check Pods Manifest.lock */,
 				1198F8192CC21DAA00A0D0E1 /* Sources */,
 				1198F81A2CC21DAA00A0D0E1 /* Frameworks */,
 				1198F81B2CC21DAA00A0D0E1 /* Resources */,
@@ -451,8 +643,6 @@
 				1198F81E2CC21DAA00A0D0E1 /* shareextension */,
 			);
 			name = shareextension;
-			packageProductDependencies = (
-			);
 			productName = shareextension;
 			productReference = 1198F81D2CC21DAA00A0D0E1 /* shareextension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -461,6 +651,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1198F8622CC24A1200A0D0E1 /* Build configuration list for PBXNativeTarget "widget" */;
 			buildPhases = (
+				9A31B0929FAFAF2191852233 /* [CP] Check Pods Manifest.lock */,
 				1198F8502CC24A1200A0D0E1 /* Sources */,
 				1198F8512CC24A1200A0D0E1 /* Frameworks */,
 				1198F8522CC24A1200A0D0E1 /* Resources */,
@@ -473,8 +664,6 @@
 				1198F8562CC24A1200A0D0E1 /* widget */,
 			);
 			name = widget;
-			packageProductDependencies = (
-			);
 			productName = widget;
 			productReference = 1198F8542CC24A1200A0D0E1 /* widget.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -483,11 +672,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E44C18751A36203E00734F8B /* Build configuration list for PBXNativeTarget "Blena" */;
 			buildPhases = (
+				DEB18FC16B1FB506EA325CDA /* [CP] Check Pods Manifest.lock */,
 				E44C18521A36203E00734F8B /* Sources */,
 				E44C18531A36203E00734F8B /* Frameworks */,
 				E44C18541A36203E00734F8B /* Resources */,
 				116ABF7A2CBE6B7E005F9726 /* Embed Foundation Extensions */,
 				116ABFA12CBE7AEB005F9726 /* Embed ExtensionKit Extensions */,
+				A95BCAB47DC550C823F3152B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -534,6 +725,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E44C18781A36203E00734F8B /* Build configuration list for PBXNativeTarget "BlenaTests" */;
 			buildPhases = (
+				0240EB3D44695EB1A8DABEE7 /* [CP] Check Pods Manifest.lock */,
 				E44C18671A36203E00734F8B /* Sources */,
 				E44C18681A36203E00734F8B /* Frameworks */,
 				E44C18691A36203E00734F8B /* Resources */,
@@ -582,7 +774,6 @@
 				};
 			};
 			buildConfigurationList = E44C18511A36203E00734F8B /* Build configuration list for PBXProject "blena" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -590,8 +781,7 @@
 				Base,
 			);
 			mainGroup = E44C184D1A36203E00734F8B;
-			packageReferences = (
-			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = E44C18571A36203E00734F8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -666,6 +856,136 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0240EB3D44695EB1A8DABEE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlenaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A31B0929FAFAF2191852233 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-widget-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FFEA88A45EAB35643D9AFE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlenaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A95BCAB47DC550C823F3152B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blena/Pods-Blena-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blena/Pods-Blena-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Blena/Pods-Blena-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEB18FC16B1FB506EA325CDA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Blena-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8A6530029F473AB80B749F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-shareextension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1141D0D22CB61AD3004B78BB /* Sources */ = {
@@ -766,6 +1086,7 @@
 /* Begin XCBuildConfiguration section */
 		1141D0DF2CB61AD3004B78BB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B2F5B99B7891B35E4F64ED7 /* Pods-BlenaUITests.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -803,6 +1124,7 @@
 		};
 		1141D0E02CB61AD3004B78BB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 265026FDC55B3CF67675FB1E /* Pods-BlenaUITests.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -838,6 +1160,7 @@
 		};
 		1198F8292CC21DAA00A0D0E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA62030A37D1DCC995CE163E /* Pods-shareextension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -849,7 +1172,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 31;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
@@ -874,6 +1197,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = share_exten_pro_dev;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -883,6 +1209,7 @@
 		};
 		1198F82A2CC21DAA00A0D0E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1B214E0E0BE3CC755155945 /* Pods-shareextension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -895,7 +1222,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 31;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
@@ -918,6 +1245,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = share_exten_pro_dev;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -926,6 +1256,7 @@
 		};
 		1198F8632CC24A1200A0D0E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DB915E4C2170516A5201BC1 /* Pods-widget.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Extension";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -938,7 +1269,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 31;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
@@ -964,6 +1295,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = widget_dev_prov;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -973,6 +1307,7 @@
 		};
 		1198F8642CC24A1200A0D0E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C817FDFD052073685A4DEB6C /* Pods-widget.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Extension";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -986,7 +1321,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 31;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
@@ -1010,6 +1345,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = widget_dev_prov;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1129,6 +1467,7 @@
 		};
 		E44C18761A36203E00734F8B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3101B4E8FD2913A7BC9696F0 /* Pods-Blena.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1136,19 +1475,20 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Blena;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1165,6 +1505,7 @@
 		};
 		E44C18771A36203E00734F8B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03F991DA69DBBAC11FE08DB4 /* Pods-Blena.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1172,18 +1513,19 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 975WYU28DH;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = BlenaBrowser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Blena;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhb.blena;
 				PRODUCT_NAME = Blena;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1200,6 +1542,7 @@
 		};
 		E44C18791A36203E00734F8B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 302C5E098AFB85E9F7B15D3A /* Pods-BlenaTests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7RKU9LK986;
 				INFOPLIST_FILE = BlenaBrowserTests/Info.plist;
@@ -1216,6 +1559,7 @@
 		};
 		E44C187A1A36203E00734F8B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8798F1205DDA3F2FB4229C1C /* Pods-BlenaTests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 7RKU9LK986;
 				INFOPLIST_FILE = BlenaBrowserTests/Info.plist;

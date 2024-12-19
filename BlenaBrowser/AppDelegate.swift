@@ -125,7 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
 
-
         // Called from external link with scheme webble
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             NSLog("System not able to open url \(url) (may be able to try again)")

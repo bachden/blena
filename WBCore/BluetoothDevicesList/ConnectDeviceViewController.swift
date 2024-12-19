@@ -11,14 +11,25 @@ import UIKit
 
 class ConnectDeviceViewController : UIViewController {
     @IBOutlet weak var topDivider: UIView!
-    @IBOutlet weak var nearbyDevicesText: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var refreshButton: UIButton!
     
     var wbManager: WBManager!
-    
+    let refreshActivityIndicator = UIActivityIndicatorView(style: .medium)
     
     var selectedCell: BluetoothTableViewCell?
+    
+    func setupRefreshActivityIndicator() {
+        refreshActivityIndicator.color = .systemBlue
+        refreshButton.addSubview(refreshActivityIndicator)
+        
+        // Set up the activity indicator constraints
+        refreshActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            refreshActivityIndicator.centerYAnchor.constraint(equalTo: refreshButton.centerYAnchor),
+            refreshActivityIndicator.trailingAnchor.constraint(equalTo: refreshButton.titleLabel!.leadingAnchor, constant: -8)
+        ])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +40,11 @@ class ConnectDeviceViewController : UIViewController {
                 refreshButton.titleLabel?.text = ""
         topDivider.backgroundColor = UIColor(hex: "#E0E0E0")
         topDivider.layer.cornerRadius = 3
-        nearbyDevicesText.textColor = UIColor(hex: "#9E9E9E")
         tableView.delegate = wbManager
         tableView.dataSource = wbManager
         tableView.reloadData()
+        setupRefreshActivityIndicator()
+        refreshActivityIndicator.startAnimating()
     }
     
     @IBAction func refresh(_ sender: Any) {

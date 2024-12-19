@@ -8,19 +8,22 @@
 import Foundation
 import UIKit
 import WebKit
+import Intents
+import AppIntents
 
 class SettingViewController: UIViewController {
     var button : UIButton!
     
     @IBOutlet var backButton : UIButton!
-    
     @IBOutlet var clearCacheButton : UIStackView!
     @IBOutlet var clearHistoryButton : UIStackView!
     @IBOutlet var privacyPolicyButton : UIStackView!
     @IBOutlet var forwardButton : UIButton!
     @IBOutlet var forwardButtonDup : UIButton!
     @IBOutlet var showScriptButton : UIStackView!
+    @IBOutlet weak var disableCache: UISwitch!
     @IBOutlet weak var termsandconditions: UIStackView!
+    @IBOutlet weak var autoHideUrlBar: UISwitch!
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -28,7 +31,10 @@ class SettingViewController: UIViewController {
             // Customize the corner radius or background appearance
             view.layer.cornerRadius = 20
             view.layer.masksToBounds = true
-        
+        disableCache.setOn(DisableCacheSession.shared.isDisableCacheSession(), animated: true)
+        disableCache.addTarget(self, action: #selector(handleSwitch(_:)), for: .valueChanged)
+        autoHideUrlBar.setOn(SharedAutoHideUrlBar.shared.isAutoHideUrlBar(), animated: true)
+        autoHideUrlBar.addTarget(self, action: #selector(handleAutoHideUrlBar(_:)), for: .valueChanged)
             // Add tap logic
         // Add a tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -43,6 +49,7 @@ class SettingViewController: UIViewController {
         self.termsandconditions.addGestureRecognizer(termandconditionsGesture)
         
         // Enable user interaction
+        self.disableCache.isUserInteractionEnabled = true
         self.clearCacheButton.isUserInteractionEnabled = true
         self.clearHistoryButton.isUserInteractionEnabled = true
         self.privacyPolicyButton.isUserInteractionEnabled = true
@@ -62,6 +69,23 @@ class SettingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func handleSwitch(_ sender: UISwitch) {
+        switchDisableCacheMode(sender.isOn)
+    }
+    
+    @objc func handleAutoHideUrlBar(_ sender: UISwitch) {
+        SharedAutoHideUrlBar.shared.setIsAutoHideUrlBar(sender.isOn)
+        self.autoHideUrlBar.setOn(sender.isOn, animated: true)
+        (self.navigationController?.viewControllers.first as? ViewController)?.webView.reloadFromOrigin()
+    }
+    
+    func switchDisableCacheMode(_ bool : Bool){
+        DisableCacheSession.shared.setDisableCacheSession(bool)
+        self.disableCache.setOn(bool, animated: true)
+        (self.navigationController?.viewControllers.first as? ViewController)?.webView.reloadFromOrigin()
+        NSLog("isOn: \(bool)")
+        
+    }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.1,
@@ -94,6 +118,7 @@ class SettingViewController: UIViewController {
             break
         }
     }
+    
     
     // MARK: Remove all data
     func removeAllBrowserData() {

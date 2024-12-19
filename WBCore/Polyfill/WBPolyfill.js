@@ -66,6 +66,10 @@
     vibrate = native.sendMessage('vibrate', {data : {time: time}})
   }
 
+  let assert = async function (){
+
+  }
+
   // MARK: - Global bluetooth functions
   bluetooth.requestDevice = async function (requestDeviceOptions) {
     if (!requestDeviceOptions) {
@@ -286,6 +290,9 @@
     enableLog : function (){
 //      window.console.log = log;
     },
+    overrideAssert: function(){
+      console.assert = assert;
+    },
     // defeat the linter's "out of scope" warnings for not yet defined functions
     BluetoothRemoteGATTCharacteristic: wb.BluetoothRemoteGATTCharacteristic,
     BluetoothRemoteGATTServer: wb.BluetoothRemoteGATTServer,
@@ -308,6 +315,7 @@
   native.enableBluetooth();
   native.enableVibrate();
   native.enableLog();
+  native.overrideAssert();
 
   // MARK: - Patches
   // Patch window.open so it doesn't attempt to open in a separate window or tab ever.

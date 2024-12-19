@@ -114,6 +114,7 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
     ) {
         self.loadingProgressContainer.isHidden = false
         self._configureNewManager()
+        // Optionally, clear JavaScript-accessible cache
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -167,6 +168,7 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                     "Error evaluating JavaScript: \(error.localizedDescription)"
                 )
             }
+            
         }
         
         if(webView.url != nil && webView.url?.absoluteString != "homepage://"){
@@ -196,6 +198,15 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                     }
                 }
             }
+                // Update the UI or open a specific view in response to the intent
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                   let window = appDelegate.window,
+                   let rootVC = window.rootViewController as? UINavigationController,
+                   let viewController = rootVC.topViewController as? ViewController {
+                    if(SharedAutoHideUrlBar.shared.isAutoHideUrlBar()){
+                        viewController.hideUrlStackView()
+                    }
+                }
         }
         
             
@@ -363,14 +374,22 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
         if(error.absoluteString == "homepage://"){
             self.webView.load(URLRequest(url: URL(string: "homepage://")!))
         } else {
-            self.webView
-                .load(
-                    URLRequest(
-                        url: URL(
-                            string: "https://www.google.com/search?q=" + error.absoluteString
-                        )!
-                    )
-                )
+            var urlRequest = URLRequest(url: URL(string: "https://www.google.com/search?q=" + error.absoluteString)!)
+            if(DisableCacheSession.shared.isDisableCacheSession()){
+                let disableCacheScript = """
+                (function() {
+                    if (window.caches) {
+                        caches.keys().then(function(names) {
+                            for (let name of names) caches.delete(name);
+                        });
+                    }
+                    window.localStorage.clear();
+                    window.sessionStorage.clear();
+                })();
+                """
+                self.webView.evaluateJavaScript(disableCacheScript, completionHandler: nil)
+            }
+            self.webView.load(urlRequest)
         }
     }
 }

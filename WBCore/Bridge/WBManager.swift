@@ -124,7 +124,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Previously Connected Devices"
+            return "My Devices"
         case 1:
             return "Unknown Devices"
         default:
@@ -136,7 +136,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
-        case device, requestDevice, getAvailability, vibrate, log
+        case device, requestDevice, getAvailability, vibrate, log, streamData, closeStream, errorStream
     }
 
     // MARK: - Properties
@@ -341,6 +341,18 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
         case .getAvailability:
             transaction.resolveAsSuccess(withObject: self.bluetoothAuthorized)
         case .requestDevice:
+            let cbManager = self.centralManager
+            let authorizationStatus = CBManager.authorization
+            if authorizationStatus == .denied || authorizationStatus == .restricted {
+                self.promptToGetPermissionBluetooth()
+                break
+            }
+            
+            guard self.isBluetoothEnabled() else {
+                    transaction.resolveAsFailure(withMessage: "Bluetooth is turned off. Please enable it in settings.")
+                    self.promptToEnableBluetooth()
+                    break
+                }
             guard transaction.key.typeComponents.count == 1
             else {
                 transaction.resolveAsFailure(withMessage: "Invalid request type \(transaction.key)")
@@ -383,8 +395,119 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             vibrate(style: VibrateStyle.test)
         case .log:
             NSLog(transaction.messageData.jsonify())
+        case .streamData:
+                guard let data = transaction.messageData["chunk"] as? String else {
+                    transaction.resolveAsFailure(withMessage: "Missing data chunk")
+                    return
+                }
+                self.sendChunkToStream(chunk: data)
+
+            case .closeStream:
+                self.closeStream()
+
+            case .errorStream:
+                guard let errorMessage = transaction.messageData["error"] as? String else {
+                    transaction.resolveAsFailure(withMessage: "Missing error message")
+                    return
+                }
+                self.errorStream(errorMessage: errorMessage)
         }
     }
+    
+    func isBluetoothEnabled() -> Bool {
+        // Replace with the actual implementation to check Bluetooth status
+        // For example, using CoreBluetooth's CBCentralManager:
+        return self.centralManager.state == .poweredOn
+    }
+    
+    func promptToGetPermissionBluetooth() {
+        let alert = UIAlertController(
+            title: "Bluetooth permission required",
+            message: "This app requires Bluetooth access to provide its full functionality. Please grant Bluetooth permission in your device settings to continue.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { _ in
+            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        // Present the alert on the current view controller
+        if let currentViewController = self.getCurrentViewController() {
+            currentViewController.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func promptToEnableBluetooth() {
+        
+        let alert = UIAlertController(
+            title: "Bluetooth Required",
+            message: "Please enable Bluetooth and tap \"Allow new connections\" in Settings.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { _ in
+            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        // Present the alert on the current view controller
+        if let currentViewController = self.getCurrentViewController() {
+            currentViewController.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func getCurrentViewController() -> UIViewController? {
+        var topController = UIApplication.shared.keyWindow?.rootViewController
+        while let presentedViewController = topController?.presentedViewController {
+            topController = presentedViewController
+        }
+        return topController
+    }
+    
+    func sendChunkToStream(chunk: String) {
+            let jsCode = """
+            if (window.enqueueChunk) {
+                window.enqueueChunk('\(chunk)');
+            }
+            """
+            self.requestDeviceTransaction?.webView?.evaluateJavaScript(jsCode, completionHandler: { result, error in
+                if let error = error {
+                    print("Error enqueueing chunk to JS: \(error)")
+                }
+            })
+        }
+
+        func closeStream() {
+            let jsCode = """
+            if (window.closeStream) {
+                window.closeStream();
+            }
+            """
+            self.requestDeviceTransaction?.webView?.evaluateJavaScript(jsCode, completionHandler: { result, error in
+                if let error = error {
+                    print("Error closing JS stream: \(error)")
+                }
+            })
+        }
+
+        func errorStream(errorMessage: String) {
+            let jsCode = """
+            if (window.errorStream) {
+                window.errorStream('\(errorMessage)');
+            }
+            """
+            self.requestDeviceTransaction?.webView?.evaluateJavaScript(jsCode, completionHandler: { result, error in
+                if let error = error {
+                    print("Error sending error to JS stream: \(error)")
+                }
+            })
+        }
+    
 
     func clearState() {
         NSLog("WBManager clearState()")

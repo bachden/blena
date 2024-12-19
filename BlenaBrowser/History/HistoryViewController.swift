@@ -179,7 +179,22 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Optionally, deselect the row after selection
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.window?.rootViewController?.dismiss(animated: true)
-        ((self.view.window?.rootViewController as! UINavigationController).topViewController as! ViewController).webView.load(URLRequest(url: URL(string: selectedHistoryObject.url)!))
+        var urlRequest = URLRequest(url: URL(string: selectedHistoryObject.url)!)
+        if(DisableCacheSession.shared.isDisableCacheSession()){
+            let disableCacheScript = """
+            (function() {
+                if (window.caches) {
+                    caches.keys().then(function(names) {
+                        for (let name of names) caches.delete(name);
+                    });
+                }
+                window.localStorage.clear();
+                window.sessionStorage.clear();
+            })();
+            """
+            ((self.view.window?.rootViewController as! UINavigationController).topViewController as! ViewController).webView.evaluateJavaScript(disableCacheScript, completionHandler: nil)
+        }
+        ((self.view.window?.rootViewController as! UINavigationController).topViewController as! ViewController).webView.load(urlRequest)
     }
 }
 
