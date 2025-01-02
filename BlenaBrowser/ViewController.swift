@@ -67,6 +67,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
     @IBOutlet weak var locationTextFieldTrailingSpace: NSLayoutConstraint!
     @IBOutlet weak var goFowardWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var homeButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var urlStackViewTopConstraint: NSLayoutConstraint!
     // MARK: define private widget
     @IBOutlet weak var showURLBarWidth: NSLayoutConstraint!
     private let reloadButton = UIButton(type: .system)
@@ -165,7 +166,8 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
             sharePage()
         case "Set As Home Page":
             let ud = UserDefaults(suiteName: "group.com.nhb.blena")!
-            ud.set(locationTextField.text, forKey: "HomePageLocation")
+            let newHomePage = ud.string(forKey: "LastDirectLocation")
+            ud.set(newHomePage, forKey: "HomePageLocation")
             self.view.makeToast("Successfully set as home page")
             WidgetCenter.shared.reloadAllTimelines()
         case "Settings":
@@ -214,7 +216,10 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         if(homePageLocation != nil){
             ud.set(homePageLocation, forKey: WBWebViewContainerController.prefKeys.lastLocation.rawValue)
             ud.set(homePageLocation, forKey: "LastDirectLocation")
-            var urlRequest = URLRequest(url: URL(string: homePageLocation!)!)
+            if(homePageLocation == nil || URL(string: homePageLocation!) == nil){
+                self.webView.load(URLRequest(url: URL(string: "homepage://")!))
+            }
+            var urlRequest = URLRequest(url: URL(string: homePageLocation ?? "homepage://")!)
             if(DisableCacheSession.shared.isDisableCacheSession()){
                 let disableCacheScript = """
                 (function() {
@@ -229,7 +234,11 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
                 """
                 self.webView.evaluateJavaScript(disableCacheScript, completionHandler: nil)
             }
-            self.webView.load(urlRequest)
+            if(urlRequest.url != nil && urlRequest.url!.absoluteString != ""){
+                self.webView.load(urlRequest)
+            } else {
+                self.webView.load(URLRequest(url: URL(string: "homepage://")!))
+            }
         } else {
             self.webView.load(URLRequest(url: URL(string: "homepage://")!))
         }
@@ -645,19 +654,21 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.locationTextField.alpha = 0
         self.locationTextField.isHidden = true
         self.goBackButton.alpha = 0
+        self.urlStackView.backgroundColor = .clear
         self.goBackButton.isHidden = true
         self.goForwardButton.alpha = 0
         self.goForwardButton.isHidden = true
         self.refreshButton.alpha = 0
+        self.urlStackViewTopConstraint.constant = 50
         self.refreshButton.isHidden = true
         self.settingButton.alpha = 0
         self.settingButton.isHidden = true
         self.urlStackView.backgroundColor = .clear
         self.urlStackViewConstrantLeading.constant = UIScreen.main.bounds.width - 25
-        self.urlStackViewConstraintHeight.constant = 100
+        self.urlStackViewConstraintHeight.constant = 30
         self.showURLBarButton.isHidden = false
         self.ShowURLBarButtonHeight.constant = 70
-        self.showURLBarWidth.constant = 20
+        self.showURLBarWidth.constant = 10
         self.view.bringSubviewToFront(self.urlStackView)
         self.view.backgroundColor = statusColor
         UIView.animate(withDuration: 0.3) {
@@ -683,6 +694,7 @@ class ViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegat
         self.goForwardButton.alpha = 1
         self.goForwardButton.isHidden = false
         self.settingButton.alpha = 1
+        self.urlStackViewTopConstraint.constant = 0
         self.settingButton.isHidden = false
         self.refreshButton.alpha = 1
         self.refreshButton.isHidden = false
