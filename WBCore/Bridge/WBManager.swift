@@ -19,6 +19,7 @@
 import Foundation
 import CoreBluetooth
 import WebKit
+import PhotosUI
 
 protocol WBPicker {
     func showPicker()
@@ -33,33 +34,9 @@ protocol ConnectDeviceDelegate: AnyObject {
 
 open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler, UITableViewDelegate, UITableViewDataSource
 {
-//    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.pickerDevices.count
-//    }
-//
-//    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let dev = self.pickerDevices[indexPath.row]
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BluetoothTableViewColumn", for: indexPath) as? BluetoothTableViewCell else {
-//            return UITableViewCell(
-//            )
-//        }
-//        // Configure the cell with the history object
-//        cell.configure(with: dev.displayName , uuid: dev.internalUUID.uuidString, description: dev.description, connecAction: {
-//            self.selectDeviceAt(indexPath.row)
-//            self.centralManager.connect(dev.peripheral)
-//        }, closeTableView: {
-//            self.connectDeviceViewControllerDelegate?.dismissVC()
-//        })
-//        cell.selectionStyle = .none
-//        return cell
-//    }
-//
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let tappedCell = tableView.cellForRow(at: indexPath) as? BluetoothTableViewCell else { return }
-//
-//       // Toggle the details of the tapped cell
-//       tappedCell.toggleDetails()
-//    }
+    
+    var model = Base64Model(base64: "", width: 0, height: 0, name: "", type: "abc");
+    
 
     // MARK: - UITableViewDataSource & UITableViewDelegate
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -101,6 +78,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
                 self.selectDeviceAt(dev)
                 self.centralManager.connect(dev.peripheral)
             },
+            connectionStrength: Double(dev.adData.rssi) ?? 0.0,
             closeTableView: {
                 self.connectDeviceViewControllerDelegate?.dismissVC()
             }
@@ -116,7 +94,8 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
         // Toggle the details of the tapped cell.
         tappedCell.toggleDetails()
-
+        tableView.beginUpdates()
+        tableView.endUpdates()
         // Optionally, you might handle connection directly here or use the action set up in `cell.configure`.
     }
 
@@ -136,7 +115,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
-        case device, requestDevice, getAvailability, vibrate, log, streamData, closeStream, errorStream
+        case device, requestDevice, getAvailability, vibrate, log, streamData, closeStream, errorStream, onpenBlenaInAppWebView, getImage
     }
 
     // MARK: - Properties
@@ -155,6 +134,8 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
     /*! @abstract The outstanding request for a device from the web page, if one is outstanding. Ony one may be outstanding at any one time and should be policed by a modal dialog box. TODO: how modal is the current solution?
      */
     var requestDeviceTransaction: WBTransaction? = nil
+    
+    var getImageTransaction: WBTransaction? = nil
 
     /*! @abstract Filters in use on the current device request transaction.  If nil, that means we are accepting all devices.
      */
@@ -247,6 +228,22 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
                 } else {
                     // If the device doesn't exist in the list, add it
                     self.lastConnectedDevice.append(device)
+                    self.lastConnectedDevice.sort(by: {
+                        if $0.name != nil && $1.name == nil {
+                            // $1 is "bigger" in that its name is nil
+                            return true
+                        }
+                        // cannot be sorting ids that we haven't discovered
+                        if $0.name == $1.name {
+                            return $0.internalUUID.uuidString < $1.internalUUID.uuidString
+                        }
+                        if $0.name == nil {
+                            // $0 is "bigger" as it's nil and the other isn't
+                            return false
+                        }
+                        // forced unwrap protected by logic above
+                         return Int($0.adData.rssi)! > Int($1.adData.rssi)!
+                    })
                 }
                 // Update the picker data after the change
                 self.updatePickerData()
@@ -322,6 +319,16 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
         switch managerMessageType
         {
+        case .getImage:
+            getImageTransaction = transaction
+            var config = PHPickerConfiguration()
+            config.selectionLimit = 1 // or 0 for unlimited
+            config.filter = .any(of: [.images, .videos]) // pick both images and videos
+            let picker = PHPickerViewController(configuration: config)
+            var delegateView = self.getCurrentViewController() as! UINavigationController
+            picker.delegate = self
+            delegateView.present(picker, animated: true)
+//            transaction.resolveAsFailure(withMessage: "not implement")
         case .device:
 
             guard let view = WBDevice.DeviceTransactionView(transaction: transaction) else {
@@ -395,6 +402,27 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             vibrate(style: VibrateStyle.test)
         case .log:
             NSLog(transaction.messageData.jsonify())
+        case .onpenBlenaInAppWebView:
+            guard let data = transaction.messageData["url"] as? String else {
+                transaction.resolveAsFailure(withMessage: "Missing url")
+                return
+            }
+            DispatchQueue.main.async {
+                    if let topVC = UIApplication.topViewController(),
+                       let popupVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopupWebView") as? PopupWebViewController {
+                        
+                        popupVC.urlString = data
+
+                        if let sheet = popupVC.sheetPresentationController {
+                                    sheet.detents = [.medium(), .large()] // Allows medium and full expansion
+                                    sheet.prefersGrabberVisible = true    // Adds grabber handle for dragging
+                                    sheet.prefersScrollingExpandsWhenScrolledToEdge = true // Expands when scrolled to top
+                                    sheet.largestUndimmedDetentIdentifier = .medium // Background dims only when large
+                                }
+
+                                topVC.present(popupVC, animated: true, completion: nil)
+                    }
+                }
         case .streamData:
                 guard let data = transaction.messageData["chunk"] as? String else {
                     transaction.resolveAsFailure(withMessage: "Missing data chunk")
@@ -590,7 +618,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
                 return false
             }
             // forced unwrap protected by logic above
-            return $0.name! < $1.name!
+             return Int($0.adData.rssi)! > Int($1.adData.rssi)!
         })
         self.devicePicker.updatePicker()
     }
@@ -645,3 +673,67 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 }
 
 
+extension WBManager: PHPickerViewControllerDelegate {
+    public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        guard let result = results.first else { return }
+
+        let itemProvider = result.itemProvider
+
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                if let image = image as? UIImage {
+                    DispatchQueue.main.async {
+                        print("Got image: \(image)")
+                        let base64Encode = image.pngData()?.base64EncodedString() ?? ""
+                        let model = Base64Model(base64: base64Encode, width: Int(abs(image.size.width)), height: Int(abs(image.size.height)), name: "\(itemProvider.description).png", type: "image")
+                        self.getImageTransaction?.resolveAsSuccess(withObject: model.jsonify())
+                    }
+                }
+            }
+        } else if itemProvider.hasItemConformingToTypeIdentifier("public.movie") {
+            itemProvider.loadFileRepresentation(forTypeIdentifier: "public.movie") { url, error in
+                guard let url = url else { return }
+
+                    let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(url.lastPathComponent)
+
+                    do {
+                        if FileManager.default.fileExists(atPath: tempURL.path) {
+                            try FileManager.default.removeItem(at: tempURL)
+                        }
+                        try FileManager.default.copyItem(at: url, to: tempURL)
+
+                        // Load video data
+                        let videoData = try Data(contentsOf: tempURL)
+
+                        // Extract width & height
+                        let asset = AVAsset(url: tempURL)
+                        guard let track = asset.tracks(withMediaType: .video).first else {
+                            print("No video track found.")
+                            return
+                        }
+
+                        let size = track.naturalSize.applying(track.preferredTransform)
+                        let width = Int(abs(size.width))
+                        let height = Int(abs(size.height))
+
+                        let base64String = videoData.base64EncodedString()
+
+                        DispatchQueue.main.async {
+                            let model = Base64Model(
+                                base64: base64String,
+                                width: width,
+                                height: height,
+                                name: url.lastPathComponent,
+                                type: "video"
+                            )
+                            self.getImageTransaction?.resolveAsSuccess(withObject: model.jsonify())
+                        }
+                    } catch {
+                        print("Failed to load or convert video: \(error)")
+                    }
+            }
+        }
+    }
+}

@@ -70,6 +70,20 @@
 
   }
 
+  let isBlena = true;
+
+  let getImage = async function () {
+    return await native.sendMessage('getImage', {data : {}})
+  }
+
+
+
+
+
+  let onpenBlenaInAppWebView = async function (url) {
+    onpenBlenaInAppWebView = native.sendMessage('onpenBlenaInAppWebView', {data : {url: url}})
+  }
+
   // MARK: - Global bluetooth functions
   bluetooth.requestDevice = async function (requestDeviceOptions) {
     if (!requestDeviceOptions) {
@@ -284,14 +298,21 @@
       // weirdly this can get overwritten, so add a way to enable it.
       navigator.bluetooth = bluetooth;
     },
+    isBlena: isBlena,
     enableVibrate: function (){
       navigator.vibrate = vibrate;
     },
     enableLog : function (){
 //      window.console.log = log;
     },
+    enableCustomGetImage: function (){
+      navigator.getImage = getImage;
+    },
     overrideAssert: function(){
       console.assert = assert;
+    },
+    enableOpenInAppWebView: function () {
+      navigator.onpenBlenaInAppWebView = onpenBlenaInAppWebView;
     },
     // defeat the linter's "out of scope" warnings for not yet defined functions
     BluetoothRemoteGATTCharacteristic: wb.BluetoothRemoteGATTCharacteristic,
@@ -310,12 +331,15 @@
   window.receiveDeviceDisconnectEvent = native.receiveDeviceDisconnectEvent;
   window.receiveMessageResponse = native.receiveMessageResponse;
   window.receiveCharacteristicValueNotification = native.receiveCharacteristicValueNotification;
+  window.isBlena = isBlena;
 
   nslog('call enableBluetooth!');
   native.enableBluetooth();
   native.enableVibrate();
   native.enableLog();
   native.overrideAssert();
+  native.enableOpenInAppWebView();
+  native.enableCustomGetImage();
 
   // MARK: - Patches
   // Patch window.open so it doesn't attempt to open in a separate window or tab ever.

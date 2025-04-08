@@ -33,6 +33,8 @@ class ConnectDeviceViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight = 150  // Adjust as needed
+        tableView.rowHeight = UITableView.automaticDimension
         
         let nib = UINib(nibName: "BluetoothTableViewColumn", bundle: nil)
         tableView
@@ -67,11 +69,8 @@ class ConnectDeviceViewController : UIViewController {
 
 class BluetoothTableViewCell : UITableViewCell {
     @IBOutlet weak var deviceName: UILabel!
+    @IBOutlet weak var icon_network: UIImageView!
     @IBOutlet weak var connectButton: UIButton!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var expandableStack: UIStackView!
-    
     // Track the hidden state of details
     var areDetailsHidden = true
     
@@ -89,10 +88,6 @@ class BluetoothTableViewCell : UITableViewCell {
         connectButton.setTitleColor(.white, for: .normal)
         connectButton.setTitleColor(.lightGray, for: .highlighted)
         connectButton.backgroundColor = .systemBlue
-            
-        // Initial state: hide the UUID and description labels
-        uuidLabel.isHidden = true
-        descriptionLabel.isHidden = true
         areDetailsHidden = true
             
         // Add animation
@@ -105,16 +100,22 @@ class BluetoothTableViewCell : UITableViewCell {
     }
         
     // Function to configure the cell's content
-    func configure(with name: String, uuid: String, description: String, connecAction: @escaping ()->Void, closeTableView: @escaping ()->Void) {
+    func configure(with name: String, uuid: String, description: String, connecAction: @escaping ()->Void, connectionStrength: Double, closeTableView: @escaping ()->Void) {
         deviceName.text = name
-        uuidLabel.text = "UUID: \(uuid)"
-        descriptionLabel.text = "Description: \(description)"
-            
+        if(connectionStrength > -50){
+            self.icon_network.image = UIImage(named: "connect-strength-high")
+        } else if(connectionStrength > -60){
+            self.icon_network.image = UIImage(named: "connect-strength-medium-high")
+        } else if(connectionStrength > -70){
+            self.icon_network.image = UIImage(named: "connect-strength-medium-low")
+        } else {
+            self.icon_network.image = UIImage(named: "connect-strength-low")
+        }
         // Ensure the details are hidden initially
-        self.expandableStack.isHidden = true
         self.areDetailsHidden = true
         self.connectAction = connecAction
         self.tableViewClose = closeTableView
+        self.layoutIfNeeded()
     }
         
     // Toggle the details with animation
@@ -122,7 +123,6 @@ class BluetoothTableViewCell : UITableViewCell {
         self.areDetailsHidden.toggle()
             
         UIView.animate(withDuration: 0.3) {
-            self.expandableStack.isHidden = false
             self.layoutIfNeeded()  // This will ensure Auto Layout is updated with the animation
         }
     }

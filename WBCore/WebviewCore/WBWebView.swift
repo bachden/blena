@@ -249,6 +249,10 @@ class WBWebView: WKWebView, WKNavigationDelegate {
                 of: "(\\d+\\.\\d+)(.\\d+)?$", with: "$1", options: [.regularExpression]
             )
         )
+        
+        if #available(iOS 16.0, *) {
+            webCfg.limitsNavigationsToAppBoundDomains = true
+        }
         webCfg.applicationNameForUserAgent = (
             "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 OPT/5.2.0"
         )
@@ -310,7 +314,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
 
         // WKWebView static config
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.allowsBackForwardNavigationGestures = true
+        self.allowsBackForwardNavigationGestures = false
         self.allowsLinkPreview = true
     }
 
