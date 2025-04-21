@@ -139,8 +139,9 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                 })();
                 """
         
+            
     self.loadingProgressContainer.isHidden = true
-                
+           
         // Inject JavaScript and handle the result
         webView.evaluateJavaScript(script) {
  [weak self] result,
@@ -207,6 +208,13 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                         viewController.hideUrlStackView()
                     }
                 }
+            
+            if let urlString = webView.url?.absoluteString,
+               WebsiteDisableDataSource.shared.isDisableWebsite(url: urlString) {
+                webView.allowsBackForwardNavigationGestures = false
+            } else {
+                webView.allowsBackForwardNavigationGestures = true
+            }
         }
         
             
@@ -254,6 +262,17 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                 .addAction(
                     UIAlertAction(title: "OK", style: .default, handler: nil)
                 )
+            
+            // Present the alert
+            if let popoverPresentationController = alert.popoverPresentationController {
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX,
+                                                                  y: self.view.bounds.midY,
+                                                                  width: 0,
+                                                                  height: 0)
+                popoverPresentationController.permittedArrowDirections = []
+            }
+            
             self.present(alert, animated: true, completion: nil)
             self.loadingProgressContainer.isHidden = true
             return
@@ -291,6 +310,15 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
                 .addAction(
                     UIAlertAction(title: "OK", style: .default, handler: nil)
                 )
+            // Present the alert
+            if let popoverPresentationController = alert.popoverPresentationController {
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX,
+                                                                  y: self.view.bounds.midY,
+                                                                  width: 0,
+                                                                  height: 0)
+                popoverPresentationController.permittedArrowDirections = []
+            }
             self.present(alert, animated: true, completion: nil)
             self.loadingProgressContainer.isHidden = true
             return
@@ -326,6 +354,15 @@ class WBWebViewContainerController: UIViewController, WKNavigationDelegate, WKUI
             preferredStyle: .alert)
         alertController.addAction(UIAlertAction(
             title: "OK", style: .default, handler: {_ in completionHandler()}))
+        // Present the alert
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = self.view
+            popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX,
+                                                              y: self.view.bounds.midY,
+                                                              width: 0,
+                                                              height: 0)
+            popoverPresentationController.permittedArrowDirections = []
+        }
         self.present(alertController, animated: true, completion: nil)
     }
     

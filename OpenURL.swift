@@ -75,11 +75,11 @@ struct MyAppShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: OpenURL(),
             phrases: [
-                "Open [URL] in Blena",
-                "Use Blena to open [URL]",
-                "Blena open [URL]",
-                "Open URL with Blena"
-            ],
+                        "Open [URL] in ${applicationName}",
+                        "Use ${applicationName} to open [URL]",
+                        "${applicationName} open [URL]",
+                        "Open URL with ${applicationName}"
+                    ],
             shortTitle: "Open URL",
             systemImageName: "globe"
         )

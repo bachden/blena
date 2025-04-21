@@ -41,6 +41,18 @@
     // vibrate = native.sendMessage('log', {data : {log: text}})
   }
 
+  let setDisableSwipeBackForward = function(enable){
+    native.sendMessage('setDisableSwipeBackForward', {data : {enable: enable}})
+  }
+
+  let setDisableSwipeBackForwardOnDomain = function(domain, enable){
+    native.sendMessage('setDisableSwipeBackForwardOnDomain', {data : {domain: domain, enable: enable}})
+  }
+
+  let isWebsiteBlockedSwipeBackForward = function(websiteUrl) {
+    return native.sendMessage('isWebsiteBlockedSwipeBackForward', {data : {websiteUrl: websiteUrl}})
+  }
+
 
   nslog('Create BluetoothGATTDescriptor');
   function BluetoothGATTDescriptor(characteristic, uuid) {
@@ -302,6 +314,15 @@
     enableVibrate: function (){
       navigator.vibrate = vibrate;
     },
+    enableSetDisableSwipeBackForwardOnDomain: function (){
+      navigator.setDisableSwipeBackForwardOnDomain = setDisableSwipeBackForwardOnDomain;
+    },
+    enableSetDisableSwipeBackForward: function (){
+      navigator.setDisableSwipeBackForward = setDisableSwipeBackForward;
+    },
+    enableIsWebsiteBlockedSwipeBackForward: function(){
+      navigator.isWebsiteBlockedSwipeBackForward = isWebsiteBlockedSwipeBackForward;
+    },
     enableLog : function (){
 //      window.console.log = log;
     },
@@ -333,13 +354,16 @@
   window.receiveCharacteristicValueNotification = native.receiveCharacteristicValueNotification;
   window.isBlena = isBlena;
 
-  nslog('call enableBluetooth!');
+  // nslog('call enableBluetooth!');
   native.enableBluetooth();
   native.enableVibrate();
   native.enableLog();
   native.overrideAssert();
   native.enableOpenInAppWebView();
   native.enableCustomGetImage();
+  native.enableSetDisableSwipeBackForwardOnDomain();
+  native.enableIsWebsiteBlockedSwipeBackForward();
+  native.enableSetDisableSwipeBackForward();
 
   // MARK: - Patches
   // Patch window.open so it doesn't attempt to open in a separate window or tab ever.

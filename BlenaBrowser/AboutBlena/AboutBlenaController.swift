@@ -11,6 +11,11 @@ import UIKit
 class AboutBlenaController: UIViewController {
     @IBOutlet weak var contactMeButton: UIButton!
     @IBOutlet weak var SupportBlenaButton: UIButton!
+    
+    
+    override func viewDidLoad() {
+        SupportBlenaButton.isHidden = true
+    }
 
 
 

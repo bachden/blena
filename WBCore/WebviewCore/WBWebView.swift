@@ -314,7 +314,7 @@ class WBWebView: WKWebView, WKNavigationDelegate {
 
         // WKWebView static config
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.allowsBackForwardNavigationGestures = false
+        self.allowsBackForwardNavigationGestures = true
         self.allowsLinkPreview = true
     }
 

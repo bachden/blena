@@ -52,6 +52,11 @@
 			</dict>
 		</dict>
 	</dict>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>bluetooth-central</string>
+        <string>bluetooth-peripheral</string>
+    </array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Blena requires access to devices on the local network to load content.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>

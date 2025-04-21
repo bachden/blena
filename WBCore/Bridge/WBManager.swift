@@ -115,7 +115,7 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
     // MARK: - Embedded types
     enum ManagerRequests: String {
-        case device, requestDevice, getAvailability, vibrate, log, streamData, closeStream, errorStream, onpenBlenaInAppWebView, getImage
+        case device, requestDevice, getAvailability, vibrate, log, streamData, closeStream, errorStream, onpenBlenaInAppWebView, getImage, setDisableSwipeBackForward, isWebsiteBlockedSwipeBackForward, setDisableSwipeBackForwardOnDomain
     }
 
     // MARK: - Properties
@@ -319,6 +319,83 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
 
         switch managerMessageType
         {
+        case .setDisableSwipeBackForwardOnDomain:
+            if let domain = transaction.messageData["domain"] as? String,
+               let enable = transaction.messageData["enable"] as? Bool {
+                
+                let ds = WebsiteDisableDataSource.shared
+                
+                if ds.websiteDisableList.contains(where: { $0.urlRegrex == domain }) {
+                    // already have a rule for this domain → just update its flag
+                    ds.updateEnable(for: domain, to: enable)
+                    transaction.resolveAsSuccess(withMessage: "Success update because you register before UwU")
+                } else {
+                    ds.addWebsite(urlRegrex: domain, enable: enable)
+                    transaction.resolveAsSuccess(withMessage: "Success enable or disable depend on you UwU")
+                }
+            } else {
+                transaction.resolveAsFailure(withMessage: "please pass domain and enable. All must be not null UwU")
+            }
+        case .isWebsiteBlockedSwipeBackForward:
+            DispatchQueue.main.async {
+                    if let topVC = UIApplication.topViewController() as? ViewController{
+                        if (WebsiteDisableDataSource.shared.isDisableWebsite(url: topVC.webView.url?.absoluteString ?? "")){
+                            transaction.resolveAsSuccess(withMessage: "true")
+                        } else {
+                            transaction.resolveAsSuccess(withObject: "false")
+                        }
+                    } else {
+                        transaction.resolveAsSuccess(withObject: "false")
+                    }
+                }
+        case .setDisableSwipeBackForward:
+            NSLog((transaction.messageData["enable"] as? Bool)?.jsonify() ??    "null")
+            // 1) Pull out the `enable` flag
+            guard let enable = transaction.messageData["enable"] as? Bool else {
+                transaction.resolveAsFailure(
+                  withMessage: "Missing or invalid 'enable' flag – must be Bool"
+                )
+                return
+            }
+            
+            // 2) Determine which regex to use:
+            //    a) Prefer `messageData["websiteRegex"]` if present
+            //    b) Otherwise fall back to the top VC’s webView URL
+            let regex: String?
+            if let websiteRegex = transaction.messageData["websiteRegex"] as? String {
+              regex = websiteRegex
+            } else if
+              let topVC = UIApplication.topViewController() as? ViewController,
+              let urlString = topVC.webView.url?.absoluteString
+            {
+              regex = urlString
+            } else {
+              regex = nil
+            }
+            
+            guard let urlRegrex = regex else {
+              transaction.resolveAsFailure(
+                withMessage: "No `websiteRegex` passed and couldn’t read current URL"
+              )
+              return
+            }
+            
+            // 3) Add or update the rule in our data‑source
+            let ds = WebsiteDisableDataSource.shared
+            if ds.websiteDisableList.contains(where: { $0.urlRegrex == urlRegrex }) {
+              // already registered → just toggle its `enable`
+              ds.updateEnable(for: urlRegrex, to: enable)
+            } else {
+              // new entry
+              ds.addWebsite(urlRegrex: urlRegrex, enable: enable)
+            }
+            
+            // 4) Return success
+            let action = enable ? "disabled" : "enabled"
+            transaction.resolveAsSuccess(
+              withMessage: "Swipe‑back/forward \(action) on '\(urlRegrex)'"
+            )
+            
         case .getImage:
             getImageTransaction = transaction
             var config = PHPickerConfiguration()
@@ -399,7 +476,41 @@ open class WBManager: NSObject, CBCentralManagerDelegate, WKScriptMessageHandler
             }
             self.devicePicker.showPicker()
         case .vibrate:
-            vibrate(style: VibrateStyle.test)
+            // 1) grab the raw “time” value
+            guard let raw = transaction.messageData["time"] else {
+                print("⚠️ No ‘time’ in messageData")
+                transaction.resolveAsFailure(withMessage: "⚠️ No ‘time’ in messageData")
+                return
+            }
+
+            // 2) normalize to [Int]
+            let durations: [Int]
+            if let single = raw as? Int {
+                durations = [single]
+            }
+            else if let intArray = raw as? [Int] {
+                durations = intArray
+            }
+            else if let nsArray = raw as? NSArray {
+                // e.g. Optional(<__NSArrayM>(100,200,100))
+                durations = nsArray.compactMap { element in
+                    // if it came in as NSNumber or String
+                    if let num = element as? NSNumber {
+                        return num.intValue
+                    } else if let str = element as? String, let i = Int(str) {
+                        return i
+                    }
+                    return nil
+                }
+            }
+            else {
+                print("⚠️ Invalid format for ‘time’: \(raw)")
+                transaction.resolveAsFailure(withMessage: "⚠️ Invalid format for ‘time’: \(raw)")
+                return
+            }
+
+            // 3) actually vibrate!
+            HapticManager.shared.vibrate(durations)
         case .log:
             NSLog(transaction.messageData.jsonify())
         case .onpenBlenaInAppWebView:

@@ -71,7 +71,7 @@ class PopupWebViewController : UIViewController {
             
             webkitView = WKWebView(frame: .zero, configuration: webCfg)
             webkitView.scrollView.isScrollEnabled = true
-            webkitView.allowsBackForwardNavigationGestures = false
+//            webkitView.allowsBackForwardNavigationGestures = false
             webkitView.navigationDelegate = self
             
             // Add WebView to View

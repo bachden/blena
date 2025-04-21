@@ -29,6 +29,16 @@ class ShareActionSheet{
                 actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                     print("Cancel selected")
                 }))
+        
+        // Configure popoverPresentationController for iPads
+                if let popoverPresentationController = actionSheet.popoverPresentationController {
+                    popoverPresentationController.sourceView = viewController.view
+                    popoverPresentationController.sourceRect = CGRect(x: viewController.view.bounds.midX,
+                                                                      y: viewController.view.bounds.midY,
+                                                                      width: 0,
+                                                                      height: 0)
+                    popoverPresentationController.permittedArrowDirections = []
+                }
                 
                 // Present the action sheet
                 viewController.present(actionSheet, animated: true, completion: nil)
@@ -42,6 +52,16 @@ class ShareActionSheet{
         // Exclude certain activity types if necessary
         activityViewController.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll, UIActivity.ActivityType(rawValue: "com.nhb.blena.shareextension"), UIActivity.ActivityType(rawValue: "com.nhb.blena.widget")]
 
+        // Configure popoverPresentationController for iPads
+               if let popoverPresentationController = activityViewController.popoverPresentationController {
+                   popoverPresentationController.sourceView = viewController.view
+                   popoverPresentationController.sourceRect = CGRect(x: viewController.view.bounds.midX,
+                                                                     y: viewController.view.bounds.midY,
+                                                                     width: 0,
+                                                                     height: 0)
+                   popoverPresentationController.permittedArrowDirections = []
+               }
+        
         // Present the activity view controller
         viewController.present(activityViewController, animated: true, completion: nil)
     }
